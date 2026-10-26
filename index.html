@@ -1778,49 +1778,134 @@
   .rm-loop.on { border: 2px solid #1a1020; background: #FFE14D; color: #1a1020; box-shadow: 2px 2px 0 #FF4081; transform: rotate(-2deg); }
   .rmus-msg { margin: 8px 0 0; text-align: center; font: 800 .7rem/1.3 var(--ui); color: #FFE14D; }
 
-  /* ===== Cielo de la noche que nos conocimos ===== */
+  /* ===== Cielo de la noche que nos conocimos: en TODOS los temas esta carta es una galaxia ===== */
   .cielo { padding: 34px 14px 20px; }
-  .cielo h2 { margin: 0 0 0 8px; font-size: 2.3rem; line-height: 1.02; }
-  .cielo .tl-sub { margin: 4px 0 12px 8px; }
-  .cl-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 0 12px; }
-  .cl-tab { padding: 9px 8px 8px; border: 2px solid currentColor; border-radius: 14px; background: transparent; color: inherit; opacity: .55; cursor: pointer; font: 700 1.05rem/1.1 var(--ui); text-align: center; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  #cielo.letter.card { color: #e8ebff !important; border-radius: 22px !important; overflow: hidden; border: 1.5px solid rgba(170,180,255,.4) !important;
+    background:
+      radial-gradient(ellipse 70% 38% at 82% 6%, rgba(255,110,200,.3), transparent 70%),
+      radial-gradient(ellipse 60% 42% at 6% 36%, rgba(80,120,255,.34), transparent 70%),
+      radial-gradient(ellipse 60% 36% at 92% 86%, rgba(40,200,255,.22), transparent 70%),
+      var(--cl-deep, linear-gradient(168deg, #070a22, #0d1038 45%, #150a35 75%, #060818)) center / cover no-repeat !important;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.07), inset 0 0 40px rgba(110,100,255,.18), 0 0 26px rgba(120,100,255,.5), 0 0 70px rgba(50,130,255,.28), 0 24px 50px rgba(0,0,0,.6) !important;
+    animation: clGlow 6s ease-in-out infinite alternate !important; }
+  @keyframes clGlow { from { box-shadow: inset 0 0 0 1px rgba(255,255,255,.07), inset 0 0 40px rgba(110,100,255,.18), 0 0 22px rgba(120,100,255,.4), 0 0 60px rgba(50,130,255,.2), 0 24px 50px rgba(0,0,0,.6); }
+    to { box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), inset 0 0 50px rgba(150,110,255,.26), 0 0 36px rgba(190,110,255,.62), 0 0 90px rgba(60,200,255,.34), 0 24px 50px rgba(0,0,0,.6); } }
+  #cielo.letter.card::before { content: ""; position: absolute; inset: 0; left: 0; right: 0; top: 0; bottom: 0; width: auto; height: auto; border-radius: inherit; pointer-events: none; z-index: 0; clip-path: none; box-shadow: none;
+    background:
+      radial-gradient(1.6px 1.6px at 9% 14%, #fff, transparent), radial-gradient(1.2px 1.2px at 27% 6%, #cfe0ff, transparent), radial-gradient(1.8px 1.8px at 64% 11%, #fff, transparent), radial-gradient(1.2px 1.2px at 88% 24%, #ffe9c8, transparent),
+      radial-gradient(1.4px 1.4px at 14% 41%, #cfe0ff, transparent), radial-gradient(1.8px 1.8px at 73% 47%, #fff, transparent), radial-gradient(1.2px 1.2px at 40% 63%, #ffe9c8, transparent), radial-gradient(1.6px 1.6px at 93% 71%, #fff, transparent),
+      radial-gradient(1.2px 1.2px at 7% 82%, #fff, transparent), radial-gradient(1.8px 1.8px at 56% 88%, #cfe0ff, transparent), radial-gradient(1.2px 1.2px at 81% 95%, #fff, transparent), radial-gradient(1.4px 1.4px at 31% 96%, #ffe9c8, transparent);
+    animation: clTw 3.6s ease-in-out infinite alternate; }
+  @keyframes clTw { from { opacity: .35; } to { opacity: 1; } }
+  #cielo.letter.card::after { content: ""; position: absolute; right: -90px; top: -78px; left: auto; bottom: auto; width: 290px; height: 290px; pointer-events: none; z-index: 0; border-radius: 50%; clip-path: none; box-shadow: none;
+    background: var(--cl-spiral, radial-gradient(circle, rgba(255,230,190,.6), rgba(150,160,255,.2) 40%, transparent 70%)) center / contain no-repeat; opacity: .6; mix-blend-mode: screen; animation: clSpin 150s linear infinite; }
+  @keyframes clSpin { to { transform: rotate(360deg); } }
+  #cielo > :not(.tape):not(.rd-gh):not(.cl-shoot) { position: relative; z-index: 1; }
+  #cielo .tape { display: none !important; }
+  #cielo .cl-shoot { position: absolute; left: -40px; top: 22%; width: 120px; height: 2px; z-index: 0; pointer-events: none; opacity: 0; transform: rotate(24deg); background: linear-gradient(90deg, rgba(255,255,255,0), #fff); border-radius: 2px; filter: drop-shadow(0 0 4px #fff); animation: clShoot 9s ease-in 2s infinite; }
+  @keyframes clShoot { 0% { opacity: 0; transform: translate(0, 0) rotate(24deg); } 3% { opacity: 1; } 12% { opacity: 0; transform: translate(430px, 190px) rotate(24deg); } 100% { opacity: 0; transform: translate(430px, 190px) rotate(24deg); } }
+  #cielo h2 { display: block !important; margin: 0 0 0 8px !important; padding: 0 !important; transform: none !important; font-size: 2.3rem; line-height: 1.02; color: #fff !important; text-shadow: none !important;
+    background: linear-gradient(100deg, #ffffff 8%, #d9c8ff 42%, #9be8ff 78%, #ffffff) 0 0 / 100% 100% no-repeat !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(150,130,255,.6)); }
+  #cielo .tl-sub { margin: 4px 0 12px 8px; color: #b9c4ff; opacity: .95; }
+  .cl-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 0 10px; }
+  .cl-tab { padding: 9px 8px 8px; border: 1.5px solid rgba(170,185,255,.4); border-radius: 14px; background: rgba(255,255,255,.04); color: #dfe4ff; opacity: .7; cursor: pointer; font: 700 1.05rem/1.1 var(--ui); text-align: center; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: opacity .2s, transform .2s; }
   .cl-tab small { display: block; margin-top: 2px; font: 500 .8rem/1.1 var(--ui); opacity: .9; }
-  .cl-tab.on { opacity: 1; background: rgb(var(--c42)); border-color: rgb(var(--c43)); color: #fff; box-shadow: 2px 3px 0 rgb(var(--c43)); }
-  .cl-wrap { position: relative; overflow: hidden; border-radius: 16px; background: #080c26; box-shadow: 0 8px 20px rgba(0,0,0,.35), inset 0 0 0 1.5px rgba(255,255,255,.14); }
+  .cl-tab.on { opacity: 1; background: linear-gradient(135deg, #6f5cff, #2aa7ff); border-color: #c4d3ff; color: #fff; box-shadow: 0 0 18px rgba(110,120,255,.65); }
+  .cl-views { display: flex; gap: 6px; margin: 0 0 10px; padding: 3px; border-radius: 14px; background: rgba(255,255,255,.06); border: 1px solid rgba(170,185,255,.22); }
+  .cl-views button { flex: 1; padding: 8px 6px; border: 0; border-radius: 11px; background: transparent; color: #cfd6ff; font: 700 .95rem/1 var(--ui); cursor: pointer; touch-action: manipulation; transition: background .25s, color .25s; }
+  .cl-views button.on { background: rgba(255,255,255,.16); color: #fff; box-shadow: 0 0 12px rgba(160,170,255,.35); }
+  .cl-wrap { position: relative; overflow: hidden; border-radius: 16px; background: #060a22; box-shadow: 0 8px 24px rgba(0,0,0,.45), 0 0 22px rgba(110,130,255,.3), inset 0 0 0 1.5px rgba(190,200,255,.25); }
   .cl-wrap canvas { display: block; width: 100%; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-  .cl-cap { position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 7px 11px; border-radius: 12px; background: rgba(22,12,32,.9); color: #fff; font: 500 .88rem/1.25 var(--ui); pointer-events: none; opacity: 0; transform: translateY(8px); transition: opacity .25s, transform .3s cubic-bezier(.3,1.5,.5,1); }
+  .cl-cap { position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 7px 11px; border-radius: 12px; background: rgba(14,10,38,.92); border: 1px solid rgba(170,180,255,.3); color: #fff; font: 500 .88rem/1.25 var(--ui); pointer-events: none; opacity: 0; transform: translateY(8px); transition: opacity .25s, transform .3s cubic-bezier(.3,1.5,.5,1); }
   .cl-cap.on { opacity: 1; transform: none; }
   .cl-cap b { font-weight: 700; }
   .cl-moment { position: absolute; left: 0; right: 0; bottom: 13%; text-align: center; color: #fff; pointer-events: none; opacity: 0; transform: translateY(10px) scale(.96); transition: opacity .9s, transform .9s cubic-bezier(.2,.9,.3,1); text-shadow: 0 2px 16px rgba(0,0,0,.85), 0 0 4px rgba(0,0,0,.6); }
   .cl-moment.on { opacity: 1; transform: none; }
   .cl-moment b { display: block; font: 700 2.7rem/1 var(--hand); }
   .cl-moment span { display: block; margin-top: 2px; font: 500 1.6rem/1.1 var(--hand); color: #ffe3ea; }
-  .cl-fsb { position: absolute; top: 8px; right: 8px; z-index: 3; width: 36px; height: 36px; padding: 0; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.35); background: rgba(10,14,40,.62); color: #fff; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  .cl-fsb { position: absolute; top: 8px; right: 8px; z-index: 3; width: 38px; height: 38px; padding: 0; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.4); background: rgba(10,14,40,.66); color: #fff; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; box-shadow: 0 0 14px rgba(140,150,255,.5); animation: clFsb 2.6s ease-in-out infinite; }
+  @keyframes clFsb { 0%, 100% { box-shadow: 0 0 8px rgba(140,150,255,.4); } 50% { box-shadow: 0 0 20px rgba(160,200,255,.9); } }
   .cl-fsb svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .cl-fsb .ic-x { display: none; }
-  .cl-wrap.fs .cl-fsb .ic-in { display: none; }
-  .cl-wrap.fs .cl-fsb .ic-x { display: block; }
-  .cl-hora { margin: 12px 8px 0; font: 700 1.2rem/1.1 var(--hand); }
-  .cl-hora small { display: block; margin-top: 2px; font: 500 1.1rem/1.15 var(--hand); opacity: .75; }
-  .cl-rg { display: block; width: calc(100% - 16px); margin: 10px 8px 0; accent-color: rgb(var(--c42)); touch-action: pan-y; }
-  .cl-ends { display: flex; justify-content: space-between; align-items: center; margin: 2px 8px 0; font: 600 .85rem var(--ui); opacity: .8; }
+  .cl-hora { margin: 12px 8px 0; font: 700 1.2rem/1.1 var(--hand); color: #fff; }
+  .cl-hora small { display: block; margin-top: 2px; font: 500 1.1rem/1.15 var(--hand); opacity: .78; color: #c5cdff; }
+  .cl-rg, .fs-sl { -webkit-appearance: none; appearance: none; display: block; height: 10px; border-radius: 8px; outline: none; cursor: pointer; touch-action: pan-y; border: 1px solid rgba(255,255,255,.25);
+    background: linear-gradient(90deg, #ff9a5a 0%, #b4527a 10%, #5b46c8 24%, #1b1f66 50%, #0a0d33 80%, #1a2a6c 100%); }
+  .cl-rg { width: calc(100% - 16px); margin: 12px 8px 0; }
+  .cl-rg::-webkit-slider-thumb, .fs-sl::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; background: radial-gradient(circle at 35% 30%, #fff, #c9baff 50%, #7a66ff); box-shadow: 0 0 16px #9a8cff, 0 0 4px #fff; }
+  .cl-rg::-moz-range-thumb, .fs-sl::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff; background: radial-gradient(circle at 35% 30%, #fff, #c9baff 50%, #7a66ff); box-shadow: 0 0 16px #9a8cff; }
+  .cl-ends { display: flex; justify-content: space-between; align-items: center; margin: 4px 8px 0; font: 600 .85rem var(--ui); color: #aab4f5; }
   .cl-act { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 10px 8px 0; min-height: 44px; }
-  .cl-act .cl-play { padding: 11px 16px; font-size: 1rem; }
+  #cielo .cl-act .cl-play { padding: 11px 16px; font-size: 1rem; color: #fff !important; border: 0 !important; border-radius: 30px !important; text-shadow: none !important; background: linear-gradient(135deg, #7c5cff, #2fb4ff) !important; box-shadow: 0 0 20px rgba(110,140,255,.7), inset 0 1px 0 rgba(255,255,255,.4) !important; }
+  #cielo .jd-btn { color: #dfe4ff !important; border-color: rgba(190,200,255,.6) !important; background: rgba(255,255,255,.06) !important; }
   .cl-act button[hidden] { display: none; }
   #cielo .cl-txt, #clFs .cl-txt { margin-top: 8px; }
-  #cielo .cl-txt p, #clFs .cl-txt p { margin: 0 8px 7px; font: 500 1.3rem/1.2 var(--hand); }
-  #cielo .cl-fine { margin: 6px 8px 0; font: 500 1.2rem/1.2 var(--hand); opacity: .8; }
-  #clFs { position: fixed; inset: 0; z-index: 100000; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; box-sizing: border-box; padding: calc(env(safe-area-inset-top, 0px) + 10px) calc(env(safe-area-inset-right, 0px) + 14px) calc(env(safe-area-inset-bottom, 0px) + 10px) calc(env(safe-area-inset-left, 0px) + 14px); background: radial-gradient(ellipse at 30% 40%, #101a4a 0%, #05081e 70%); color: #f4f1ff; overscroll-behavior: contain; }
-  #clFs.on { display: flex; }
-  #clFs .fs-map { flex: none; width: var(--s, 320px); height: var(--s, 320px); }
-  #clFs .cl-wrap { width: 100%; height: 100%; border-radius: 18px; }
-  #clFs .fs-panel { display: flex; flex-direction: column; gap: 6px; width: 100%; max-width: 360px; min-height: 0; overflow-y: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-  #clFs .fs-panel::-webkit-scrollbar { display: none; }
-  #clFs .fs-title { margin: 0 8px 4px; font: 700 1.6rem/1.05 var(--hand); }
-  #clFs .fs-tip { margin: 0 8px; font: 500 1rem/1.2 var(--hand); opacity: .7; }
-  #clFs .cl-txt p { font-size: 1.15rem; }
-  @media (orientation: portrait) { #clFs .fs-panel { flex: 1 1 0; } }
-  @media (orientation: landscape) { #clFs { flex-direction: row; } #clFs .fs-tip { display: none; } #clFs .fs-panel { width: auto; flex: 1 1 0; max-height: 100%; } }
+  #cielo .cl-txt p, #clFs .cl-txt p { margin: 0 8px 7px; font: 500 1.3rem/1.2 var(--hand); color: #e8ebff; }
+  #cielo .cl-fine { margin: 6px 8px 0; font: 500 1.2rem/1.2 var(--hand); color: #bcc6ff; opacity: .9; }
+  .lite #cielo.letter.card, .lite #cielo.letter.card::before, .lite #cielo.letter.card::after, .lite .cl-fsb, .lite #cielo .cl-shoot { animation: none !important; }
+
+  /* ===== Pantalla completa: el planetario ===== */
+  html.cl-fs, html.cl-fs body { overscroll-behavior: none; }
+  html.cl-fs body > *:not(#clFs) { visibility: hidden !important; }   /* mientras se ve el planetario, nada de lo de atrás se pinta (ni sus animaciones) */
+  #clFs { position: fixed; inset: 0; z-index: 100000; display: none; background: #02030c; color: #eef0ff; overflow: hidden; overscroll-behavior: contain; touch-action: none; -webkit-user-select: none; user-select: none; font-family: var(--ui); -webkit-tap-highlight-color: transparent; }
+  #clFs.on { display: block; animation: fsIn .55s ease both; }
+  @keyframes fsIn { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: none; } }
+  #fsCv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+  #clFs.drag #fsCv { cursor: grabbing; }
+  .fs-vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 46%, transparent 52%, rgba(0,0,12,.6) 100%), linear-gradient(180deg, rgba(0,0,14,.5), transparent 16%, transparent 70%, rgba(0,0,14,.55)); }
+  .fs-top { position: absolute; left: 0; right: 0; top: 0; display: flex; align-items: flex-start; gap: 12px; padding: calc(env(safe-area-inset-top, 0px) + 10px) calc(env(safe-area-inset-right, 0px) + 12px) 0 calc(env(safe-area-inset-left, 0px) + 12px); pointer-events: none; }
+  .fs-x { pointer-events: auto; flex: none; width: 44px; height: 44px; padding: 0; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid rgba(200,210,255,.4); background: rgba(12,16,50,.78); color: #fff; cursor: pointer; touch-action: manipulation; }
+  .fs-x svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+  .fs-ttl { display: flex; flex-direction: column; gap: 3px; padding-top: 2px; text-shadow: 0 2px 10px rgba(0,0,0,.9), 0 0 3px rgba(0,0,0,.8); min-width: 0; }
+  .fs-ttl b { font: 700 1.55rem/1.02 var(--hand); }
+  .fs-ttl span { font: 600 .78rem/1.25 var(--ui); color: #b9c6ff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: calc(100vw - 90px); }
+  .fs-chips { position: absolute; left: 0; right: 0; top: calc(env(safe-area-inset-top, 0px) + 62px); display: flex; gap: 8px; padding: 4px calc(env(safe-area-inset-right, 0px) + 12px) 4px calc(env(safe-area-inset-left, 0px) + 12px); overflow-x: auto; scrollbar-width: none; touch-action: pan-x; }
+  .fs-chips::-webkit-scrollbar { display: none; }
+  .fs-chip { flex: none; display: flex; align-items: center; gap: 7px; padding: 9px 13px; border-radius: 22px; border: 1px solid rgba(190,200,255,.32); background: rgba(12,16,50,.8); color: #dfe4ff; font: 700 .82rem/1 var(--ui); cursor: pointer; touch-action: manipulation; transition: background .2s, border-color .2s; }
+  .fs-chip i { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid #9aa6e8; transition: background .2s, box-shadow .2s; }
+  .fs-chip.on { background: rgba(90,80,220,.55); border-color: #b9c4ff; color: #fff; }
+  .fs-chip.on i { background: #9bf0ff; border-color: #9bf0ff; box-shadow: 0 0 8px #9bf0ff; }
+  .fs-chip.go { background: linear-gradient(135deg, #7c5cff, #2fb4ff); border-color: #d5e0ff; color: #fff; box-shadow: 0 0 16px rgba(110,140,255,.7); }
+  .fs-moment { position: absolute; left: 0; right: 0; top: 38%; text-align: center; pointer-events: none; opacity: 0; transform: translateY(10px) scale(.96); transition: opacity .9s, transform .9s cubic-bezier(.2,.9,.3,1); text-shadow: 0 2px 18px rgba(0,0,0,.9), 0 0 5px rgba(0,0,0,.7); }
+  .fs-moment.on { opacity: 1; transform: none; }
+  .fs-moment b { display: block; font: 700 3.4rem/1 var(--hand); color: #fff; }
+  .fs-moment span { display: block; margin-top: 2px; font: 500 1.9rem/1.1 var(--hand); color: #ffe3ea; }
+  .fs-cap { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 230px); width: min(440px, calc(100% - 28px)); transform: translate(-50%, 8px); padding: 9px 13px; border-radius: 14px; background: rgba(14,10,40,.88); border: 1px solid rgba(180,190,255,.35); color: #fff; font: 500 .92rem/1.3 var(--ui); pointer-events: none; opacity: 0; transition: opacity .25s, transform .3s cubic-bezier(.3,1.5,.5,1); }
+  .fs-cap.on { opacity: 1; transform: translate(-50%, 0); }
+  .fs-hint { position: absolute; left: 0; right: 0; top: 50%; display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; opacity: 0; transition: opacity .8s; font: 700 1.35rem/1.1 var(--hand); text-shadow: 0 2px 12px rgba(0,0,0,.95); }
+  .fs-hint.on { opacity: .92; }
+  .fs-hint span { padding: 5px 14px; border-radius: 18px; background: rgba(12,16,50,.5); }
+  .fs-dock { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 10px); transform: translateX(-50%); width: min(580px, calc(100% - 20px)); box-sizing: border-box; padding: 11px 14px 10px; border-radius: 24px; max-height: 72vh; display: flex; flex-direction: column;
+    background: rgba(9,12,40,.86); border: 1px solid rgba(180,190,255,.28); box-shadow: 0 10px 40px rgba(0,0,0,.55), 0 0 30px rgba(110,100,255,.22), inset 0 1px 0 rgba(255,255,255,.1); touch-action: manipulation; }
+  .fs-days { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 8px; }
+  .fs-days button { padding: 7px 6px 6px; border: 1.5px solid rgba(170,185,255,.35); border-radius: 13px; background: rgba(255,255,255,.04); color: #dfe4ff; opacity: .72; cursor: pointer; font: 700 .95rem/1.1 var(--ui); text-align: center; touch-action: manipulation; }
+  .fs-days button small { display: block; margin-top: 2px; font: 500 .72rem/1.1 var(--ui); opacity: .9; }
+  .fs-days button.on { opacity: 1; background: linear-gradient(135deg, #6f5cff, #2aa7ff); border-color: #c4d3ff; color: #fff; box-shadow: 0 0 14px rgba(110,120,255,.6); }
+  .fs-hora { font: 700 1.3rem/1.1 var(--hand); color: #fff; }
+  .fs-hora small { display: block; margin-top: 1px; font: 500 1.05rem/1.1 var(--hand); color: #c5cdff; opacity: .85; }
+  .fs-row { display: flex; align-items: center; gap: 12px; margin-top: 9px; }
+  .fs-play { flex: none; display: flex; align-items: center; gap: 7px; padding: 10px 15px; border: 0; border-radius: 26px; color: #fff; font: 700 .92rem/1 var(--ui); cursor: pointer; touch-action: manipulation; background: linear-gradient(135deg, #7c5cff, #2fb4ff); box-shadow: 0 0 18px rgba(110,140,255,.65), inset 0 1px 0 rgba(255,255,255,.4); }
+  .fs-play.on { background: linear-gradient(135deg, #ff6aa8, #ff9a5a); box-shadow: 0 0 18px rgba(255,120,150,.6); }
+  .fs-sl { flex: 1; min-width: 0; width: 100%; margin: 0; touch-action: none; }
+  .fs-reset { flex: none; padding: 8px 11px; border: 1.5px solid rgba(190,200,255,.55); border-radius: 18px; background: rgba(255,255,255,.07); color: #fff; font: 700 .82rem/1 var(--ui); cursor: pointer; touch-action: manipulation; }
+  .fs-reset[hidden] { display: none; }
+  .fs-ends { display: flex; justify-content: space-between; margin: 3px 2px 0 108px; font: 600 .74rem var(--ui); color: #9fabee; }
+  .fs-info { align-self: flex-start; margin-top: 7px; padding: 6px 2px; border: 0; background: none; color: #bcc8ff; font: 700 .86rem/1 var(--ui); cursor: pointer; touch-action: manipulation; }
+  .fs-info i { display: inline-block; font-style: normal; transition: transform .3s; margin-left: 3px; }
+  #clFs.info .fs-info i { transform: rotate(180deg); }
+  .fs-txt { display: none; overflow-y: auto; min-height: 0; margin-top: 2px; scrollbar-width: none; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+  .fs-txt::-webkit-scrollbar { display: none; }
+  #clFs.info .fs-txt { display: block; max-height: 30vh; }
+  #clFs .cl-txt p, .fs-txt p { margin: 0 4px 6px; font: 500 1.2rem/1.2 var(--hand); color: #e8ebff; }
+  @media (max-width: 420px) { .fs-play span:last-child { display: none; } .fs-ends { margin-left: 56px; } .fs-ttl b { font-size: 1.35rem; } }
+  @media (orientation: landscape) and (max-height: 560px) {
+    .fs-ttl { display: none; }
+    .fs-chips { top: calc(env(safe-area-inset-top, 0px) + 10px); left: 72px; right: 0; }
+    .fs-dock { left: calc(env(safe-area-inset-left, 0px) + 10px); transform: none; width: min(360px, 46vw); padding: 8px 12px 8px; border-radius: 20px; }
+    .fs-days { display: none; } .fs-ends { margin-left: 100px; } .fs-hora { font-size: 1.1rem; } .fs-hora small { display: none; }
+    .fs-hint { top: 40%; } .fs-cap { bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); left: auto; right: 12px; transform: translate(0, 8px); width: min(380px, 44vw); } .fs-cap.on { transform: none; }
+    #clFs.info .fs-txt { max-height: 22vh; }
+  }
 </style>
 </head>
 
@@ -1939,22 +2024,23 @@
     <ol class="tl" id="tl"></ol>
   </div>
 
-  <!-- Cielo de la noche que nos conocimos -->
+  <!-- Cielo de la noche que nos conocimos: en todos los temas es una galaxia -->
   <div class="letter card cielo" id="cielo" style="transform: rotate(.7deg)">
-    <span class="tape"></span>
+    <span class="tape"></span><i class="cl-shoot" aria-hidden="true"></i>
     <h2>El cielo de la noche que te conocí</h2>
     <p class="tl-sub">tal cual se veía desde Niquía, Bello</p>
     <div class="cl-tabs" id="clTabs" role="tablist">
       <button class="cl-tab on" type="button" role="tab" aria-selected="true" data-d="0"><b>11 de octubre</b><small>la noche que nos conocimos</small></button>
       <button class="cl-tab" type="button" role="tab" aria-selected="false" data-d="1"><b>18 de octubre</b><small>el día del sí</small></button>
     </div>
-    <div class="cl-wrap" id="clWrap"><canvas id="clCv" role="img" aria-label="Mapa del cielo"></canvas><div class="cl-moment" id="clMoment" aria-hidden="true"><b></b><span></span></div><div class="cl-cap" id="clPick" aria-live="polite"></div><button class="cl-fsb" id="clFsb" type="button" aria-label="Ver en pantalla completa"><svg class="ic-in" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><svg class="ic-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="cl-views" id="clViews" role="tablist" aria-label="Cómo ver el cielo"><button type="button" class="on" role="tab" aria-selected="true" data-v="dome">Cúpula</button><button type="button" role="tab" aria-selected="false" data-v="all">Todo el cielo</button></div>
+    <div class="cl-wrap" id="clWrap"><canvas id="clCv" role="img" aria-label="Mapa del cielo"></canvas><div class="cl-moment" id="clMoment" aria-hidden="true"><b></b><span></span></div><div class="cl-cap" id="clPick" aria-live="polite"></div><button class="cl-fsb" id="clFsb" type="button" aria-label="Ver en pantalla completa"><svg class="ic-in" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div>
     <div class="cl-hora" id="clHora"></div>
     <input class="cl-rg" id="clSlider" type="range" min="1080" max="1740" step="1" value="1309" aria-label="Mover la hora de la noche">
     <div class="cl-ends" id="clEnds"><span>6:00 pm</span><span>5:00 am</span></div>
     <div class="cl-act" id="clAct"><button class="mini pulse cl-play" id="clPlay" type="button">▶︎ Ver esa noche</button><button class="jd-btn" id="clReset" type="button" hidden>volver a las 9:49 pm</button></div>
     <div class="cl-txt" id="clTxt"></div>
-    <p class="cl-fine"><b>Bebé, mira:</b> el centro del mapa es lo que teníamos justo encima y el borde es el horizonte. Mueve la barra para ver cómo giró el cielo esa noche, toca una estrella para saber cómo se llama y voltea el celular para verlo en pantalla completa.</p>
+    <p class="cl-fine"><b>Bebé, mira:</b> el centro de la cúpula es lo que teníamos justo encima y el borde es el horizonte. Mueve la barra para ver cómo giró el cielo esa noche y toca una estrella para saber cómo se llama. Con <b>“Todo el cielo”</b> ves la Vía Láctea completa, y en <b>pantalla completa</b> puedes girarlo con el dedo o el mouse, acercarlo y volar por toda la galaxia.</p>
   </div>
 
   <!-- Jardín que crece -->
@@ -4521,240 +4607,715 @@ function cielo(ms) {
   CIELO_CON.forEach(function (c) { var ids = {}; c[1].forEach(function (l) { ids[l[0]] = 1; ids[l[1]] = 1; if (!CON_DE[l[0]]) CON_DE[l[0]] = c[0]; if (!CON_DE[l[1]]) CON_DE[l[1]] = c[0]; }); CONS.push({ n: c[0], l: c[1], ids: Object.keys(ids) }); });
   PLEY.forEach(function (id) { CON_DE[id] = 'Tauro'; });
   var M31 = precess(10.685, 41.269, TREF);
-  var VL = (function () {   // puntos de la Vía Láctea (plano galáctico → ecuatorial)
-    var A = [[-.0548755604, .4941094279, -.867666149], [-.8734370902, -.44482963, -.1980763734], [-.4838350155, .7469822445, .4559837762]], out = [];
-    var wr = function (x) { return ((x + 180) % 360 + 360) % 360 - 180; }, g = function (x, c, w) { return Math.exp(-Math.pow(wr(x - c) / w, 2)); };
-    for (var l = 0; l < 360; l += 2) {
-      var I = .3 + .7 * g(l, 0, 45) + .25 * g(l, 80, 28) + .2 * g(l, 300, 30) + .12 * g(l, 150, 25), sb = 4 + 5 * g(l, 0, 40);
-      for (var b = -12; b <= 12; b += 4) {
-        var cl = Math.cos(l * RAD), sl = Math.sin(l * RAD), cb = Math.cos(b * RAD), sb2 = Math.sin(b * RAD), x = cl * cb, y = sl * cb, z = sb2;
-        var X = A[0][0] * x + A[0][1] * y + A[0][2] * z, Y = A[1][0] * x + A[1][1] * y + A[1][2] * z, Z = A[2][0] * x + A[2][1] * y + A[2][2] * z;
-        out.push([rev(Math.atan2(Y, X) / RAD), Math.asin(Z) / RAD, .03 * I * Math.exp(-Math.pow(b / sb, 2))]);
-      }
-    }
-    return out;
-  })();
-  var spr = document.createElement('canvas'); spr.width = spr.height = 64;
-  (function () { var x = spr.getContext('2d'), g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(200,215,255,1)'); g.addColorStop(1, 'rgba(200,215,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); })();
+  /* =====================================================================
+     NUEVO CIELO · planetario: Vía Láctea procedural, tres proyecciones (cúpula, todo el cielo y cámara libre)
+     ===================================================================== */
+  var DEG = 180 / Math.PI;
+  var wrapL = function (x) { return ((x + 180) % 360 + 360) % 360 - 180; };
+  var gau = function (x, c, w) { var d = wrapL(x - c) / w; return Math.exp(-d * d); };
+  var sm = function (a, b, x) { x = clamp((x - a) / (b - a), 0, 1); return x * x * (3 - 2 * x); };
+  var mix1 = function (a, b, t) { return a + (b - a) * t; };
+  var G2E = [[-.0548755604, .4941094279, -.867666149], [-.8734370902, -.44482963, -.1980763734], [-.4838350155, .7469822445, .4559837762]];   // galáctico → ecuatorial
 
-  var day = 0, mins = ESPECIAL, lineP = 0, raf = 0, anim = 0, hits = [], capT = 0, dpr = Math.min(window.devicePixelRatio || 1, 2.5), HAND = '"Caveat", cursive';
-  try { HAND = getComputedStyle(document.documentElement).getPropertyValue('--hand') || HAND; } catch (e) {}
-  var cv, wrap, cap, sl, ov, playing = false, playRaf = 0, momT = 0, fsOn = false, fsAuto = false, fsApi = false, inView = false, descartado = false, rotT = 0, movs = [];
+  /* ---------- ruido 3D (para que la textura no tenga costuras ni polos) ---------- */
+  var NZ = (function () {
+    var p = new Uint8Array(512), v = new Float32Array(256), s = 1337 >>> 0, i, j, t;
+    var r = function () { s = (s + 0x6D2B79F5) >>> 0; var x = Math.imul(s ^ s >>> 15, 1 | s); x = x + Math.imul(x ^ x >>> 7, 61 | x) ^ x; return ((x ^ x >>> 14) >>> 0) / 4294967296; };
+    for (i = 0; i < 256; i++) { p[i] = i; v[i] = r(); }
+    for (i = 255; i > 0; i--) { j = (r() * (i + 1)) | 0; t = p[i]; p[i] = p[j]; p[j] = t; }
+    for (i = 0; i < 256; i++) p[i + 256] = p[i];
+    return { p: p, v: v, r: r };
+  })();
+  function noise3(x, y, z) {
+    var xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z), xf = x - xi, yf = y - yi, zf = z - zi, p = NZ.p, v = NZ.v;
+    xi &= 255; yi &= 255; zi &= 255;
+    var u = xf * xf * (3 - 2 * xf), w = yf * yf * (3 - 2 * yf), q = zf * zf * (3 - 2 * zf);
+    var a = p[xi] + yi, b = p[xi + 1] + yi, aa = p[a] + zi, ab = p[a + 1] + zi, ba = p[b] + zi, bb = p[b + 1] + zi;
+    var x1 = v[p[aa]] + (v[p[ba]] - v[p[aa]]) * u, x2 = v[p[ab]] + (v[p[bb]] - v[p[ab]]) * u, x3 = v[p[aa + 1]] + (v[p[ba + 1]] - v[p[aa + 1]]) * u, x4 = v[p[ab + 1]] + (v[p[bb + 1]] - v[p[ab + 1]]) * u;
+    var y1 = x1 + (x2 - x1) * w, y2 = x3 + (x4 - x3) * w;
+    return y1 + (y2 - y1) * q;
+  }
+  function fbm(x, y, z, o) { var s = 0, a = .5, f = 1, n = 0; for (var i = 0; i < o; i++) { s += a * noise3(x * f, y * f, z * f); n += a; a *= .5; f *= 2.03; } return s / n; }
+
+  /* ---------- la Vía Láctea: textura en coordenadas galácticas (se hornea por tandas para no trabar nada) ---------- */
+  var GW = 512, GH = 256, GT = new Float32Array(GW * GH * 3), gRow = 0, gOn = false, gAt = 0, gStarted = false, gAsk = [];
+  var NEB = [[287.4, -.7, 2.6, 1, .45, .55, .5], [6, -1.2, 1.7, 1, .4, .5, .55], [84.8, -.5, 2.6, 1, .35, .5, .34], [209, -19.4, 2.1, .9, .5, .85, .5], [206, -16, 9, .8, .35, .5, .12],
+    [353.5, 16.5, 3.4, .55, .65, 1, .42], [280.5, -32.9, 3.1, .85, .92, 1, .55], [302.8, -44.3, 1.9, .85, .92, 1, .42], [336, -1.5, 3, 1, .55, .45, .22], [24, -1, 2.6, 1, .5, .5, .2]];   // Carina, Laguna, Norteamérica, Orión, Barnard, Rho Ofiuco, Nubes de Magallanes…
+  var DARK = [[303, .3, 3.4, .85], [359, 5.5, 4.5, .6], [344, -2.5, 3, .4], [12, 4, 3, .35]];   // Saco de Carbón, Pipa, manchas oscuras
+  function galRow(j) {
+    var b = 90 - (j + .5) / GH * 180, cb = Math.cos(b * RAD), sb = Math.sin(b * RAD);
+    for (var i = 0; i < GW; i++) {
+      var l = (i + .5) / GW * 360, lr = l * RAD, x = cb * Math.cos(lr), y = cb * Math.sin(lr), z = sb, lp = wrapL(l), o = (j * GW + i) * 3, r = 0, g = 0, bl = 0;
+      if (Math.abs(b) < 40) {
+        var hb = 5.2 + 5.5 * gau(l, 0, 42), core = Math.exp(-Math.pow(b / (hb * .6), 2)), halo = .4 * Math.exp(-Math.pow(b / (hb * 2), 2));
+        var lon = .3 + .8 * gau(l, 0, 46) + .3 * gau(l, 78, 24) + .32 * gau(l, -66, 22) + .14 * gau(l, 138, 30);
+        var n1 = fbm(x * 4.2 + 3, y * 4.2 + 1, z * 4.2, 4), n2 = fbm(x * 13 + 7, y * 13, z * 13 + 2, 3), dn = fbm(x * 7.5 + 11, y * 7.5 + 5, z * 7.5 + 9, 4);
+        var cl = .25 + 1.15 * sm(.3, .68, n1) + .5 * (n2 - .5);
+        var dust = sm(.5, .7, dn) * Math.exp(-Math.pow(b / 3.6, 2)) * (.3 + .7 * gau(l, 20, 80));
+        var rift = Math.exp(-Math.pow((b - 1.1) / 1.6, 2)) * gau(l, 28, 40) * (.55 + .45 * dn), m = (1 - .9 * dust) * (1 - .62 * rift);
+        for (var q = 0; q < DARK.length; q++) { var dk = DARK[q], dl = wrapL(l - dk[0]) * cb, db = b - dk[1]; m *= 1 - dk[3] * Math.exp(-(dl * dl + db * db) / (2 * dk[2] * dk[2])); }
+        var bul = Math.exp(-(Math.pow(lp / 13, 2) + Math.pow(b / 8.5, 2))), nuc = .55 * Math.exp(-(Math.pow(lp / 34, 2) + Math.pow(b / 3.4, 2)));
+        var L = (lon * (core * cl + halo * (.6 + .4 * cl)) + 1.35 * bul + nuc) * m, w = clamp(bul * 1.4 + nuc * 1.2 + .25 * gau(l, 0, 40), 0, 1);
+        r = L * mix1(.74, 1, w); g = L * mix1(.84, .82, w); bl = L * mix1(1, .58, w);
+      }
+      for (var q2 = 0; q2 < NEB.length; q2++) {
+        var nb = NEB[q2], s2 = nb[2], dl2 = wrapL(l - nb[0]) * cb, db2 = b - nb[1];
+        if (Math.abs(dl2) > 4 * s2 || Math.abs(db2) > 4 * s2) continue;
+        var e = nb[6] * Math.exp(-(dl2 * dl2 + db2 * db2) / (2 * s2 * s2)); r += e * nb[3]; g += e * nb[4]; bl += e * nb[5];
+      }
+      GT[o] = r / (1 + .9 * r); GT[o + 1] = g / (1 + .9 * g); GT[o + 2] = bl / (1 + .9 * bl);   // compresión suave: el núcleo brilla sin quemarse
+    }
+  }
+  function galStep() {
+    var t0 = performance.now();
+    while (gRow < GH && performance.now() - t0 < 9) galRow(gRow++);
+    if (gRow < GH) setTimeout(galStep, 0); else { gOn = true; gAt = performance.now(); gAsk.forEach(function (f) { try { f(); } catch (e) {} }); }
+  }
+  function galStart() { if (gStarted) return; gStarted = true; setTimeout(galStep, 40); }
+
+  /* ---------- estrellas de fondo (miles, para que el cielo se sienta lleno) ---------- */
+  var BGN = 3600, BGX = new Float32Array(BGN), BGY = new Float32Array(BGN), BGZ = new Float32Array(BGN), BGB = new Float32Array(BGN), BGC = new Uint8Array(BGN), BGP = new Float32Array(BGN);
+  (function () {
+    var r = NZ.r, n = 0, tries = 0;
+    while (n < BGN && tries++ < 40000) {
+      var u = r() * 2 - 1, th = r() * 6.2832, s = Math.sqrt(1 - u * u), x = s * Math.cos(th), y = s * Math.sin(th), z = u;
+      var gz = G2E[0][2] * x + G2E[1][2] * y + G2E[2][2] * z, bb = Math.asin(clamp(gz, -1, 1)) * DEG;
+      if (r() > .3 + .7 * Math.exp(-Math.pow(bb / 24, 2))) continue;
+      BGX[n] = x; BGY[n] = y; BGZ[n] = z; BGB[n] = .14 + .62 * Math.pow(r(), 3.2); BGC[n] = (r() * 4) | 0; BGP[n] = r() * 6.28; n++;
+    }
+  })();
+  (function () {   // se ordenan por color para dibujarlas de corrido sin cambiar de pincel a cada rato
+    var idx = []; for (var i = 0; i < BGN; i++) idx.push(i); idx.sort(function (a, b) { return BGC[a] - BGC[b]; });
+    var cp = function (A, T) { var c = new T(BGN); for (var i = 0; i < BGN; i++) c[i] = A[idx[i]]; A.set(c); };
+    cp(BGX, Float32Array); cp(BGY, Float32Array); cp(BGZ, Float32Array); cp(BGB, Float32Array); cp(BGC, Uint8Array); cp(BGP, Float32Array);
+  })();
+  var BGCOL = ['255,255,255', '205,220,255', '255,236,205', '255,208,170'];
+
+  /* ---------- reloj del cielo: todo lo que depende solo de la hora (se calcula una vez por hora) ---------- */
+  var SSt = null;
+  function vecAA(alt, az) { var ca = Math.cos(alt * RAD); return [ca * Math.sin(az * RAD), ca * Math.cos(az * RAD), Math.sin(alt * RAD)]; }
+  function calc(t) {
+    if (SSt && SSt.t === t) return SSt;
+    var c = cielo(t), lst = c.lst, ls = lst * RAD, sl = Math.sin(ls), cl = Math.cos(ls), sp = Math.sin(LAT * RAD), cp = Math.cos(LAT * RAD);
+    var Eh = [-sl, cl, 0], Nh = [-sp * cl, -sp * sl, cp], Zh = [cp * cl, cp * sl, sp];
+    var gt = function (v) { return [G2E[0][0] * v[0] + G2E[1][0] * v[1] + G2E[2][0] * v[2], G2E[0][1] * v[0] + G2E[1][1] * v[1] + G2E[2][1] * v[2], G2E[0][2] * v[0] + G2E[1][2] * v[1] + G2E[2][2] * v[2]]; };
+    var s = c.sun.h[0], mo = c.moon, ill = (1 - Math.cos(mo.elong * RAD)) / 2, lim = limite(s);
+    var S = { t: t, c: c, lst: lst, Eh: Eh, Nh: Nh, Zh: Zh, gE: gt(Eh), gN: gt(Nh), gZ: gt(Zh), s: s, k: clamp((s + 18) / 18, 0, 1), lim: lim, lf: clamp((lim + 1) / 6, 0, 1), ill: ill,
+      sunV: vecAA(s, c.sun.h[1]), moonV: vecAA(mo.h[0], mo.h[1]), mvis: sm(-4, 4, mo.h[0]), va: clamp((-s - 10) / 8, 0, 1), pos: {} };
+    STK.forEach(function (id) { var p = STP[id], h = horiz(p[0], p[1], lst), v = vecAA(h[0], h[1]); S.pos[id] = { alt: h[0], az: h[1], E: v[0], N: v[1], U: v[2] }; });
+    return (SSt = S);
+  }
+  function limite(s) { return s <= -18 ? 7 : s >= -1 ? -1.5 : 7 + (s + 18) * (-8.5 / 17); }
+  var day = 0, mins = ESPECIAL;
   var msOf = function (d, m) { return Date.UTC(2026, 9, d ? 18 : 11, 0, 0, 0) + (m + 300) * 60000; };
   function fmt(d, m) {
     var t = new Date(msOf(d, m) - 5 * 3600000), h = t.getUTCHours(), mi = t.getUTCMinutes();
     return DSEM[t.getUTCDay()] + ' ' + t.getUTCDate() + ' de ' + MESES[t.getUTCMonth()] + ' · ' + (h % 12 || 12) + ':' + (mi < 10 ? '0' : '') + mi + ' ' + (h < 12 ? 'am' : 'pm');
   }
   function dir(az) { return DIRS[Math.round(az / 45) % 8]; }
-  function limite(s) { return s <= -18 ? 7 : s >= -1 ? -1.5 : 7 + (s + 18) * (-8.5 / 17); }
   function fase(e) { return e < 12 || e > 348 ? 'nueva' : e < 78 ? 'creciente' : e < 102 ? 'en cuarto creciente' : e < 168 ? 'gibosa creciente' : e < 192 ? 'llena' : e < 258 ? 'gibosa menguante' : e < 282 ? 'en cuarto menguante' : 'menguante'; }
 
-  function render() {
-    raf = 0; if (!cv) return;
-    var W = wrap.clientWidth; if (!W) return;
-    if (cv.width !== Math.round(W * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(W * dpr); cv.style.height = W + 'px'; }
-    var ctx = cv.getContext('2d'), cx = W / 2, cy = W / 2, R = W / 2 - 18, sc = W / 340;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, W);
-    var t = msOf(day, mins), c = cielo(t), s = c.sun.h[0], lst = c.lst, k = clamp((s + 18) / 18, 0, 1), lim = limite(s), lf = clamp((lim + 1) / 6, 0, 1);
-    var P = function (alt, az) { var r = R * (90 - alt) / 90; return [cx - r * Math.sin(az * RAD), cy - r * Math.cos(az * RAD)]; };
-    hits = [];
-    var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R), mix = function (a, b) { return Math.round(a + (b - a) * k); };
-    g.addColorStop(0, 'rgb(' + mix(6, 20) + ',' + mix(10, 40) + ',' + mix(34, 100) + ')'); g.addColorStop(1, 'rgb(' + mix(18, 70) + ',' + mix(26, 110) + ',' + mix(72, 175) + ')');
-    ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fillStyle = g; ctx.fill();
-    ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.clip();
-    if (s < -10) {   // Vía Láctea
-      ctx.globalCompositeOperation = 'lighter'; var vs = R * .2, va = clamp((-s - 10) / 8, 0, 1);
-      for (var i = 0; i < VL.length; i++) { var q = VL[i], h = horiz(q[0], q[1], lst); if (h[0] < -8) continue; var p = P(h[0], h[1]); ctx.globalAlpha = q[2] * va * 1.3; ctx.drawImage(spr, p[0] - vs / 2, p[1] - vs / 2, vs, vs); }
-      ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+  /* ---------- relieve del horizonte: las montañas del Valle de Aburrá (dos capas para dar profundidad) ---------- */
+  var HPF = new Float32Array(721), HPB = new Float32Array(721);
+  (function () {
+    for (var i = 0; i <= 720; i++) {
+      var a = i / 2 * RAD, v = Math.abs(Math.sin(a));
+      HPF[i] = 1.2 + 2.2 * Math.pow(v, 1.4) + .55 * Math.sin(a * 5.3 + 1.2) + .4 * Math.sin(a * 11.1 + .4) + .22 * Math.sin(a * 23 + 2);
+      HPB[i] = HPF[i] + 1.5 + 1.7 * Math.pow(v, 1.6) + .7 * Math.sin(a * 3.7 + 2.1) + .3 * Math.sin(a * 17 + 1);
     }
-    ctx.strokeStyle = 'rgba(255,255,255,.07)'; ctx.lineWidth = 1; ctx.setLineDash([2, 4]);
-    [30, 60].forEach(function (a) { ctx.beginPath(); ctx.arc(cx, cy, R * (90 - a) / 90, 0, 7); ctx.stroke(); }); ctx.setLineDash([]);
-    var pos = {}; STK.forEach(function (id) { var p = STP[id], h = horiz(p[0], p[1], lst); pos[id] = { h: h, p: P(h[0], h[1]) }; });
-    ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(150,180,255,' + (.42 * lineP * lf).toFixed(3) + ')'; ctx.beginPath();
-    CONS.forEach(function (cn) { cn.l.forEach(function (l) { var a = pos[l[0]], b = pos[l[1]]; if (a.h[0] < -3 && b.h[0] < -3) return; ctx.moveTo(a.p[0], a.p[1]); ctx.lineTo(b.p[0], b.p[1]); }); }); ctx.stroke();
-    if (lim > 3.5) { var m = horiz(M31[0], M31[1], lst); if (m[0] > 2) { var mp = P(m[0], m[1]); ctx.save(); ctx.translate(mp[0], mp[1]); ctx.rotate(-.6); ctx.scale(1, .36); var mg = ctx.createRadialGradient(0, 0, 0, 0, 0, 9 * sc); mg.addColorStop(0, 'rgba(210,220,255,.55)'); mg.addColorStop(1, 'rgba(210,220,255,0)'); ctx.fillStyle = mg; ctx.beginPath(); ctx.arc(0, 0, 9 * sc, 0, 7); ctx.fill(); ctx.restore(); hits.push({ x: mp[0], y: mp[1], t: 'Galaxia de Andrómeda', s: 'a ' + Math.round(m[0]) + '° sobre el horizonte, hacia el ' + dir(m[1]) + ' · su luz salió hace ≈2,5 millones de años' }); } }
-    var labels = [];
-    STK.forEach(function (id) {
-      var v = CIELO_ST[id], o = pos[id], alt = o.h[0]; if (alt < -1 || v[2] > lim + .7) return;
-      var a = clamp((lim - v[2] + .7) / 1.4, 0, 1), r = Math.max(.55, 2.9 - .62 * v[2]) * sc, col = v[4] || '#ffffff', x = o.p[0], y = o.p[1];
-      if (v[2] < 1.8) { var gl = ctx.createRadialGradient(x, y, 0, x, y, r * 4.5); gl.addColorStop(0, 'rgba(210,225,255,' + (.28 * a).toFixed(3) + ')'); gl.addColorStop(1, 'rgba(210,225,255,0)'); ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(x, y, r * 4.5, 0, 7); ctx.fill(); }
-      ctx.globalAlpha = a; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); ctx.globalAlpha = 1;
-      if (v[2] < 4.6 || v[3]) {
-        var pl = PLEY.indexOf(id) >= 0, ly = LY[id], sub = (CON_DE[id] ? CON_DE[id] + ' · ' : '') + 'a ' + Math.round(alt) + '° sobre el horizonte, hacia el ' + dir(o.h[1]) + (ly ? ' · su luz salió hace ≈' + ly + ' años' : '');
-        hits.push({ x: x, y: y, t: pl ? 'Pléyades (las Siete Cabrillas)' : (v[3] || 'Estrella'), s: pl ? 'Tauro · a ' + Math.round(alt) + '° sobre el horizonte, hacia el ' + dir(o.h[1]) : sub });
+  })();
+
+  /* ---------- vistas: la de la carta (cúpula / todo el cielo) y la de pantalla completa (cámara libre) ---------- */
+  function makeView(cv, proj, fs) {
+    var V = { cv: cv, ctx: cv.getContext('2d'), proj: proj, fs: !!fs, W: 0, H: 0, dpr: 1, q: .6, yaw: 180, pitch: 28, psi: 52, zoomAll: 1, offY: 0, dirty: true, hits: [], px: 0, py: 0, cx: 0, cy: 0, sc: 1, R: 0, K: 1, hs: 1,
+      buf: document.createElement('canvas'), img: null, bw: 0, bh: 0, fwd: null, mw: 0 };
+    V.bctx = V.buf.getContext('2d'); return V;
+  }
+  function sizeView(V, W, H) {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    if (V.W === W && V.H === H && V.dpr === dpr) return;
+    V.W = W; V.H = H; V.dpr = dpr; V.cv.width = Math.round(W * dpr); V.cv.height = Math.round(H * dpr); V.cv.style.height = H + 'px'; V.dirty = true;
+  }
+  function setupProj(V) {
+    var W = V.W, H = V.H, p = V.proj; V.cx = W / 2; V.cy = H / 2;
+    if (p === 'dome') {
+      V.R = Math.min(W, H) / 2 - 18; V.sc = Math.max(.9, W / 340);
+      V.fwd = function (E, N, U) { var ca = Math.sqrt(E * E + N * N), alt = Math.asin(U > 1 ? 1 : U < -1 ? -1 : U) * DEG; if (alt < -1) return false; var rho = V.R * (90 - alt) / 90, i = ca > 1e-9 ? rho / ca : 0; V.px = V.cx - E * i; V.py = V.cy - N * i; return true; };
+    } else if (p === 'cam') {
+      var psi = V.psi * RAD, K = Math.min(W, H) / 2 / (2 * Math.tan(psi / 2)), a0 = V.yaw * RAD, p0 = V.pitch * RAD, cp = Math.cos(p0), sp = Math.sin(p0);
+      var rx = Math.cos(a0), ry = -Math.sin(a0), fx = cp * Math.sin(a0), fy = cp * Math.cos(a0), fz = sp, ux = -Math.sin(a0) * sp, uy = -Math.cos(a0) * sp, uz = cp;
+      V.K = K; V.B = [rx, ry, ux, uy, uz, fx, fy, fz]; V.sc = clamp(Math.min(W, H) / 380, .85, 1.7) * (1 + .45 * Math.max(0, 52 / V.psi - 1));
+      V.fwd = function (E, N, U) { var dz = E * fx + N * fy + U * fz; if (dz < -.9) return false; var dx = E * rx + N * ry, dy = E * ux + N * uy + U * uz, i = 2 * K / (1 + dz); V.px = V.cx + dx * i; V.py = V.cy - dy * i; return true; };
+    } else {
+      V.hs = Math.min(W / (4 * Math.SQRT2), H / (2 * Math.SQRT2)) * V.zoomAll; V.sc = clamp(V.hs * 2 * Math.SQRT2 / V.zoomAll / 560, .9, 1.5) * (.85 + .15 * V.zoomAll);
+      V.fwd = function (E, N, U) {
+        var phi = Math.asin(U > 1 ? 1 : U < -1 ? -1 : U), lam = Math.atan2(E, N) * DEG - V.yaw; lam = ((lam % 360) + 540) % 360 - 180;
+        var l2 = lam * RAD / 2, cph = Math.cos(phi), den = Math.sqrt(1 + cph * Math.cos(l2)); V.px = V.cx + 2 * Math.SQRT2 * cph * Math.sin(l2) / den * V.hs; V.py = V.cy + V.offY - Math.SQRT2 * Math.sin(phi) / den * V.hs; return true;
+      };
+    }
+  }
+
+  /* ---------- pasada de píxeles: el cielo mismo (degradado, crepúsculo, Luna, Vía Láctea, montañas) en baja resolución ---------- */
+  function paint(V, S, ground) {
+    var q = V.q, bw = Math.max(8, Math.ceil(V.W * q)), bh = Math.max(8, Math.ceil(V.H * q)), proj = V.proj;
+    if (bw !== V.bw || bh !== V.bh || !V.img) { V.bw = bw; V.bh = bh; V.buf.width = bw; V.buf.height = bh; V.img = V.bctx.createImageData(bw, bh); }
+    var d = V.img.data, k = S.k, gE = S.gE, gN = S.gN, gZ = S.gZ, sv = S.sunV, mv = S.moonV;
+    var zr = mix1(6, 20, k), zg = mix1(10, 40, k), zb = mix1(34, 100, k), hr = mix1(18, 70, k), hg = mix1(26, 110, k), hb = mix1(72, 175, k);
+    var city = (1 - k) * .5, gS = sm(-18, 0, S.s) * (S.s < 0 ? 1 : 0) + (S.s >= 0 ? 1 : 0), mvis = S.mvis, ill = S.ill, mAlt = S.c.moon.h[0];
+    var mwA = gOn ? clamp((performance.now() - gAt) / 900, 0, 1) : 0, mwG = S.va * mwA * (1 - .5 * ill * mvis) * 1.35, doMW = mwG > .002;
+    var cx = V.cx, cy = V.cy, inv = 1 / q, eps;
+    var R = V.R, K = V.K, B = V.B, hs = V.hs, offY = V.offY, yaw = V.yaw, i, j, o = 0;
+    if (proj === 'dome') eps = 90 / R * inv * 1.1; else if (proj === 'cam') eps = DEG / K * inv * 1.2; else eps = 360 / (V.W * V.zoomAll) * inv * 1.2;
+    var gr = mix1(6, 22, k), gg = mix1(8, 28, k), gb2 = mix1(16, 46, k), br = mix1(15, 52, k), bgc = mix1(21, 66, k), bb2 = mix1(46, 108, k);
+    for (j = 0; j < bh; j++) {
+      var sy = (j + .5) * inv;
+      for (i = 0; i < bw; i++, o += 4) {
+        var sx = (i + .5) * inv, E, N, U;
+        if (proj === 'dome') {
+          var dx = sx - cx, dy = sy - cy, rho = Math.sqrt(dx * dx + dy * dy);
+          if (rho > R) { d[o + 3] = 0; continue; }
+          var t = rho / R * 1.5707963, ca = Math.sin(t); U = Math.cos(t); if (rho > 1e-6) { E = -ca * dx / rho; N = -ca * dy / rho; } else { E = 0; N = 0; }
+        } else if (proj === 'cam') {
+          var X = (sx - cx) / K / 2, Y = (cy - sy) / K / 2, r2 = X * X + Y * Y, den = 1 + r2, ddx = 2 * X / den, ddy = 2 * Y / den, ddz = (1 - r2) / den;
+          E = ddx * B[0] + ddy * B[2] + ddz * B[5]; N = ddx * B[1] + ddy * B[3] + ddz * B[6]; U = ddy * B[4] + ddz * B[7];
+        } else {
+          var hx = (sx - cx) / hs, hy = -(sy - cy - offY) / hs, tt = 1 - hx * hx / 16 - hy * hy / 4;
+          if (tt < .5) { d[o + 3] = 0; continue; }
+          var zz = Math.sqrt(tt), lam = 2 * Math.atan2(zz * hx, 2 * (2 * tt - 1)), phi = Math.asin(clamp(zz * hy, -1, 1)), az0 = lam + yaw * RAD, cph = Math.cos(phi);
+          E = cph * Math.sin(az0); N = cph * Math.cos(az0); U = Math.sin(phi);
+        }
+        var alt = Math.asin(U > 1 ? 1 : U < -1 ? -1 : U), a = Math.abs(alt) * .63662, wh = Math.pow(1 - a, 2.2);
+        var r = zr + (hr - zr) * wh, g = zg + (hg - zg) * wh, b = zb + (hb - zb) * wh;
+        var cg = city * wh * wh * Math.sqrt(wh); r += 46 * cg; g += 22 * cg; b += 8 * cg;
+        if (gS > 0) { var ds = E * sv[0] + N * sv[1] + U * sv[2]; if (ds > .1) { var gl = gS * Math.exp(-3.6 * (1 - ds)) * (1 - .55 * a); r += 140 * gl; g += 66 * gl; b += 22 * gl; } }
+        if (mvis > 0 && mAlt > -4) { var dm = E * mv[0] + N * mv[1] + U * mv[2]; if (dm > .5) { var m1 = (.04 + .5 * ill) * Math.exp(-118 * (1 - dm)) + (.02 + .12 * ill) * Math.exp(-8 * (1 - dm)); m1 *= mvis * 255; r += m1 * .9; g += m1 * .93; b += m1; } }
+        if (doMW) {
+          var gx = E * gE[0] + N * gN[0] + U * gZ[0], gy = E * gE[1] + N * gN[1] + U * gZ[1], gz = E * gE[2] + N * gN[2] + U * gZ[2];
+          var fl = Math.atan2(gy, gx) * DEG; if (fl < 0) fl += 360; var fb = Math.asin(gz > 1 ? 1 : gz < -1 ? -1 : gz) * DEG;
+          var fx = fl / 360 * GW - .5, fy = (90 - fb) / 180 * GH - .5, x0 = Math.floor(fx), y0 = Math.floor(fy), tx = fx - x0, ty = fy - y0;
+          var x1 = (x0 + 1 + GW) % GW; x0 = (x0 + GW) % GW; var y1 = y0 + 1; if (y0 < 0) y0 = 0; if (y1 < 0) y1 = 0; if (y0 > GH - 1) y0 = GH - 1; if (y1 > GH - 1) y1 = GH - 1;
+          var o00 = (y0 * GW + x0) * 3, o10 = (y0 * GW + x1) * 3, o01 = (y1 * GW + x0) * 3, o11 = (y1 * GW + x1) * 3, w00 = (1 - tx) * (1 - ty), w10 = tx * (1 - ty), w01 = (1 - tx) * ty, w11 = tx * ty;
+          var ext = alt >= 0 ? .2 + .8 * sm(0, .28, alt) : .9, mg = mwG * ext * 255;
+          r += mg * (GT[o00] * w00 + GT[o10] * w10 + GT[o01] * w01 + GT[o11] * w11); g += mg * (GT[o00 + 1] * w00 + GT[o10 + 1] * w10 + GT[o01 + 1] * w01 + GT[o11 + 1] * w11); b += mg * (GT[o00 + 2] * w00 + GT[o10 + 2] * w10 + GT[o01 + 2] * w01 + GT[o11 + 2] * w11);
+        }
+        if (ground) {
+          var azd = Math.atan2(E, N) * DEG; if (azd < 0) azd += 360; var hi = (azd * 2) | 0, altd = alt * DEG, hbk = HPB[hi], hf = HPF[hi];
+          var cb = clamp((hbk - altd) / eps + .5, 0, 1);
+          if (cb > 0) { var dp = clamp((hbk - altd) / 7, 0, 1), cr = mix1(br, br * .55, dp), cgg = mix1(bgc, bgc * .55, dp), cbb = mix1(bb2, bb2 * .6, dp); r += (cr - r) * cb; g += (cgg - g) * cb; b += (cbb - b) * cb; }
+          var cf = clamp((hf - altd) / eps + .5, 0, 1);
+          if (cf > 0) { var lo = clamp(-altd / 45, 0, 1), fr = gr * (1 - .5 * lo), fg = gg * (1 - .5 * lo), fb2 = gb2 * (1 - .5 * lo), cgl = (1 - k) * Math.exp(-(hf - altd) * .8) * .5; fr += 80 * cgl; fg += 42 * cgl; fb2 += 12 * cgl; r += (fr - r) * cf; g += (fg - g) * cf; b += (fb2 - b) * cf; }
+        }
+        d[o] = r > 255 ? 255 : r; d[o + 1] = g > 255 ? 255 : g; d[o + 2] = b > 255 ? 255 : b; d[o + 3] = 255;
       }
-      if (v[3] && v[2] < 2.3 && alt > 4) labels.push({ sx: x, sy: y, r: r, y: y - 3, t: v[3], pr: v[2], f: 12 * Math.max(.9, sc), c: 'rgba(235,240,255,.88)' });
-    });
-    var pn = Object.keys(c.planets);
-    pn.forEach(function (n) {
-      var q = c.planets[n], alt = q.h[0]; if (alt < 0 || q.mag > lim + .7) return;
-      var a = clamp((lim - q.mag + .7) / 1.4, 0, 1), p = P(alt, q.h[1]), r = clamp(2.7 - .5 * q.mag, 1.8, 4.6) * sc;
-      var gl = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], r * 4); gl.addColorStop(0, 'rgba(255,240,200,' + (.3 * a).toFixed(3) + ')'); gl.addColorStop(1, 'rgba(255,240,200,0)'); ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(p[0], p[1], r * 4, 0, 7); ctx.fill();
-      ctx.globalAlpha = a; ctx.fillStyle = PCOL[n]; ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, 7); ctx.fill(); ctx.globalAlpha = 1;
-      labels.push({ sx: p[0], sy: p[1], r: r, y: p[1] - 3, t: PNOM[n], pr: -9, f: 13 * Math.max(.9, sc), c: '#ffe9a8', b: 1 });
-      hits.push({ x: p[0], y: p[1], t: PNOM[n], s: 'planeta · a ' + Math.round(alt) + '° sobre el horizonte, hacia el ' + dir(q.h[1]) });
-    });
-    var mo = c.moon, ma = mo.h[0], ill = (1 - Math.cos(mo.elong * RAD)) / 2;
-    if (ma > -1 && s < -1) {
-      var mp2 = P(Math.max(ma, 0), mo.h[1]), sp = P(c.sun.h[0], c.sun.h[1]), r2 = 8 * sc, ang = Math.atan2(sp[1] - mp2[1], sp[0] - mp2[0]), aa = -Math.cos(mo.elong * RAD) * r2;
-      var mg2 = ctx.createRadialGradient(mp2[0], mp2[1], 0, mp2[0], mp2[1], r2 * 3.2); mg2.addColorStop(0, 'rgba(255,248,225,' + (.3 * ill + .06).toFixed(3) + ')'); mg2.addColorStop(1, 'rgba(255,248,225,0)'); ctx.fillStyle = mg2; ctx.beginPath(); ctx.arc(mp2[0], mp2[1], r2 * 3.2, 0, 7); ctx.fill();
-      ctx.save(); ctx.translate(mp2[0], mp2[1]); ctx.rotate(ang); ctx.fillStyle = 'rgba(40,52,92,.9)'; ctx.beginPath(); ctx.arc(0, 0, r2, 0, 7); ctx.fill();
-      ctx.fillStyle = '#fff6dc'; ctx.beginPath(); var n = 24, j; for (j = 0; j <= n; j++) { var th = Math.PI * j / n; ctx.lineTo(r2 * Math.sin(th), -r2 * Math.cos(th)); } for (j = n; j >= 0; j--) { var th2 = Math.PI * j / n; ctx.lineTo(-aa * Math.sin(th2), -r2 * Math.cos(th2)); } ctx.closePath(); ctx.fill(); ctx.restore();
-      labels.push({ sx: mp2[0], sy: mp2[1], r: r2 + 1, y: mp2[1] - 3, t: 'Luna', pr: -10, f: 13 * Math.max(.9, sc), c: '#fff1c7', b: 1 });
-      hits.push({ x: mp2[0], y: mp2[1], t: 'La Luna', s: fase(mo.elong) + ' · ' + Math.round(ill * 100) + '% iluminada · a ' + Math.round(ma) + '° sobre el horizonte, hacia el ' + dir(mo.h[1]) });
     }
-    if (lf > .5) CONS.forEach(function (cn) {
-      var n = 0, sx = 0, sy = 0; cn.ids.forEach(function (id) { var o = pos[id]; if (o.h[0] > 6) { n++; sx += o.p[0]; sy += o.p[1]; } });
-      if (n >= 2 && n >= cn.ids.length * .5) labels.push({ x: sx / n, y: sy / n + 15 * sc, t: cn.n, pr: 50, f: 14 * Math.max(.9, sc), c: 'rgba(170,190,245,.8)', ctr: 1 });
-    });
+    V.bctx.putImageData(V.img, 0, 0);
+  }
+
+  /* ---------- capa vectorial: estrellas, constelaciones, planetas, Luna, nombres, puntos cardinales ---------- */
+  var OPT = { lines: true, names: true, ground: true, grid: false };
+  var lineP = 1, HAND = '"Caveat", cursive';
+  try { HAND = getComputedStyle(document.documentElement).getPropertyValue('--hand') || HAND; } catch (e) {}
+  var PBINS = [0, 1, 2, 3];
+  function polyPath(V, ctx, fn, n, jump) {   // dibuja una curva muestreada cortándola donde no se ve o donde da la vuelta
+    var pen = false, lx = 0, ly = 0;
+    for (var i = 0; i <= n; i++) {
+      var v = fn(i / n); if (!V.fwd(v[0], v[1], v[2])) { pen = false; continue; }
+      var x = V.px, y = V.py;
+      if (pen && Math.abs(x - lx) + Math.abs(y - ly) > jump) pen = false;
+      if (pen) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+      pen = true; lx = x; ly = y;
+    }
+  }
+  function drawLabelList(V, ctx, labels, inside) {
     labels.sort(function (a, b) { return a.pr - b.pr; });
-    var placed = [], dentro = function (rc) { return [[rc[0], rc[1]], [rc[2], rc[1]], [rc[0], rc[3]], [rc[2], rc[3]]].every(function (q) { return Math.hypot(q[0] - cx, q[1] - cy) < R - 3; }); };
-    ctx.lineJoin = 'round';
+    var placed = [], lj = ctx.lineJoin; ctx.lineJoin = 'round';
     labels.forEach(function (l) {
       ctx.font = (l.b ? '700 ' : '600 ') + l.f.toFixed(1) + 'px ' + HAND;
       var w = ctx.measureText(l.t).width, cand = l.ctr ? [l.x - w / 2] : [l.sx + l.r + 3, l.sx - l.r - 3 - w];
       for (var ci = 0; ci < cand.length; ci++) {
-        var x = cand[ci], rc = [x - 2, l.y - l.f, x + w + 2, l.y + 4], libre = dentro(rc);
+        var x = cand[ci], rc = [x - 2, l.y - l.f, x + w + 2, l.y + 4], libre = inside(rc);
         for (var i = 0; libre && i < placed.length; i++) { var o = placed[i]; if (rc[0] < o[2] && rc[2] > o[0] && rc[1] < o[3] && rc[3] > o[1]) libre = false; }
         if (!libre) continue;
-        placed.push(rc); ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(6,10,34,.75)'; ctx.strokeText(l.t, x, l.y); ctx.fillStyle = l.c; ctx.fillText(l.t, x, l.y); break;
+        placed.push(rc); ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(4,7,28,.78)'; ctx.strokeText(l.t, x, l.y); ctx.fillStyle = l.c; ctx.fillText(l.t, x, l.y); break;
       }
     });
+    ctx.lineJoin = lj;
+  }
+  function overlay(V, S, tms, ground) {
+    var ctx = V.ctx, W = V.W, H = V.H, c = S.c, pos = S.pos, proj = V.proj, fwd = V.fwd, sc = V.sc, lf = S.lf, lim = S.lim, cx = V.cx, cy = V.cy, s = S.s;
+    var hits = V.hits = [], jump = Math.max(W, H) * .55, fsOn = V.fs, boost = proj === 'cam' ? Math.max(0, 52 / V.psi - 1) : 0, tw = tms * .001;
+    var onscr = function (x, y, m) { return x > -m && x < W + m && y > -m && y < H + m; };
+    ctx.save();
+    if (proj === 'dome') { ctx.beginPath(); ctx.arc(cx, cy, V.R, 0, 7); ctx.clip(); }
+    else if (proj === 'all') { ctx.beginPath(); ctx.ellipse(cx, cy + V.offY, V.hs * 2 * Math.SQRT2, V.hs * Math.SQRT2, 0, 0, 7); ctx.clip(); }
+    var P = {};
+    STK.forEach(function (id) { var o = pos[id], vis = fwd(o.E, o.N, o.U) && (!ground || o.alt > -.5) && onscr(V.px, V.py, 40); P[id] = { x: V.px, y: V.py, v: vis, a: o.alt }; });
+
+    /* cuadrícula y horizonte */
+    if (OPT.grid) {
+      ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(150,185,255,.15)'; ctx.beginPath();
+      [15, 30, 45, 60, 75].forEach(function (al) { polyPath(V, ctx, function (t) { return vecAA(al, t * 360); }, 120, jump); });
+      for (var m = 0; m < 360; m += 30) polyPath(V, ctx, function (t) { return vecAA(-85 + t * 175, m); }, 60, jump);
+      ctx.stroke();
+    }
+    if (!ground && proj !== 'dome') {
+      ctx.lineWidth = Math.max(1.2, sc); ctx.strokeStyle = 'rgba(120,225,255,.5)'; ctx.setLineDash([7 * sc, 6 * sc]); ctx.beginPath(); polyPath(V, ctx, function (t) { return vecAA(0, t * 360); }, 240, jump); ctx.stroke(); ctx.setLineDash([]);
+    }
+
+    /* constelaciones */
+    if (OPT.lines && lineP > 0 && lf > 0) {
+      ctx.lineWidth = Math.max(1, sc * .95); ctx.strokeStyle = 'rgba(150,182,255,' + (.46 * lineP * lf).toFixed(3) + ')'; ctx.beginPath();
+      CONS.forEach(function (cn) { cn.l.forEach(function (l) { var a = P[l[0]], b = P[l[1]]; if (!a.v || !b.v) return; if (Math.abs(a.x - b.x) + Math.abs(a.y - b.y) > jump) return; ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); }); });
+      ctx.stroke();
+    }
+
+    /* estrellas de fondo */
+    if (lf > .05 && gOn !== undefined) {
+      var Eh = S.Eh, Nh = S.Nh, Zh = S.Zh, dsz = (.85 + boost * .5) * sc;
+      var cur = -1;
+      {
+        for (var i = 0; i < BGN; i++) {
+          if (BGC[i] !== cur) { cur = BGC[i]; ctx.fillStyle = 'rgb(' + BGCOL[cur] + ')'; }
+          var x = BGX[i], y = BGY[i], z = BGZ[i], E = x * Eh[0] + y * Eh[1], N = x * Nh[0] + y * Nh[1] + z * Nh[2], U = x * Zh[0] + y * Zh[1] + z * Zh[2];
+          if (ground && U < .015) continue; if (!fwd(E, N, U)) continue; if (!onscr(V.px, V.py, 4)) continue;
+          var al = BGB[i] * lf * (U < .12 && U > 0 ? .35 + U * 5.4 : 1) * (.82 + .18 * Math.sin(tw * 2.3 + BGP[i] * 5)); if (ground === false && U < 0) al *= .75;
+          var sz = dsz * (.8 + BGB[i] * 1.1); ctx.globalAlpha = al > 1 ? 1 : al; ctx.fillRect(V.px - sz / 2, V.py - sz / 2, sz, sz);
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    /* Andrómeda (M31) */
+    if (lim > 3.5) {
+      var mh = horiz(M31[0], M31[1], S.lst), mvv = vecAA(mh[0], mh[1]);
+      if ((!ground || mh[0] > 2) && fwd(mvv[0], mvv[1], mvv[2]) && onscr(V.px, V.py, 30)) {
+        var mx = V.px, my = V.py; ctx.save(); ctx.translate(mx, my); ctx.rotate(-.6); ctx.scale(1, .36); var mg = ctx.createRadialGradient(0, 0, 0, 0, 0, 10 * sc * (1 + boost * .6)); mg.addColorStop(0, 'rgba(215,225,255,.7)'); mg.addColorStop(1, 'rgba(210,220,255,0)'); ctx.fillStyle = mg; ctx.beginPath(); ctx.arc(0, 0, 10 * sc * (1 + boost * .6), 0, 7); ctx.fill(); ctx.restore();
+        hits.push({ x: mx, y: my, t: 'Galaxia de Andrómeda', s: 'a ' + Math.round(mh[0]) + '° sobre el horizonte, hacia el ' + dir(mh[1]) + ' · su luz salió hace ≈2,5 millones de años' });
+      }
+    }
+
+    /* estrellas del catálogo */
+    var chico = proj === 'all' && !fsOn, labels = [], nameMag = chico ? 1.3 : 2.3 + boost * 1.4;
+    STK.forEach(function (id) {
+      var v = CIELO_ST[id], o = pos[id], p = P[id]; if (!p.v || v[2] > lim + .7) return;
+      var a = clamp((lim - v[2] + .7) / 1.4, 0, 1), r = Math.max(.55, 2.9 - .62 * v[2]) * sc * (1 + boost * .35), col = v[4] || '#ffffff', x = p.x, y = p.y;
+      var f = 1 + .1 * Math.sin(tw * (1.6 + (v[2] + 2) * .35) + x * .13 + y * .07) * (v[2] > 1 ? 1 : .4), ai = a * (a > .99 ? f : 1);
+      if (v[2] < 2.2) { var gl = ctx.createRadialGradient(x, y, 0, x, y, r * 5.5); gl.addColorStop(0, 'rgba(210,225,255,' + (.34 * ai).toFixed(3) + ')'); gl.addColorStop(1, 'rgba(210,225,255,0)'); ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(x, y, r * 5.5, 0, 7); ctx.fill(); }
+      if (v[2] < 1.4 && (fsOn || sc > 1.1)) { var L = r * (6 + 3 * (1.4 - v[2])); ctx.globalAlpha = .55 * ai; ctx.strokeStyle = col; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x - L, y); ctx.lineTo(x + L, y); ctx.moveTo(x, y - L); ctx.lineTo(x, y + L); ctx.stroke(); ctx.globalAlpha = 1; }
+      ctx.globalAlpha = ai > 1 ? 1 : ai; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); ctx.globalAlpha = 1;
+      if (v[2] < 4.6 || v[3]) {
+        var pl = PLEY.indexOf(id) >= 0, ly = LY[id], sub = (CON_DE[id] ? CON_DE[id] + ' · ' : '') + 'a ' + Math.round(o.alt) + '° sobre el horizonte, hacia el ' + dir(o.az) + (ly ? ' · su luz salió hace ≈' + ly + ' años' : '');
+        hits.push({ x: x, y: y, t: pl ? 'Pléyades (las Siete Cabrillas)' : (v[3] || 'Estrella'), s: pl ? 'Tauro · a ' + Math.round(o.alt) + '° sobre el horizonte, hacia el ' + dir(o.az) : sub });
+      }
+      if (OPT.names && v[3] && v[2] < nameMag && (o.alt > 4 || !ground)) labels.push({ sx: x, sy: y, r: r, y: y - 3, t: v[3], pr: v[2], f: 12 * Math.max(.9, sc), c: 'rgba(235,240,255,.9)' });
+    });
+
+    /* planetas */
+    Object.keys(c.planets).forEach(function (n) {
+      var q = c.planets[n], alt = q.h[0]; if (ground && alt < 0) return; if (q.mag > lim + .7) return;
+      var vv = vecAA(alt, q.h[1]); if (!fwd(vv[0], vv[1], vv[2]) || !onscr(V.px, V.py, 30)) return;
+      var a = clamp((lim - q.mag + .7) / 1.4, 0, 1), x = V.px, y = V.py, r = clamp(2.7 - .5 * q.mag, 1.8, 4.6) * sc * (1 + boost * .45);
+      var gl = ctx.createRadialGradient(x, y, 0, x, y, r * 4.5); gl.addColorStop(0, 'rgba(255,240,200,' + (.34 * a).toFixed(3) + ')'); gl.addColorStop(1, 'rgba(255,240,200,0)'); ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(x, y, r * 4.5, 0, 7); ctx.fill();
+      ctx.globalAlpha = a; ctx.fillStyle = PCOL[n]; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); ctx.globalAlpha = 1;
+      if (OPT.names || true) labels.push({ sx: x, sy: y, r: r, y: y - 3, t: PNOM[n], pr: -9, f: 13 * Math.max(.9, sc), c: '#ffe9a8', b: 1 });
+      hits.push({ x: x, y: y, t: PNOM[n], s: 'planeta · a ' + Math.round(alt) + '° sobre el horizonte, hacia el ' + dir(q.h[1]) });
+    });
+
+    /* Luna con su fase real */
+    var mo = c.moon, ma = mo.h[0], ill = S.ill;
+    if ((ma > -1 || !ground) && s < -1) {
+      var mv2 = vecAA(ma, mo.h[1]);
+      if (fwd(mv2[0], mv2[1], mv2[2]) && onscr(V.px, V.py, 40)) {
+        var mx2 = V.px, my2 = V.py, sv = S.sunV, ang = -1.2;
+        if (fwd(sv[0], sv[1], sv[2])) ang = Math.atan2(V.py - my2, V.px - mx2);
+        var r2 = 8 * sc * (1 + boost * .7), aa = -Math.cos(mo.elong * RAD) * r2;
+        var mg2 = ctx.createRadialGradient(mx2, my2, 0, mx2, my2, r2 * 3.4); mg2.addColorStop(0, 'rgba(255,248,225,' + (.32 * ill + .07).toFixed(3) + ')'); mg2.addColorStop(1, 'rgba(255,248,225,0)'); ctx.fillStyle = mg2; ctx.beginPath(); ctx.arc(mx2, my2, r2 * 3.4, 0, 7); ctx.fill();
+        ctx.save(); ctx.translate(mx2, my2); ctx.rotate(ang); ctx.fillStyle = 'rgba(40,52,92,.92)'; ctx.beginPath(); ctx.arc(0, 0, r2, 0, 7); ctx.fill();
+        ctx.fillStyle = '#fff6dc'; ctx.beginPath(); var n = 28, j; for (j = 0; j <= n; j++) { var th = Math.PI * j / n; ctx.lineTo(r2 * Math.sin(th), -r2 * Math.cos(th)); } for (j = n; j >= 0; j--) { var th2 = Math.PI * j / n; ctx.lineTo(-aa * Math.sin(th2), -r2 * Math.cos(th2)); } ctx.closePath(); ctx.fill(); ctx.restore();
+        labels.push({ sx: mx2, sy: my2, r: r2 + 1, y: my2 - 3, t: 'Luna', pr: -10, f: 13 * Math.max(.9, sc), c: '#fff1c7', b: 1 });
+        hits.push({ x: mx2, y: my2, t: 'La Luna', s: fase(mo.elong) + ' · ' + Math.round(ill * 100) + '% iluminada · a ' + Math.round(ma) + '° sobre el horizonte, hacia el ' + dir(mo.h[1]) });
+      }
+    }
+
+    /* nombres de constelaciones */
+    if (OPT.names && lf > .5 && !chico) CONS.forEach(function (cn) {
+      var n = 0, sx = 0, sy = 0; cn.ids.forEach(function (id) { var p = P[id]; if (p.v && (p.a > 6 || !ground)) { n++; sx += p.x; sy += p.y; } });
+      if (n >= 2 && n >= cn.ids.length * .5) labels.push({ x: sx / n, y: sy / n + 15 * sc, t: cn.n, pr: 50, f: 14 * Math.max(.9, sc), c: 'rgba(175,195,250,.82)', ctr: 1 });
+    });
+    var inside = proj === 'dome' ? function (rc) { return [[rc[0], rc[1]], [rc[2], rc[1]], [rc[0], rc[3]], [rc[2], rc[3]]].every(function (q) { return Math.hypot(q[0] - cx, q[1] - cy) < V.R - 3; }); }
+      : function (rc) { return rc[0] > 4 && rc[2] < W - 4 && rc[1] > 4 && rc[3] < H - 4; };
+    drawLabelList(V, ctx, labels, inside);
+
+    /* estrellas fugaces (solo pantalla completa) */
+    if (V.meteors && V.meteors.length) {
+      for (var mi = V.meteors.length - 1; mi >= 0; mi--) {
+        var me = V.meteors[mi], p = (tms - me.t0) / me.dur; if (p >= 1) { V.meteors.splice(mi, 1); continue; }
+        var hx = me.x + me.dx * p, hy = me.y + me.dy * p, tx = hx - me.dx * .22, ty = hy - me.dy * .22, gr = ctx.createLinearGradient(tx, ty, hx, hy), fa = Math.sin(p * Math.PI);
+        gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(1, 'rgba(255,255,255,' + (.95 * fa).toFixed(2) + ')'); ctx.strokeStyle = gr; ctx.lineWidth = 2 * sc; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(hx, hy); ctx.stroke();
+        ctx.fillStyle = 'rgba(255,255,255,' + fa.toFixed(2) + ')'; ctx.beginPath(); ctx.arc(hx, hy, 1.6 * sc, 0, 7); ctx.fill();
+      }
+    }
     ctx.restore();
-    ctx.strokeStyle = 'rgba(255,255,255,.3)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke();
-    ctx.fillStyle = 'rgba(255,255,255,.55)'; ctx.font = '700 ' + (14 * Math.max(.9, sc)).toFixed(1) + 'px ' + HAND; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText('N', cx, cy - R - 9); ctx.fillText('S', cx, cy + R + 9); ctx.fillText('E', cx - R - 9, cy); ctx.fillText('O', cx + R + 9, cy); ctx.textAlign = 'start'; ctx.textBaseline = 'alphabetic';
-    ctx.strokeStyle = 'rgba(255,255,255,.22)'; ctx.beginPath(); ctx.moveTo(cx - 4, cy); ctx.lineTo(cx + 4, cy); ctx.moveTo(cx, cy - 4); ctx.lineTo(cx, cy + 4); ctx.stroke();
-    texto(c, pos, ill);
+
+    /* marco y puntos cardinales */
+    ctx.save(); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+    if (proj === 'dome') {
+      ctx.strokeStyle = 'rgba(255,255,255,.3)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(cx, cy, V.R, 0, 7); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,.6)'; ctx.font = '700 ' + (14 * Math.max(.9, sc)).toFixed(1) + 'px ' + HAND;
+      ctx.fillText('N', cx, cy - V.R - 9); ctx.fillText('S', cx, cy + V.R + 9); ctx.fillText('E', cx - V.R - 9, cy); ctx.fillText('O', cx + V.R + 9, cy);
+      ctx.strokeStyle = 'rgba(255,255,255,.22)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx - 4, cy); ctx.lineTo(cx + 4, cy); ctx.moveTo(cx, cy - 4); ctx.lineTo(cx, cy + 4); ctx.stroke();
+    } else {
+      if (proj === 'all') { ctx.strokeStyle = 'rgba(190,205,255,.35)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.ellipse(cx, cy + V.offY, V.hs * 2 * Math.SQRT2, V.hs * Math.SQRT2, 0, 0, 7); ctx.stroke(); }
+      var CARD = [['N', 0, 1], ['NE', 45, 0], ['E', 90, 1], ['SE', 135, 0], ['S', 180, 1], ['SO', 225, 0], ['O', 270, 1], ['NO', 315, 0]];
+      CARD.forEach(function (cd) {
+        if (chico && !cd[2]) return;
+        var vv = vecAA(ground ? 5 : 2.5, cd[1]); if (!fwd(vv[0], vv[1], vv[2]) || !onscr(V.px, V.py, -6)) return;
+        var big = cd[2], fs2 = (big ? 21 : 14) * Math.max(.9, sc * (proj === 'all' ? .85 : 1));
+        ctx.font = '700 ' + fs2.toFixed(1) + 'px ' + HAND; ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(3,6,24,.85)'; ctx.strokeText(cd[0], V.px, V.py); ctx.shadowColor = big ? 'rgba(255,214,120,.9)' : 'rgba(150,190,255,.7)'; ctx.shadowBlur = 8;
+        ctx.fillStyle = big ? '#ffe7a3' : 'rgba(200,215,255,.85)'; ctx.fillText(cd[0], V.px, V.py); ctx.shadowBlur = 0;
+      });
+      if (proj === 'all') {
+        ctx.font = '600 ' + (13 * Math.max(.9, sc)).toFixed(1) + 'px ' + HAND; ctx.fillStyle = 'rgba(190,205,255,.55)';
+        var tp = vecAA(78, V.yaw), bt = vecAA(-55, V.yaw);
+        if (fwd(tp[0], tp[1], tp[2])) ctx.fillText('arriba de ti', V.px, V.py); if (fwd(bt[0], bt[1], bt[2]) && !ground) ctx.fillText('lo que tapa el suelo', V.px, V.py);
+      }
+    }
+    ctx.restore();
   }
 
-  var lastTxt = '';
-  function texto(c, pos, ill) {
-    var out = [], s = c.sun.h[0], pl = [], names = [];
+  /* ---------- hacia dónde mirar para ver la galaxia: la parte más brillante de la Vía Láctea que esté sobre el horizonte ---------- */
+  function galaxyAim(S) {
+    var best = null, bw = 0;
+    for (var l = 0; l < 360; l += 4) {
+      var gx = Math.cos(l * RAD), gy = Math.sin(l * RAD), X = G2E[0][0] * gx + G2E[0][1] * gy, Y = G2E[1][0] * gx + G2E[1][1] * gy, Z = G2E[2][0] * gx + G2E[2][1] * gy;
+      var h = horiz(rev(Math.atan2(Y, X) * DEG), Math.asin(clamp(Z, -1, 1)) * DEG, S.lst), w = (.3 + .8 * gau(l, 0, 46) + .3 * gau(l, 78, 24) + .32 * gau(l, -66, 22)) * sm(8, 32, h[0]);
+      if (w > bw) { bw = w; best = h; }
+    }
+    return best && bw > .05 ? { yaw: best[1], pitch: clamp(best[0] * .55 + 12, 22, 58) } : { yaw: 200, pitch: 32 };
+  }
+
+  /* ---------- elementos y estado de la interfaz ---------- */
+  var cv, wrap, cap, sl, ov, fsCv, fsAuto = false, fsApi = false, inView = false, descartado = false, rotT = 0, playing = false, playRaf = 0, momT = 0, capT = 0, raf = 0, anim = 0;
+  var lastHora = '', fsOn = false, fsRaf = 0, fsLast = 0, fsSkip = 0, V1 = null, V2 = null, lastTxt = '', hintT = 0, headT = 0, nextMeteor = 0, wheelT = 0, tween = null;
+  var ptr = { pts: {}, down: false, sx: 0, sy: 0, lx: 0, ly: 0, lt: 0, moved: 0, pinch: 0, psi0: 52, z0: 1, tapT: 0 };
+  var intro = { on: false, t0: 0 };
+  var qOf = function (V, px) { return clamp(Math.sqrt(px / Math.max(1, V.W * V.H)), .18, 1); };
+
+  function texto(S) {
+    var c = S.c, pos = S.pos, out = [], s = S.s, pl = [], names = [], mo = c.moon, ma = mo.h[0], f = fase(mo.elong), cas = S.ill < .08 && (mo.elong < 40 || mo.elong > 320), ill = S.ill;
     Object.keys(c.planets).forEach(function (n) { var q = c.planets[n]; if (q.h[0] > 5 && q.mag < limite(s)) pl.push(PNOM[n] + ' (' + Math.round(q.h[0]) + '°)'); });
-    var mo = c.moon, ma = mo.h[0], f = fase(mo.elong), cas = ill < .08 && (mo.elong < 40 || mo.elong > 320);
     if (s > -6) out.push('Todavía había luz del atardecer: las primeras estrellas apenas se asomaban.');
     else {
       if (pl.length) out.push((pl.length > 1 ? 'Se veían ' : 'Se veía ') + pl.join(' y ') + (pl.length > 1 ? ', más brillantes que casi cualquier estrella.' : ', más brillante que casi cualquier estrella.'));
       if (ma > 0) out.push('La Luna estaba ' + (cas ? 'casi nueva' : f) + ' (' + Math.round(ill * 100) + '% iluminada), a ' + Math.round(ma) + '° sobre el horizonte, hacia el ' + dir(mo.h[1]) + '.');
-      else if (cas) out.push('No había Luna: ' + (mo.elong < 180 ? 'ya se había ocultado' : 'todavía no salía') + ', así que fue una noche bien oscura, solo de estrellas.');
+      else if (cas) out.push('No había Luna: ' + (mo.elong < 180 ? 'ya se había ocultado' : 'todavía no salía') + ', así que fue una noche bien oscura, solo de estrellas y de Vía Láctea.');
       else out.push('La Luna (' + Math.round(ill * 100) + '% iluminada) ' + (mo.elong < 180 ? 'ya se había ocultado.' : 'todavía no salía.'));
-      if (pos.vega.h[0] > 5 && pos.altair.h[0] > 5) out.push('Vega y Altair, los “novios” del cielo, separados por la Vía Láctea, también estaban ahí.');
-      CONS.forEach(function (cn) { var n = 0, sa = 0; cn.ids.forEach(function (id) { var a = pos[id].h[0]; if (a > 8) { n++; sa += a; } }); if (n >= 2 && n >= cn.ids.length * .5) names.push([cn.n, sa / n]); });
+      if (pos.vega.alt > 5 && pos.altair.alt > 5) out.push('Vega y Altair, los “novios” del cielo, separados por la Vía Láctea, también estaban ahí.');
+      CONS.forEach(function (cn) { var n = 0, sa = 0; cn.ids.forEach(function (id) { var a = pos[id].alt; if (a > 8) { n++; sa += a; } }); if (n >= 2 && n >= cn.ids.length * .5) names.push([cn.n, sa / n]); });
       names.sort(function (a, b) { return b[1] - a[1]; });
       if (names.length) out.push('Constelaciones a la vista: ' + names.slice(0, 9).map(function (x) { return x[0]; }).join(', ') + '.');
     }
     var h = out.map(function (x) { return '<p>' + x + '</p>'; }).join('');
-    if (h !== lastTxt) { lastTxt = h; $('clTxt').innerHTML = h; }
+    if (h !== lastTxt) { lastTxt = h; $('clTxt').innerHTML = h; if ($('fsTxt')) $('fsTxt').innerHTML = h; }
     cv.setAttribute('aria-label', 'Mapa del cielo visto desde Niquía, Bello, el ' + fmt(day, mins) + '. ' + out.join(' '));
   }
 
+  /* ---------- dibujo ---------- */
+  function renderView(V, tms) {
+    var W = V.fs ? V.cv.clientWidth : V.cv.clientWidth, H;
+    if (!W) return null;
+    H = V.fs ? V.cv.clientHeight : (V.proj === 'all' ? Math.round(W / 2) : W);
+    if (!H) return null;
+    sizeView(V, W, H);
+    var S = calc(msOf(day, mins)), ground = V.fs ? OPT.ground : false;
+    if (gOn && performance.now() - gAt < 1000) V.dirty = true;   // la Vía Láctea aparece suavecito
+    setupProj(V);
+    if (V.dirty) { paint(V, S, ground); V.dirty = false; }
+    var ctx = V.ctx; ctx.setTransform(V.dpr, 0, 0, V.dpr, 0, 0); ctx.clearRect(0, 0, V.W, V.H); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(V.buf, 0, 0, V.W, V.H);
+    overlay(V, S, tms || performance.now(), ground);
+    return S;
+  }
+  function render() {
+    raf = 0; if (!V1 || fsOn) return;
+    V1.q = .8; var S = renderView(V1, performance.now()); if (S) texto(S);
+    if (gOn && performance.now() - gAt < 1000) ask();
+  }
   function ask() { if (!raf) raf = requestAnimationFrame(render); }
-  function intro(ms) {
-    cancelAnimationFrame(anim); lineP = 0;
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { lineP = 1; ask(); return; }
-    var t0 = performance.now();
-    (function step() { var p = clamp((performance.now() - t0) / ms, 0, 1); lineP = 1 - Math.pow(1 - p, 3); render(); if (p < 1) anim = requestAnimationFrame(step); })();
-  }
-  function hora() {
-    $('clHora').innerHTML = fmt(day, mins) + (mins === ESPECIAL ? '<small>' + (day ? 'a la misma hora, una semana después' : 'la hora exacta en que nos conocimos') + '</small>' : '<small>así iba girando el cielo durante la noche</small>');
-    $('clReset').hidden = mins === ESPECIAL;
-  }
+  function dirtyAll() { if (V1) V1.dirty = true; if (V2) V2.dirty = true; ask(); }
 
-  function stopPlay() { if (!playing) return; playing = false; cancelAnimationFrame(playRaf); $('clPlay').textContent = '▶︎ Ver esa noche'; }
+  /* ---------- hora, días y reproducción de la noche ---------- */
+  function hora() {
+    var h = fmt(day, mins) + (mins === ESPECIAL ? '<small>' + (day ? 'a la misma hora, una semana después' : 'la hora exacta en que nos conocimos') + '</small>' : '<small>así iba girando el cielo durante la noche</small>');
+    if (h !== lastHora) { lastHora = h; $('clHora').innerHTML = h; if ($('fsHora')) $('fsHora').innerHTML = h; }
+    $('clReset').hidden = mins === ESPECIAL; if ($('fsReset')) $('fsReset').hidden = mins === ESPECIAL;
+    sl.value = mins; if ($('fsSl')) $('fsSl').value = mins;
+  }
+  function playUI(on) {
+    $('clPlay').textContent = on ? '❚❚ Parar' : '▶︎ Ver esa noche';
+    if ($('fsPlay')) { $('fsPlay').classList.toggle('on', on); $('fsPlay').firstChild.textContent = on ? '❚❚' : '▶︎'; $('fsPlay').lastChild.textContent = on ? 'Parar' : 'Ver esa noche'; }
+  }
+  function stopPlay() { if (!playing) return; playing = false; cancelAnimationFrame(playRaf); playUI(false); }
   function momento(on) {
-    var m = $('clMoment'); clearTimeout(momT);
-    if (!on) { m.classList.remove('on'); return; }
-    m.firstChild.textContent = '9:49 pm'; m.lastChild.textContent = day ? 'Un sí' : 'Un mensaje'; m.classList.add('on');
-    momT = setTimeout(function () { m.classList.remove('on'); }, 7000);
+    clearTimeout(momT);
+    [$('clMoment'), $('fsMoment')].forEach(function (m) {
+      if (!m) return; if (!on) { m.classList.remove('on'); return; }
+      m.firstChild.textContent = '9:49 pm'; m.lastChild.textContent = day ? 'Un sí' : 'Un mensaje'; m.classList.add('on');
+    });
+    if (on) momT = setTimeout(function () { [$('clMoment'), $('fsMoment')].forEach(function (m) { if (m) m.classList.remove('on'); }); }, 7000);
+  }
+  function setMins(m) { mins = m; hora(); dirtyAll(); }
+  function setDay(d) {
+    stopPlay(); momento(false); day = d; mins = ESPECIAL;
+    [].forEach.call(document.querySelectorAll('.cl-tab, .fs-days button'), function (x) { var on = +x.getAttribute('data-d') === d; x.classList.toggle('on', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
+    cap.classList.remove('on'); hora(); dirtyAll(); intro1(1400);
+  }
+  function intro1(ms) {
+    cancelAnimationFrame(anim); lineP = 0;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { lineP = 1; dirtyAll(); return; }
+    var t0 = performance.now();
+    (function step() { var p = clamp((performance.now() - t0) / ms, 0, 1); lineP = 1 - Math.pow(1 - p, 3); ask(); if (p < 1) anim = requestAnimationFrame(step); })();
   }
   function ver() {
     if (playing) { stopPlay(); return; }
     var b = $('clPlay'); b.classList.remove('pulse'); momento(false); cap.classList.remove('on'); cancelAnimationFrame(anim);
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { mins = ESPECIAL; sl.value = ESPECIAL; lineP = 1; hora(); render(); momento(true); return; }
-    var from = 1080, t0 = performance.now(); playing = true; b.textContent = '❚❚ Parar';
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { mins = ESPECIAL; lineP = 1; hora(); dirtyAll(); momento(true); return; }
+    var from = 1080, t0 = performance.now(); playing = true; playUI(true);
     (function step() {
       var p = clamp((performance.now() - t0) / 15000, 0, 1), e = 1 - Math.pow(1 - p, 2.2);
-      mins = p < 1 ? from + (ESPECIAL - from) * e : ESPECIAL; sl.value = mins; lineP = clamp((p - .5) / .32, 0, 1); hora(); render();
-      if (p < 1) playRaf = requestAnimationFrame(step); else { stopPlay(); lineP = 1; render(); momento(true); }
+      mins = p < 1 ? from + (ESPECIAL - from) * e : ESPECIAL; lineP = clamp((p - .5) / .32, 0, 1); hora(); dirtyAll();
+      if (p < 1) playRaf = requestAnimationFrame(step); else { stopPlay(); lineP = 1; dirtyAll(); momento(true); }
     })();
   }
 
-  function fit() {
-    var vw = innerWidth, vh = innerHeight, s = vw > vh ? Math.min(vh - 28, vw - 340) : Math.min(vw - 28, vh * .5);
-    ov.style.setProperty('--s', Math.max(220, Math.round(s)) + 'px');
+  /* ---------- pantalla completa: el planetario ---------- */
+  var FS_HTML = '<canvas id="fsCv" role="img" aria-label="Planetario: el cielo de esa noche. Arrastra para girarlo."></canvas><div class="fs-vig"></div>'
+    + '<div class="fs-top"><button class="fs-x" id="fsX" type="button" aria-label="Cerrar pantalla completa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>'
+    + '<div class="fs-ttl"><b>El cielo de la noche que te conocí</b><span id="fsHead"></span></div></div>'
+    + '<div class="fs-chips" id="fsChips">'
+    + '<button type="button" class="fs-chip on" data-o="lines"><i></i>Constelaciones</button><button type="button" class="fs-chip on" data-o="names"><i></i>Nombres</button>'
+    + '<button type="button" class="fs-chip on" data-o="ground"><i></i>Montañas</button><button type="button" class="fs-chip" data-o="grid"><i></i>Cuadrícula</button>'
+    + '<button type="button" class="fs-chip" data-o="all"><i></i>Todo el cielo</button><button type="button" class="fs-chip go" data-o="home">✦ Ir a la Vía Láctea</button></div>'
+    + '<div class="fs-moment" id="fsMoment" aria-hidden="true"><b></b><span></span></div><div class="fs-cap" id="fsCap" aria-live="polite"></div>'
+    + '<div class="fs-hint" id="fsHint"><span>Arrastra para girar el cielo</span><span>Pellizca o usa la rueda para acercar</span><span>Mueve la hora abajo y míralo girar</span></div>'
+    + '<div class="fs-dock" id="fsDock"><div class="fs-days"><button type="button" data-d="0" class="on" aria-selected="true"><b>11 de octubre</b><small>la noche que nos conocimos</small></button><button type="button" data-d="1" aria-selected="false"><b>18 de octubre</b><small>el día del sí</small></button></div>'
+    + '<div class="fs-hora" id="fsHora"></div>'
+    + '<div class="fs-row"><button class="fs-play" id="fsPlay" type="button"><span>▶︎</span><span>Ver esa noche</span></button><input class="fs-sl" id="fsSl" type="range" min="1080" max="1740" step="1" value="1309" aria-label="Mover la hora de la noche"><button class="fs-reset" id="fsReset" type="button" hidden>9:49</button></div>'
+    + '<div class="fs-ends"><span>6:00 pm</span><span>5:00 am</span></div>'
+    + '<button class="fs-info" id="fsInfoB" type="button" aria-expanded="false">¿Qué se veía esa noche? <i>⌃</i></button><div class="fs-txt" id="fsTxt"></div></div>';
+
+  function fsFit() { if (!V2) return; V2.dirty = true; }
+  function goHome(anim2) {
+    var S = calc(msOf(day, mins)), t = V2.proj === 'all' ? { yaw: galaxyAim(S).yaw, pitch: 0, psi: V2.psi, zoomAll: 1, offY: 0 } : (function () { var a = galaxyAim(S); return { yaw: a.yaw, pitch: a.pitch, psi: 52, zoomAll: 1, offY: 0 }; })();
+    if (!anim2) { V2.yaw = t.yaw; V2.pitch = t.pitch; V2.psi = t.psi; V2.zoomAll = 1; V2.offY = 0; V2.dirty = true; return; }
+    var dy = ((t.yaw - V2.yaw + 540) % 360) - 180;
+    tween = { t0: performance.now(), d: 800, y0: V2.yaw, dy: dy, p0: V2.pitch, dp: t.pitch - V2.pitch, s0: V2.psi, ds: t.psi - V2.psi, z0: V2.zoomAll, dz: 1 - V2.zoomAll, o0: V2.offY, doff: -V2.offY };
   }
-  function mover(el, dest) { var m = document.createComment('cl'); el.parentNode.insertBefore(m, el); movs.push([el, m]); dest.appendChild(el); }
   function abrirFs(auto) {
-    if (fsOn) return; fsOn = true; fsAuto = !!auto; fit();
-    var root = $('cielo'); root.style.minHeight = root.offsetHeight + 'px';
-    mover(wrap, $('fsMap')); wrap.classList.add('fs');
-    ['clTabs', 'clHora', 'clSlider', 'clEnds', 'clAct', 'clTxt'].forEach(function (id) { mover($(id), $('fsPanel')); });
-    ov.classList.add('on'); $('clFsb').setAttribute('aria-label', 'Cerrar pantalla completa');
+    if (fsOn) return; fsOn = true; fsAuto = !!auto; ov.classList.add('on'); document.documentElement.classList.add('cl-fs');
+    V2.proj = 'cam'; $('fsChips').querySelector('[data-o="all"]').classList.remove('on'); goHome(false);
+    intro.on = true; intro.t0 = performance.now(); V2.psi = 84; V2.q = .5; V2.dirty = true; V2.meteors = []; nextMeteor = performance.now() + 4500; lineP = 0;
+    $('clFsb').setAttribute('aria-label', 'Cerrar pantalla completa'); hora(); texto(calc(msOf(day, mins)));
+    ov.classList.remove('info'); $('fsInfoB').setAttribute('aria-expanded', 'false'); clearTimeout(hintT); $('fsHint').classList.add('on'); hintT = setTimeout(hideHint, 9000);
     if (!auto) {
       try {
         var rq = ov.requestFullscreen || ov.webkitRequestFullscreen;
-        if (rq) { var pr = rq.call(ov); fsApi = true; if (pr && pr.then) pr.then(function () { try { screen.orientation.lock('landscape').catch(function () {}); } catch (e) {} }).catch(function () { fsApi = false; }); }
+        if (rq) { var pr = rq.call(ov); fsApi = true; if (pr && pr.catch) pr.catch(function () { fsApi = false; }); }
       } catch (e) { fsApi = false; }
     }
-    ask();
+    fsLast = 0; if (!fsRaf) fsRaf = requestAnimationFrame(fsLoop);
   }
   function cerrarFs() {
-    if (!fsOn) return; fsOn = false; ov.classList.remove('on'); wrap.classList.remove('fs');
-    for (var i = movs.length - 1; i >= 0; i--) { movs[i][1].parentNode.insertBefore(movs[i][0], movs[i][1]); movs[i][1].remove(); } movs = [];
-    $('cielo').style.minHeight = ''; $('clFsb').setAttribute('aria-label', 'Ver en pantalla completa');
+    if (!fsOn) return; fsOn = false; ov.classList.remove('on', 'drag'); document.documentElement.classList.remove('cl-fs'); cancelAnimationFrame(fsRaf); fsRaf = 0; tween = null; ptr.pts = {}; ptr.down = false;
+    $('clFsb').setAttribute('aria-label', 'Ver en pantalla completa');
     try { if (document.fullscreenElement || document.webkitFullscreenElement) (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) {}
     fsApi = false; try { screen.orientation.unlock(); } catch (e) {}
     if (innerWidth > innerHeight) descartado = true;
-    ask(); setTimeout(ask, 250);
+    lineP = 1; dirtyAll(); setTimeout(ask, 250);
   }
+  function hideHint() { clearTimeout(hintT); $('fsHint').classList.remove('on'); }
   function apaisado() { return innerWidth > innerHeight && innerHeight <= 620 && !!window.matchMedia && matchMedia('(pointer: coarse)').matches; }
   function onRot() {
     clearTimeout(rotT);
     rotT = setTimeout(function () {
-      if (fsOn) { if (fsAuto && !apaisado()) cerrarFs(); else { fit(); ask(); } return; }
+      if (fsOn) { if (fsAuto && !apaisado()) cerrarFs(); else fsFit(); return; }
       if (!apaisado()) { descartado = false; return; }
       var w = $('win'); if (inView && !descartado && w && !w.hidden) abrirFs(true);
     }, 280);
   }
+  function headText() {
+    if (V2.proj === 'all') return 'Todo el cielo a la vez · arriba lo que se veía, abajo lo que tapaba el suelo';
+    var az = ((V2.yaw % 360) + 360) % 360, alt = Math.round(V2.pitch);
+    return 'Mirando al ' + dir(az) + ' · ' + Math.round(az) + '° · ' + (alt >= 80 ? 'justo arriba' : alt <= -5 ? 'bajo el horizonte' : alt + '° sobre el horizonte');
+  }
+  function fsLoop(t) {
+    fsRaf = 0; if (!fsOn) return;
+    var dt = fsLast ? Math.min(.05, (t - fsLast) / 1000) : .016; fsLast = t;
+    var moving = ptr.down || playing || intro.on || !!tween || t - wheelT < 220 || Math.abs(V2.vx) > .05 || Math.abs(V2.vy) > .05;
+    if (intro.on) {
+      var p = clamp((t - intro.t0) / 1700, 0, 1), e = 1 - Math.pow(1 - p, 3); V2.psi = mix1(84, 52, e); lineP = clamp((p - .35) / .6, 0, 1);
+      if (p >= 1) { intro.on = false; lineP = 1; }
+    }
+    if (tween) {
+      var tp = clamp((t - tween.t0) / tween.d, 0, 1), te = tp < .5 ? 2 * tp * tp : 1 - Math.pow(-2 * tp + 2, 2) / 2;
+      V2.yaw = tween.y0 + tween.dy * te; V2.pitch = tween.p0 + tween.dp * te; V2.psi = tween.s0 + tween.ds * te; V2.zoomAll = tween.z0 + tween.dz * te; V2.offY = tween.o0 + tween.doff * te; if (tp >= 1) tween = null;
+    }
+    if (!ptr.down && (Math.abs(V2.vx) > .05 || Math.abs(V2.vy) > .05)) {
+      V2.yaw += V2.vx * dt; V2.pitch = clamp(V2.pitch + V2.vy * dt, -89, 89); var dk = Math.exp(-dt * 3.4); V2.vx *= dk; V2.vy *= dk;
+      if (V2.proj === 'all') V2.pitch = 0;
+    }
+    V2.yaw = ((V2.yaw % 360) + 360) % 360;
+    var wantQ = moving ? qOf(V2, 80000) : qOf(V2, 210000);
+    if (Math.abs(V2.q - wantQ) > .01) { V2.q = wantQ; V2.dirty = true; }
+    if (moving) V2.dirty = true;
+    if (t > nextMeteor && !document.hidden) {
+      var a = Math.random() * 6.28, L = Math.min(V2.W, V2.H) * (.45 + Math.random() * .4), x0 = V2.W * (.15 + Math.random() * .7), y0 = V2.H * (.1 + Math.random() * .35);
+      V2.meteors.push({ x: x0, y: y0, dx: Math.cos(.5 + Math.random() * .5) * L * (Math.random() < .5 ? 1 : -1), dy: Math.sin(.5 + Math.random() * .4) * L * .8, t0: t, dur: 650 + Math.random() * 450 }); nextMeteor = t + 6000 + Math.random() * 9000;
+    }
+    fsSkip ^= 1;
+    if (moving || V2.dirty || !fsSkip || V2.meteors.length) renderView(V2, t);
+    if (t - headT > 150) { headT = t; $('fsHead').textContent = headText(); }
+    fsRaf = requestAnimationFrame(fsLoop);
+  }
+  function degPerPx() { return V2.proj === 'all' ? 360 / (4 * Math.SQRT2 * V2.hs) : DEG / V2.K; }
+  function clampOff() { var lim = Math.max(0, V2.hs * Math.SQRT2 - V2.H / 2 + 24); V2.offY = clamp(V2.offY, -lim, lim); }
+  function setupFsEvents() {
+    var dist = function () { var k = Object.keys(ptr.pts), a = ptr.pts[k[0]], b = ptr.pts[k[1]]; return Math.hypot(a[0] - b[0], a[1] - b[1]) || 1; };
+    fsCv.addEventListener('pointerdown', function (e) {
+      try { fsCv.setPointerCapture(e.pointerId); } catch (x) {}
+      ptr.pts[e.pointerId] = [e.clientX, e.clientY]; var n = Object.keys(ptr.pts).length; tween = null; hideHint();
+      if (n === 1) { ptr.down = true; ptr.sx = ptr.lx = e.clientX; ptr.sy = ptr.ly = e.clientY; ptr.lt = performance.now(); ptr.moved = 0; V2.vx = V2.vy = 0; ov.classList.add('drag'); }
+      else if (n === 2) { ptr.pinch = dist(); ptr.psi0 = V2.psi; ptr.z0 = V2.zoomAll; ptr.moved = 99; }
+    });
+    fsCv.addEventListener('pointermove', function (e) {
+      if (!ptr.pts[e.pointerId]) return; ptr.pts[e.pointerId] = [e.clientX, e.clientY]; var n = Object.keys(ptr.pts).length;
+      if (n >= 2) {
+        var r = ptr.pinch / dist();
+        if (V2.proj === 'cam') V2.psi = clamp(ptr.psi0 * r, 5, 84); else { V2.zoomAll = clamp(ptr.z0 / r, 1, 4); clampOff(); }
+        V2.dirty = true; return;
+      }
+      if (!ptr.down) return;
+      var now = performance.now(), dx = e.clientX - ptr.lx, dy = e.clientY - ptr.ly, dtt = Math.max(8, now - ptr.lt) / 1000, k = degPerPx();
+      ptr.moved += Math.abs(dx) + Math.abs(dy);
+      V2.yaw -= dx * k; if (V2.proj === 'cam') V2.pitch = clamp(V2.pitch + dy * k, -89, 89); else { V2.offY += dy; clampOff(); }
+      V2.vx = V2.vx * .6 + (-dx * k / dtt) * .4; V2.vy = V2.vy * .6 + (V2.proj === 'cam' ? dy * k / dtt : 0) * .4;
+      ptr.lx = e.clientX; ptr.ly = e.clientY; ptr.lt = now; V2.dirty = true;
+    });
+    var up = function (e) {
+      var had = !!ptr.pts[e.pointerId]; delete ptr.pts[e.pointerId]; var n = Object.keys(ptr.pts).length;
+      if (n === 0) { ov.classList.remove('drag'); if (had && ptr.down) { ptr.down = false;
+        if (performance.now() - ptr.lt > 90) V2.vx = V2.vy = 0;
+        if (ptr.moved < 8 && e.type === 'pointerup') {
+          var now = performance.now(), r = fsCv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+          if (now - ptr.tapT < 320) { ptr.tapT = 0; goHome(true); return; }
+          ptr.tapT = now; var best = null, bd = 30 * 30;
+          V2.hits.forEach(function (h) { var d = (h.x - x) * (h.x - x) + (h.y - y) * (h.y - y); if (d < bd) { bd = d; best = h; } });
+          var c2 = $('fsCap'); clearTimeout(capT);
+          if (!best) c2.classList.remove('on'); else { c2.innerHTML = '<b></b> <span></span>'; c2.firstChild.textContent = best.t; c2.lastChild.textContent = '· ' + best.s; c2.classList.add('on'); capT = setTimeout(function () { c2.classList.remove('on'); }, 6500); }
+        } } }
+      else if (n === 1) { var k2 = Object.keys(ptr.pts)[0]; ptr.down = true; ptr.lx = ptr.pts[k2][0]; ptr.ly = ptr.pts[k2][1]; ptr.moved = 99; V2.vx = V2.vy = 0; }
+    };
+    fsCv.addEventListener('pointerup', up); fsCv.addEventListener('pointercancel', up);
+    fsCv.addEventListener('wheel', function (e) {
+      e.preventDefault(); hideHint(); wheelT = performance.now(); var f = Math.exp(e.deltaY * (e.deltaMode ? .05 : .0014));
+      if (V2.proj === 'cam') V2.psi = clamp(V2.psi * f, 5, 84); else { V2.zoomAll = clamp(V2.zoomAll / f, 1, 4); clampOff(); }
+      V2.dirty = true;
+    }, { passive: false });
+    document.addEventListener('keydown', function (e) {
+      if (!fsOn) return; var k = e.key, st = V2.psi / 12;
+      if (k === 'Escape') { cerrarFs(); return; }
+      if (k === 'ArrowLeft') V2.yaw -= st; else if (k === 'ArrowRight') V2.yaw += st; else if (k === 'ArrowUp') V2.pitch = clamp(V2.pitch + st, -89, 89); else if (k === 'ArrowDown') V2.pitch = clamp(V2.pitch - st, -89, 89);
+      else if (k === '+' || k === '=') V2.psi = clamp(V2.psi * .85, 5, 84); else if (k === '-') V2.psi = clamp(V2.psi / .85, 5, 84); else return;
+      wheelT = performance.now(); V2.dirty = true; e.preventDefault();
+    });
+    $('fsX').addEventListener('click', cerrarFs);
+    $('fsSl').addEventListener('input', function (e) { stopPlay(); momento(false); setMins(+e.target.value); wheelT = performance.now(); hideHint(); });
+    $('fsPlay').addEventListener('click', ver);
+    $('fsReset').addEventListener('click', function () { stopPlay(); momento(false); setMins(ESPECIAL); });
+    [].forEach.call(ov.querySelectorAll('.fs-days button'), function (b) { b.addEventListener('click', function () { setDay(+b.getAttribute('data-d')); }); });
+    $('fsInfoB').addEventListener('click', function () { var on = ov.classList.toggle('info'); $('fsInfoB').setAttribute('aria-expanded', on ? 'true' : 'false'); });
+    $('fsChips').addEventListener('click', function (e) {
+      var b = e.target.closest('.fs-chip'); if (!b) return; var o = b.getAttribute('data-o'); hideHint();
+      if (o === 'home') { goHome(true); return; }
+      if (o === 'all') {
+        var on = !b.classList.contains('on'); b.classList.toggle('on', on); V2.proj = on ? 'all' : 'cam'; var gb = ov.querySelector('[data-o="ground"]');
+        if (on) { V2.pitch = 0; V2.zoomAll = 1; V2.offY = 0; V2.gPrev = OPT.ground; OPT.ground = false; gb.classList.remove('on'); } else { goHome(false); if (V2.gPrev !== undefined) { OPT.ground = V2.gPrev; gb.classList.toggle('on', OPT.ground); } } V2.vx = V2.vy = 0; V2.dirty = true; return;
+      }
+      OPT[o] = !OPT[o]; b.classList.toggle('on', OPT[o]); V2.dirty = true;
+    });
+    new ResizeObserver(function () { V2.dirty = true; }).observe(ov);
+  }
 
+  /* ---------- la carta: textura de galaxia (nebulosas, estrellas y una espiral que gira despacito) ---------- */
+  function buildArt(root) {
+    try {
+      var r = NZ.r, c = document.createElement('canvas'); c.width = 360; c.height = 720; var x = c.getContext('2d');
+      x.fillStyle = '#04061a'; x.fillRect(0, 0, 360, 720);
+      var cols = [[110, 90, 255], [255, 90, 190], [60, 190, 255], [150, 80, 230], [70, 110, 255], [255, 140, 120]];
+      x.globalCompositeOperation = 'lighter';
+      for (var i = 0; i < 22; i++) {
+        var cc = cols[(r() * cols.length) | 0], px = r() * 360, py = r() * 720, rr = 70 + r() * 190, g = x.createRadialGradient(px, py, 0, px, py, rr);
+        g.addColorStop(0, 'rgba(' + cc[0] + ',' + cc[1] + ',' + cc[2] + ',' + (.045 + r() * .08).toFixed(3) + ')'); g.addColorStop(1, 'rgba(' + cc[0] + ',' + cc[1] + ',' + cc[2] + ',0)'); x.fillStyle = g; x.fillRect(px - rr, py - rr, rr * 2, rr * 2);
+      }
+      for (var j = 0; j < 1500; j++) {   // banda de Vía Láctea en diagonal, hecha de motitas de luz
+        var u = r(), cxp = -30 + u * 420, cyp = 640 - u * 600 + (r() + r() + r() - 1.5) * 70, rs = 1 + r() * 3.6, al = .03 + r() * .06, wc = r() < .25 ? '255,225,190' : '175,195,255';
+        var gg = x.createRadialGradient(cxp, cyp, 0, cxp, cyp, rs * 3); gg.addColorStop(0, 'rgba(' + wc + ',' + al.toFixed(3) + ')'); gg.addColorStop(1, 'rgba(' + wc + ',0)'); x.fillStyle = gg; x.fillRect(cxp - rs * 3, cyp - rs * 3, rs * 6, rs * 6);
+      }
+      x.globalCompositeOperation = 'source-over';
+      for (var s = 0; s < 640; s++) {
+        var sx = r() * 360, sy = r() * 720, sz = .35 + Math.pow(r(), 4) * 1.5, tint = r() < .2 ? '255,225,190' : r() < .4 ? '190,210,255' : '255,255,255';
+        x.fillStyle = 'rgba(' + tint + ',' + (.3 + r() * .7).toFixed(2) + ')'; x.beginPath(); x.arc(sx, sy, sz, 0, 7); x.fill();
+      }
+      root.style.setProperty('--cl-deep', 'url(' + c.toDataURL('image/jpeg', .8) + ')');
+      var sp = document.createElement('canvas'); sp.width = sp.height = 300; var y = sp.getContext('2d'); y.globalCompositeOperation = 'lighter';
+      for (var arm = 0; arm < 2; arm++) for (var n = 0; n < 2600; n++) {
+        var t = Math.pow(r(), .8), rad = 14 + t * 130, th = arm * Math.PI + Math.log(rad / 12) * 2.15 + (r() + r() - 1) * (.26 + .12 * t), px2 = 150 + Math.cos(th) * rad * (1 + (r() - .5) * .08), py2 = 150 + Math.sin(th) * rad * .62 * (1 + (r() - .5) * .08);
+        var rot = -.5, rx = (px2 - 150) * Math.cos(rot) - (py2 - 150) * Math.sin(rot) + 150, ry = (px2 - 150) * Math.sin(rot) + (py2 - 150) * Math.cos(rot) + 150, pk = r() < .06, rs2 = pk ? 2.4 + r() * 2 : .5 + r() * 1.5;
+        var col = pk ? '255,120,190' : (t < .3 ? '255,226,180' : '170,196,255'), a2 = (pk ? .5 : .18 + r() * .3) * (1 - t * .55);
+        var g3 = y.createRadialGradient(rx, ry, 0, rx, ry, rs2 * 2); g3.addColorStop(0, 'rgba(' + col + ',' + a2.toFixed(3) + ')'); g3.addColorStop(1, 'rgba(' + col + ',0)'); y.fillStyle = g3; y.fillRect(rx - rs2 * 2, ry - rs2 * 2, rs2 * 4, rs2 * 4);
+      }
+      var cg = y.createRadialGradient(150, 150, 0, 150, 150, 46); cg.addColorStop(0, 'rgba(255,240,205,.95)'); cg.addColorStop(.35, 'rgba(255,214,150,.45)'); cg.addColorStop(1, 'rgba(255,200,140,0)'); y.fillStyle = cg; y.fillRect(90, 90, 120, 120);
+      root.style.setProperty('--cl-spiral', 'url(' + sp.toDataURL('image/png') + ')');
+    } catch (e) {}
+  }
+
+  /* ---------- arranque ---------- */
   window.cieloInit = function () {
     var root = $('cielo'); if (!root || root.getAttribute('data-ok')) return; root.setAttribute('data-ok', '1');
     cv = $('clCv'); wrap = $('clWrap'); cap = $('clPick'); sl = $('clSlider');
-    ov = document.createElement('div'); ov.id = 'clFs'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'El cielo de la noche que te conocí, en pantalla completa');
-    ov.innerHTML = '<div class="fs-map" id="fsMap"></div><div class="fs-panel" id="fsPanel"><div class="fs-title">El cielo de la noche que te conocí</div><div class="fs-tip">Voltea el celular para verlo más grande</div></div>';
-    document.body.appendChild(ov);
+    V1 = makeView(cv, 'dome', false); V1.q = .8;
+    ov = document.createElement('div'); ov.id = 'clFs'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'El cielo de la noche que te conocí, en pantalla completa'); ov.innerHTML = FS_HTML; document.body.appendChild(ov);
+    fsCv = $('fsCv'); V2 = makeView(fsCv, 'cam', true); V2.meteors = []; V2.vx = 0; V2.vy = 0; V2.q = .5;
+    setupFsEvents(); buildArt(root); galStart(); gAsk.push(function () { dirtyAll(); });
     hora(); render();
-    sl.addEventListener('input', function () { stopPlay(); momento(false); mins = +sl.value; hora(); ask(); });
-    $('clReset').addEventListener('click', function () { stopPlay(); momento(false); mins = ESPECIAL; sl.value = ESPECIAL; hora(); ask(); });
+    sl.addEventListener('input', function () { stopPlay(); momento(false); setMins(+sl.value); });
+    $('clReset').addEventListener('click', function () { stopPlay(); momento(false); setMins(ESPECIAL); });
     $('clPlay').addEventListener('click', ver);
-    [].forEach.call(root.querySelectorAll('.cl-tab'), function (b) {
+    [].forEach.call(root.querySelectorAll('.cl-tab'), function (b) { b.addEventListener('click', function () { setDay(+b.getAttribute('data-d')); }); });
+    [].forEach.call(root.querySelectorAll('.cl-views button'), function (b) {
       b.addEventListener('click', function () {
-        stopPlay(); momento(false); day = +b.getAttribute('data-d'); mins = ESPECIAL; sl.value = ESPECIAL;
-        [].forEach.call(document.querySelectorAll('.cl-tab'), function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
-        cap.classList.remove('on'); hora(); intro(1400);
+        var p = b.getAttribute('data-v'); V1.proj = p; V1.yaw = 180; V1.zoomAll = 1; V1.offY = 0; V1.dirty = true; cap.classList.remove('on');
+        [].forEach.call(root.querySelectorAll('.cl-views button'), function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', x === b ? 'true' : 'false'); }); ask();
       });
     });
     $('clFsb').addEventListener('click', function (e) { e.stopPropagation(); if (fsOn) cerrarFs(); else abrirFs(false); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && fsOn) cerrarFs(); });
     var fc = function () { if (fsOn && fsApi && !document.fullscreenElement && !document.webkitFullscreenElement) { fsApi = false; cerrarFs(); } };
     document.addEventListener('fullscreenchange', fc); document.addEventListener('webkitfullscreenchange', fc);
     addEventListener('resize', onRot); addEventListener('orientationchange', onRot);
     cv.addEventListener('pointerdown', function (e) {
       var r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, best = null, bd = 28 * 28;
-      hits.forEach(function (h) { var d = (h.x - x) * (h.x - x) + (h.y - y) * (h.y - y); if (d < bd) { bd = d; best = h; } });
+      V1.hits.forEach(function (h) { var d = (h.x - x) * (h.x - x) + (h.y - y) * (h.y - y); if (d < bd) { bd = d; best = h; } });
       clearTimeout(capT);
       if (!best) { cap.classList.remove('on'); return; }
       cap.innerHTML = '<b></b> <span></span>'; cap.firstChild.textContent = best.t; cap.lastChild.textContent = '· ' + best.s; cap.classList.add('on'); capT = setTimeout(function () { cap.classList.remove('on'); }, 6500);
     });
-    if (window.ResizeObserver) new ResizeObserver(ask).observe(wrap);
-    var visto = false;
-    var th = []; for (var q = 0; q <= 20; q++) th.push(q / 20);
+    if (window.ResizeObserver) new ResizeObserver(function () { V1.dirty = true; ask(); }).observe(wrap);
+    var visto = false, th = []; for (var q = 0; q <= 20; q++) th.push(q / 20);
     new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         var vh = e.rootBounds ? e.rootBounds.height : innerHeight;
         inView = e.isIntersecting && e.intersectionRect.height >= Math.min(e.boundingClientRect.height * .35, vh * .3);
-        if (inView && !visto) { visto = true; intro(2600); }
+        if (inView && !visto) { visto = true; intro1(2600); }
       });
     }, { root: $('win'), threshold: th }).observe(wrap);
   };
