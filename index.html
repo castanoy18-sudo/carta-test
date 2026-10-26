@@ -1846,9 +1846,7 @@
   .vnb::after { content: ""; position: absolute; inset: -45% -12%; z-index: -1; pointer-events: none; mix-blend-mode: screen; filter: blur(5px);
     background: linear-gradient(104deg, transparent 38%, rgba(160,175,255,.2) 47%, rgba(255,214,235,.24) 51%, rgba(150,170,255,.16) 56%, transparent 66%), radial-gradient(46px 14px at 72% 50%, rgba(255,232,205,.28), transparent 70%);
     animation: vnBand 16s ease-in-out infinite alternate; }
-  .vn-fill { position: absolute; z-index: -1; left: 0; top: 0; bottom: 0; width: calc(var(--p, 0) * 100%); pointer-events: none; opacity: 0; transition: opacity .3s; background: linear-gradient(90deg, rgba(255,160,110,.34), rgba(150,120,255,.22)); border-radius: 0 24px 24px 0; }
-  /* la línea de avance: más corta que el botón, con puntas redondeadas, para que quede bien dentro del recuadro */
-  .vn-fill::after { content: ""; position: absolute; right: 0; top: 12px; bottom: 12px; width: 3px; border-radius: 3px; background: rgba(255,232,205,.9); box-shadow: 0 0 10px 1px rgba(255,200,150,.6); }
+  .vn-fill { position: absolute; z-index: -1; left: 0; top: 0; bottom: 0; width: calc(var(--p, 0) * 100%); pointer-events: none; opacity: 0; transition: opacity .3s; background: linear-gradient(90deg, rgba(255,160,110,.34), rgba(150,120,255,.22)); border-radius: 23px; box-shadow: inset -3px 0 0 rgba(255,232,205,.95), inset -12px 0 14px -8px rgba(255,200,150,.55); }   /* el avance sigue la curva del botón y cubre todo su alto */
   .vnb.on .vn-fill { opacity: 1; }
   .vn-shoot { position: absolute; z-index: -1; top: 20%; left: -12%; width: 52px; height: 1.5px; border-radius: 2px; pointer-events: none; opacity: 0; background: linear-gradient(90deg, transparent, #fff); filter: drop-shadow(0 0 3px #fff); animation: vnShoot 7.5s ease-in 1.2s infinite; }
   .vn-ic { flex: none; width: 50px; height: 50px; }
@@ -1893,7 +1891,10 @@
   .fs-x svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
   .fs-ttl { display: flex; flex-direction: column; gap: 3px; padding-top: 2px; text-shadow: 0 2px 10px rgba(0,0,0,.9), 0 0 3px rgba(0,0,0,.8); min-width: 0; }
   .fs-ttl b { font: 700 1.55rem/1.02 var(--hand); }
-  .fs-ttl span { font: 600 .78rem/1.25 var(--ui); color: #b9c6ff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: calc(100vw - 90px); }
+  .fs-ttl span { font: 600 .78rem/1.25 var(--ui); color: #b9c6ff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .fs-gy { pointer-events: auto; flex: none; margin-left: auto; display: flex; align-items: center; gap: 6px; height: 44px; padding: 0 14px 0 11px; border-radius: 22px; border: 1.5px solid rgba(200,210,255,.4); background: rgba(12,16,50,.78); color: #fff; font: 700 .8rem/1 var(--ui); cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  .fs-gy svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .fs-gy.on { background: linear-gradient(135deg, #6f5cff, #2aa7ff); border-color: #c4d3ff; box-shadow: 0 0 16px rgba(110,120,255,.7); }
   .fs-chips { position: absolute; left: 0; right: 0; top: calc(env(safe-area-inset-top, 0px) + 62px); display: flex; gap: 8px; padding: 4px calc(env(safe-area-inset-right, 0px) + 12px) 4px calc(env(safe-area-inset-left, 0px) + 12px); overflow-x: auto; scrollbar-width: none; touch-action: pan-x; }
   .fs-chips::-webkit-scrollbar { display: none; }
   .fs-chip { flex: none; display: flex; align-items: center; gap: 7px; padding: 9px 13px; border-radius: 22px; border: 1px solid rgba(190,200,255,.32); background: rgba(12,16,50,.8); color: #dfe4ff; font: 700 .82rem/1 var(--ui); cursor: pointer; touch-action: manipulation; transition: background .2s, border-color .2s; }
@@ -4559,7 +4560,7 @@
   'use strict';
   var $ = function (i) { return document.getElementById(i); };
 var CIELO_ST={"markab":[346.1904,15.2053,2.49,"Markab",""],"scheat":[345.9438,28.0828,2.42,"Scheat","#ffb27a"],"algenib":[3.3092,15.1836,2.83,"Algenib","#bcd2ff"],"enif":[326.0467,9.875,2.39,"Enif","#ffc08a"],"homam":[340.3654,10.8314,3.4,"",""],"biham":[332.5496,6.1978,3.53,"",""],"matar":[340.7504,30.2214,2.94,"","#ffc08a"],"alpheratz":[2.0971,29.0906,2.06,"Alpheratz","#bcd2ff"],"dand":[9.8321,30.8611,3.27,"","#ffc08a"],"mirach":[17.4329,35.6206,2.05,"Mirach","#ffb27a"],"almach":[30.975,42.3297,2.1,"Almach","#ffc08a"],"caph":[2.2946,59.1497,2.27,"Caph",""],"schedar":[10.1267,56.5372,2.23,"Schedar","#ffc08a"],"gcas":[14.1771,60.7167,2.47,"","#bcd2ff"],"ruchbah":[21.4537,60.2353,2.68,"",""],"segin":[28.5987,63.6703,3.37,"","#bcd2ff"],"mirfak":[51.0808,49.8611,1.79,"Mirfak",""],"algol":[47.0421,40.9556,2.12,"Algol","#bcd2ff"],"gper":[46.1992,53.5064,2.93,"","#ffc08a"],"dper":[55.7313,47.7875,3.01,"","#bcd2ff"],"eper":[59.4633,40.0103,2.89,"","#bcd2ff"],"zper":[58.5329,31.8836,2.85,"","#bcd2ff"],"hamal":[31.7933,23.4625,2.0,"Hamal","#ffc08a"],"sheratan":[28.66,20.8081,2.64,"",""],"mesarthim":[28.3825,19.2939,3.86,"",""],"aldebaran":[68.98,16.5092,0.85,"Aldebarán","#ffb27a"],"elnath":[81.5729,28.6075,1.65,"Elnath","#bcd2ff"],"ztau":[84.4113,21.1425,3.0,"","#bcd2ff"],"etau":[67.1542,19.1806,3.53,"","#ffc08a"],"gtau":[64.9483,15.6275,3.65,"","#ffc08a"],"d1tau":[65.7338,17.5425,3.76,"","#ffc08a"],"t2tau":[67.1654,15.8708,3.4,"",""],"alcyone":[56.8713,24.105,2.87,"","#bcd2ff"],"electra":[56.2188,24.1133,3.7,"","#bcd2ff"],"maia":[56.4567,24.3678,3.87,"","#bcd2ff"],"merope":[56.5817,23.9483,4.18,"","#bcd2ff"],"taygeta":[56.3021,24.4672,4.3,"","#bcd2ff"],"atlas":[57.2904,24.0533,3.63,"","#bcd2ff"],"capella":[79.1725,45.9981,0.08,"Capela","#ffc08a"],"menkalinan":[89.8821,44.9475,1.9,"",""],"thaur":[89.9304,37.2125,2.62,"",""],"iaur":[74.2483,33.1661,2.69,"","#ffc08a"],"betelgeuse":[88.7929,7.4069,0.5,"Betelgeuse","#ffb27a"],"rigel":[78.6346,-8.2017,0.13,"Rigel","#bcd2ff"],"bellatrix":[81.2829,6.3497,1.64,"Bellatrix","#bcd2ff"],"saiph":[86.9392,-9.6697,2.07,"","#bcd2ff"],"alnitak":[85.1896,-1.9428,1.77,"","#bcd2ff"],"alnilam":[84.0533,-1.2019,1.69,"","#bcd2ff"],"mintaka":[83.0017,0.2992,2.23,"","#bcd2ff"],"meissa":[83.7846,9.9342,3.3,"","#bcd2ff"],"deneb":[310.3579,45.2803,1.25,"Deneb",""],"sadr":[305.5571,40.2567,2.2,"Sadr",""],"gienah":[311.5529,33.9703,2.46,"","#ffc08a"],"dcyg":[296.2437,45.1308,2.87,"","#bcd2ff"],"albireo":[292.6804,27.9597,3.05,"Albireo","#ffc08a"],"vega":[279.2346,38.7836,0.03,"Vega","#bcd2ff"],"sheliak":[282.52,33.3628,3.45,"","#bcd2ff"],"sulafat":[284.7358,32.6894,3.24,"","#bcd2ff"],"d2lyr":[283.6262,36.8986,4.3,"","#ffb27a"],"z1lyr":[281.1933,37.605,4.3,"",""],"altair":[297.6958,8.8683,0.76,"Altair",""],"tarazed":[296.565,10.6133,2.72,"","#ffc08a"],"alshain":[298.8283,6.4067,3.71,"","#ffc08a"],"daql":[291.3746,3.1147,3.36,"",""],"laql":[286.5621,-4.8825,3.44,"","#bcd2ff"],"sualocin":[309.9096,15.9119,3.8,"","#bcd2ff"],"rotanev":[309.3854,14.5953,3.6,"",""],"g2del":[311.6642,16.1242,4.3,"","#ffc08a"],"ddel":[310.8646,15.0744,4.4,"",""],"edel":[308.3038,11.3033,4.0,"","#bcd2ff"],"algedi":[304.5137,-12.5447,3.57,"","#ffc08a"],"dabih":[305.2529,-14.7814,3.08,"","#ffc08a"],"psicap":[311.5237,-25.2708,4.14,"",""],"omegacap":[312.955,-26.9189,4.11,"","#ffc08a"],"thetacap":[316.4867,-17.2331,4.07,"",""],"zetacap":[321.6667,-22.4114,3.74,"","#ffc08a"],"nashira":[325.0225,-16.6625,3.68,"",""],"denebalgedi":[326.76,-16.1272,2.85,"Deneb Algedi",""],"sadalsuud":[322.8896,-5.5711,2.91,"Sadalsuud","#ffc08a"],"sadalmelik":[331.4458,0.3197,2.96,"Sadalmelik","#ffc08a"],"sadachbia":[335.4142,-1.3872,3.84,"",""],"zaqr":[337.2075,0.02,3.65,"",""],"etaaqr":[338.8388,0.1172,4.0,"","#bcd2ff"],"piaqr":[336.3192,1.3775,4.66,"","#bcd2ff"],"albali":[311.9192,-9.4958,3.77,"",""],"skat":[343.6625,-15.8208,3.27,"",""],"fomalhaut":[344.4125,-29.6222,1.16,"Fomalhaut",""],"alnair":[332.0583,-46.9611,1.74,"Alnair","#bcd2ff"],"tiaki":[340.6671,-46.8847,2.1,"","#ffb27a"],"aldhanab":[328.4821,-37.365,3.0,"","#bcd2ff"],"diphda":[10.8975,-17.9867,2.04,"Diphda","#ffc08a"],"menkar":[45.57,4.0897,2.53,"Menkar","#ffb27a"],"achernar":[24.4283,-57.2367,0.46,"Achernar","#bcd2ff"],"polaris":[37.9546,89.2642,1.98,"Polaris",""],"kausaustralis":[276.0429,-34.3847,1.85,"","#bcd2ff"],"nunki":[283.8163,-26.2967,2.05,"Nunki","#bcd2ff"],"ascella":[285.6529,-29.88,2.6,"",""],"kausmedia":[275.2483,-29.8281,2.7,"","#ffc08a"],"kausborealis":[276.9925,-25.4217,2.82,"","#ffc08a"],"alnasl":[271.4521,-30.4242,2.99,"","#ffc08a"],"phisgr":[281.4154,-26.9908,3.17,"","#bcd2ff"],"tausgr":[286.735,-27.6706,3.32,"","#ffc08a"],"antares":[247.3521,-26.4319,1.06,"Antares","#ffb27a"],"shaula":[263.4021,-37.1039,1.62,"Shaula","#bcd2ff"],"sargas":[264.3296,-42.9978,1.87,"",""],"dschubba":[240.0833,-22.6217,2.32,"","#bcd2ff"],"acrab":[241.3592,-19.8053,2.62,"","#bcd2ff"],"piSco":[239.7129,-26.1142,2.89,"","#bcd2ff"],"epssco":[252.5408,-34.2933,2.29,"","#ffc08a"],"mu1sco":[252.9675,-38.0475,3.08,"","#bcd2ff"],"zeta2sco":[253.6467,-42.3614,3.62,"","#ffc08a"],"etasco":[258.0375,-43.2389,3.33,"",""],"kappasco":[265.6221,-39.03,2.41,"","#bcd2ff"],"iota1sco":[266.8963,-40.1269,3.03,"",""],"sigsco":[245.2971,-25.5928,2.89,"","#bcd2ff"],"tausco":[248.9704,-28.2161,2.82,"","#bcd2ff"],"castor":[113.6496,31.8883,1.58,"Cástor",""],"pollux":[116.3287,28.0261,1.14,"Pólux","#ffc08a"],"alhena":[99.4279,16.3992,1.93,"",""],"mebsuta":[100.9829,25.1311,3.06,"","#ffc08a"],"tejat":[95.74,22.5136,2.88,"","#ffb27a"],"propus":[93.7196,22.5067,3.28,"","#ffb27a"],"wasat":[110.0308,21.9822,3.5,"",""],"mekbuda":[106.0271,20.5703,3.79,"","#ffc08a"],"sirius":[101.2871,-16.7161,-1.46,"Sirio","#bcd2ff"],"adhara":[104.6562,-28.9722,1.5,"","#bcd2ff"],"wezen":[107.0979,-26.3933,1.84,"","#ffc08a"],"mirzam":[95.675,-17.9561,1.98,"","#bcd2ff"],"aludra":[111.0238,-29.3031,2.45,"","#bcd2ff"],"procyon":[114.8254,5.225,0.34,"Procyon",""],"gomeisa":[111.7875,8.2894,2.9,"","#bcd2ff"],"regulus":[152.0929,11.9672,1.35,"Régulo","#bcd2ff"],"denebola":[177.265,14.5719,2.14,"",""],"algieba":[154.9933,19.8417,2.08,"","#ffc08a"],"zosma":[168.5271,20.5236,2.56,"",""],"adhafera":[154.1725,23.4172,3.4,"",""],"rasalas":[148.1908,26.0069,3.88,"","#ffc08a"],"etaleo":[151.8329,16.7628,3.52,"","#bcd2ff"],"epsleo":[146.4629,23.7742,2.98,"","#ffc08a"],"chertan":[168.56,15.4294,3.34,"",""],"acrux":[186.6496,-63.0992,0.77,"Acrux","#bcd2ff"],"mimosa":[191.93,-59.6886,1.25,"Mimosa","#bcd2ff"],"gacrux":[187.7913,-57.1133,1.64,"Gacrux","#ffb27a"],"imai":[183.7862,-58.7489,2.8,"","#bcd2ff"],"rigilkent":[219.9021,-60.8339,-0.01,"Alfa Centauri","#ffc08a"],"hadar":[210.9558,-60.3731,0.61,"Hadar","#bcd2ff"],"arcturus":[213.9154,19.1825,-0.05,"Arturo","#ffb27a"],"spica":[201.2983,-11.1614,0.97,"Spica","#bcd2ff"],"canopus":[95.9879,-52.6958,-0.74,"Canopus",""]};
-var CIELO_CON=[["Pegaso",[["alpheratz","scheat"],["scheat","markab"],["markab","algenib"],["algenib","alpheratz"],["markab","homam"],["homam","biham"],["biham","enif"]]],["Andrómeda",[["alpheratz","dand"],["dand","mirach"],["mirach","almach"]]],["Casiopea",[["caph","schedar"],["schedar","gcas"],["gcas","ruchbah"],["ruchbah","segin"]]],["Perseo",[["gper","mirfak"],["mirfak","dper"],["dper","eper"],["eper","zper"],["mirfak","algol"]]],["Aries",[["hamal","sheratan"],["sheratan","mesarthim"]]],["Tauro",[["elnath","etau"],["etau","d1tau"],["d1tau","gtau"],["gtau","t2tau"],["t2tau","aldebaran"],["aldebaran","ztau"]]],["Auriga",[["capella","menkalinan"],["menkalinan","thaur"],["thaur","elnath"],["elnath","iaur"],["iaur","capella"]]],["Orión",[["betelgeuse","meissa"],["meissa","bellatrix"],["betelgeuse","alnitak"],["bellatrix","mintaka"],["mintaka","alnilam"],["alnilam","alnitak"],["alnitak","saiph"],["mintaka","rigel"]]],["Cisne",[["deneb","sadr"],["sadr","albireo"],["dcyg","sadr"],["sadr","gienah"]]],["Lira",[["vega","z1lyr"],["z1lyr","d2lyr"],["d2lyr","sulafat"],["sulafat","sheliak"],["sheliak","z1lyr"]]],["Águila",[["tarazed","altair"],["altair","alshain"],["altair","daql"]]],["Delfín",[["rotanev","sualocin"],["sualocin","g2del"],["g2del","ddel"],["ddel","rotanev"],["rotanev","edel"]]],["Capricornio",[["algedi","dabih"],["algedi","thetacap"],["thetacap","nashira"],["nashira","denebalgedi"],["dabih","psicap"],["psicap","omegacap"],["omegacap","zetacap"],["zetacap","nashira"]]],["Acuario",[["albali","sadalsuud"],["sadalsuud","sadalmelik"],["sadalmelik","sadachbia"],["sadachbia","zaqr"],["piaqr","zaqr"],["zaqr","etaaqr"]]],["Sagitario",[["alnasl","kausmedia"],["kausmedia","kausborealis"],["kausmedia","kausaustralis"],["kausaustralis","ascella"],["ascella","tausgr"],["tausgr","nunki"],["nunki","phisgr"],["phisgr","kausborealis"],["phisgr","ascella"]]],["Escorpio",[["acrab","dschubba"],["dschubba","piSco"],["dschubba","sigsco"],["sigsco","antares"],["antares","tausco"],["tausco","epssco"],["epssco","mu1sco"],["mu1sco","zeta2sco"],["zeta2sco","etasco"],["etasco","sargas"],["sargas","iota1sco"],["iota1sco","kappasco"],["kappasco","shaula"]]],["Géminis",[["castor","mebsuta"],["mebsuta","tejat"],["tejat","propus"],["pollux","wasat"],["wasat","mekbuda"],["mekbuda","alhena"]]],["Can Mayor",[["mirzam","sirius"],["sirius","wezen"],["wezen","adhara"],["wezen","aludra"]]],["Can Menor",[["procyon","gomeisa"]]],["León",[["regulus","etaleo"],["etaleo","algieba"],["algieba","adhafera"],["adhafera","rasalas"],["rasalas","epsleo"],["algieba","zosma"],["zosma","denebola"],["zosma","chertan"],["chertan","denebola"]]],["Cruz del Sur",[["acrux","gacrux"],["mimosa","imai"]]]];
+var CIELO_CON=[["Pegaso",[["alpheratz","scheat"],["scheat","markab"],["markab","algenib"],["algenib","alpheratz"],["markab","homam"],["homam","biham"],["biham","enif"]]],["Andrómeda",[["alpheratz","dand"],["dand","mirach"],["mirach","almach"]]],["Casiopea",[["caph","schedar"],["schedar","gcas"],["gcas","ruchbah"],["ruchbah","segin"]]],["Perseo",[["gper","mirfak"],["mirfak","dper"],["dper","eper"],["eper","zper"],["mirfak","algol"]]],["Aries",[["hamal","sheratan"],["sheratan","mesarthim"]]],["Tauro",[["elnath","etau"],["etau","d1tau"],["d1tau","gtau"],["gtau","t2tau"],["t2tau","aldebaran"],["aldebaran","ztau"]]],["Auriga",[["capella","menkalinan"],["menkalinan","thaur"],["thaur","elnath"],["elnath","iaur"],["iaur","capella"]]],["Orión",[["betelgeuse","meissa"],["meissa","bellatrix"],["betelgeuse","alnitak"],["bellatrix","mintaka"],["mintaka","alnilam"],["alnilam","alnitak"],["alnitak","saiph"],["mintaka","rigel"]]],["Cisne",[["deneb","sadr"],["sadr","albireo"],["dcyg","sadr"],["sadr","gienah"]]],["Lira",[["vega","z1lyr"],["z1lyr","d2lyr"],["d2lyr","sulafat"],["sulafat","sheliak"],["sheliak","z1lyr"]]],["Águila",[["tarazed","altair"],["altair","alshain"],["altair","daql"]]],["Delfín",[["rotanev","sualocin"],["sualocin","g2del"],["g2del","ddel"],["ddel","rotanev"],["rotanev","edel"]]],["Capricornio",[["algedi","dabih"],["algedi","thetacap"],["thetacap","nashira"],["nashira","denebalgedi"],["dabih","psicap"],["psicap","omegacap"],["omegacap","zetacap"],["zetacap","nashira"]]],["Acuario",[["albali","sadalsuud"],["sadalsuud","sadalmelik"],["sadalmelik","sadachbia"],["sadachbia","zaqr"],["piaqr","zaqr"],["zaqr","etaaqr"]]],["Sagitario",[["alnasl","kausmedia"],["kausmedia","kausborealis"],["kausmedia","kausaustralis"],["kausaustralis","ascella"],["ascella","tausgr"],["tausgr","nunki"],["nunki","phisgr"],["phisgr","kausborealis"],["phisgr","ascella"]]],["Escorpio",[["acrab","dschubba"],["dschubba","piSco"],["dschubba","sigsco"],["sigsco","antares"],["antares","tausco"],["tausco","epssco"],["epssco","mu1sco"],["mu1sco","zeta2sco"],["zeta2sco","etasco"],["etasco","sargas"],["sargas","iota1sco"],["iota1sco","kappasco"],["kappasco","shaula"]]],["Géminis",[["castor","mebsuta"],["mebsuta","tejat"],["tejat","propus"],["pollux","wasat"],["wasat","mekbuda"],["mekbuda","alhena"]]],["Can Mayor",[["mirzam","sirius"],["sirius","wezen"],["wezen","adhara"],["wezen","aludra"]]],["Can Menor",[["procyon","gomeisa"]]],["León",[["regulus","etaleo"],["etaleo","algieba"],["algieba","adhafera"],["adhafera","rasalas"],["rasalas","epsleo"],["algieba","zosma"],["zosma","denebola"],["zosma","chertan"],["chertan","denebola"]]],["Cruz del Sur",[["acrux","gacrux"],["mimosa","imai"]]],["Ari y Alex",[["vega","altair"],["altair","deneb"],["deneb","vega"]]]];
 var RAD = Math.PI / 180, LAT = 6.337, LON = -75.544;
 function rev(x) { return x - 360 * Math.floor(x / 360); }
 function jd(ms) { return ms / 86400000 + 2440587.5; }
@@ -5138,7 +5139,7 @@ function cielo(ms) {
   /* ---------- pantalla completa: el planetario ---------- */
   var FS_HTML = '<canvas id="fsCv" role="img" aria-label="Planetario: el cielo de esa noche. Arrastra para girarlo."></canvas><div class="fs-vig"></div>'
     + '<div class="fs-top"><button class="fs-x" id="fsX" type="button" aria-label="Cerrar pantalla completa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>'
-    + '<div class="fs-ttl"><b>El cielo de la noche que te conocí</b><span id="fsHead"></span></div></div>'
+    + '<div class="fs-ttl"><b>El cielo de la noche que te conocí</b><span id="fsHead"></span></div><button class="fs-gy" id="fsGy" type="button" aria-pressed="false" aria-label="Mover el cielo con el giroscopio"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M10.5 18h3M3 9c-1 1.8-1 4.2 0 6M21 9c1 1.8 1 4.2 0 6"/></svg>Giroscopio</button></div>'
     + '<div class="fs-chips" id="fsChips">'
     + '<button type="button" class="fs-chip on" data-o="lines"><i></i>Constelaciones</button><button type="button" class="fs-chip on" data-o="names"><i></i>Nombres</button>'
     + '<button type="button" class="fs-chip on" data-o="ground"><i></i>Montañas</button><button type="button" class="fs-chip" data-o="grid"><i></i>Cuadrícula</button>'
@@ -5153,6 +5154,7 @@ function cielo(ms) {
 
   function fsFit() { if (!V2) return; V2.dirty = true; }
   function goHome(anim2) {
+    if (anim2 && gy.on) gyStop();
     var S = calc(msOf(day, mins)), t = V2.proj === 'all' ? { yaw: galaxyAim(S).yaw, pitch: 0, psi: V2.psi, zoomAll: 1, offY: 0 } : (function () { var a = galaxyAim(S); return { yaw: a.yaw, pitch: a.pitch, psi: 52, zoomAll: 1, offY: 0 }; })();
     if (!anim2) { V2.yaw = t.yaw; V2.pitch = t.pitch; V2.psi = t.psi; V2.zoomAll = 1; V2.offY = 0; V2.dirty = true; return; }
     var dy = ((t.yaw - V2.yaw + 540) % 360) - 180;
@@ -5173,7 +5175,7 @@ function cielo(ms) {
     fsLast = 0; if (!fsRaf) fsRaf = requestAnimationFrame(fsLoop);
   }
   function cerrarFs() {
-    if (!fsOn) return; fsOn = false; ov.classList.remove('on', 'drag'); document.documentElement.classList.remove('cl-fs'); cancelAnimationFrame(fsRaf); fsRaf = 0; tween = null; ptr.pts = {}; ptr.down = false;
+    if (!fsOn) return; gyStop(); fsOn = false; ov.classList.remove('on', 'drag'); document.documentElement.classList.remove('cl-fs'); cancelAnimationFrame(fsRaf); fsRaf = 0; tween = null; ptr.pts = {}; ptr.down = false;
     $('clFsb').setAttribute('aria-label', 'Ver en pantalla completa');
     try { if (document.fullscreenElement || document.webkitFullscreenElement) (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) {}
     fsApi = false; try { screen.orientation.unlock(); } catch (e) {}
@@ -5195,10 +5197,50 @@ function cielo(ms) {
     var az = ((V2.yaw % 360) + 360) % 360, alt = Math.round(V2.pitch);
     return 'Mirando al ' + dir(az) + ' · ' + Math.round(az) + '° · ' + (alt >= 80 ? 'justo arriba' : alt <= -5 ? 'bajo el horizonte' : alt + '° sobre el horizonte');
   }
+  /* ---------- giroscopio (iPhone: pide permiso; la brújula fija el norte) ---------- */
+  var gy = { on: false, ok: false, ty: 0, tp: 0, oy: 0, op: 0, off: null, ev: 'deviceorientation' };
+  var w180 = function (x) { return ((x % 360) + 540) % 360 - 180; };
+  function gyMsg(t) { var c2 = $('fsCap'); clearTimeout(capT); c2.textContent = t; c2.classList.add('on'); capT = setTimeout(function () { c2.classList.remove('on'); }, 4200); }
+  function gyOri(e) {
+    if (e.beta == null || e.gamma == null) return;
+    var a = e.alpha || 0, b = e.beta, g = e.gamma, h = e.webkitCompassHeading;
+    if (typeof h === 'number' && !isNaN(h)) {   // iOS: alpha arranca en un punto cualquiera; la brújula lo corrige
+      var d = (360 - h) - a;
+      if (gy.off === null) gy.off = d; else if (b > 25 && b < 85) gy.off += w180(d - gy.off) * .12;
+    } else if (gy.off === null) gy.off = 0;
+    var ar = (a + gy.off) * RAD, br = b * RAD, gr = g * RAD, sb = Math.sin(br), cb = Math.cos(br), sg = Math.sin(gr), cg = Math.cos(gr);
+    var E = -(sg * Math.cos(ar) + cg * sb * Math.sin(ar)), N = -(sg * Math.sin(ar) - cg * sb * Math.cos(ar)), U = -(cb * cg);   // hacia dónde apunta la parte de atrás del celular
+    if (Math.abs(U) < .985) gy.ty = Math.atan2(E, N) * DEG;
+    gy.tp = Math.asin(clamp(U, -1, 1)) * DEG;
+    if (!gy.ok) { gy.ok = true; gy.oy = gy.op = 0; V2.yaw = ((gy.ty % 360) + 360) % 360; V2.pitch = clamp(gy.tp, -89, 89); }
+    V2.dirty = true;
+  }
+  function gyStart() {
+    if (gy.on || !fsOn) return;
+    var ab = ov.querySelector('[data-o="all"]'); if (V2.proj === 'all' && ab) ab.click();
+    gy.on = true; gy.ok = false; gy.off = null; gy.oy = gy.op = 0; tween = null; V2.vx = V2.vy = 0; hideHint();
+    $('fsGy').classList.add('on'); $('fsGy').setAttribute('aria-pressed', 'true');
+    window.addEventListener(gy.ev, gyOri, true);
+    setTimeout(function () { if (gy.on && !gy.ok) { gyStop(); gyMsg('Este dispositivo no mandó datos del giroscopio.'); } }, 2000);
+  }
+  function gyStop() {
+    window.removeEventListener(gy.ev, gyOri, true); gy.on = false; gy.ok = false; V2.vx = V2.vy = 0;
+    var b = $('fsGy'); if (b) { b.classList.remove('on'); b.setAttribute('aria-pressed', 'false'); }
+  }
+  function gyToggle() {
+    if (gy.on) { gyStop(); return; }
+    var D = window.DeviceOrientationEvent;
+    if (!D) { gyMsg('Este dispositivo no tiene giroscopio.'); return; }
+    if (typeof D.requestPermission === 'function') {   // iPhone / iPad
+      gy.ev = 'deviceorientation';
+      D.requestPermission().then(function (r) { if (r === 'granted') gyStart(); else gyMsg('Falta el permiso. Actívalo en Ajustes › Safari › Movimiento y orientación, y recarga la página.'); }, function () { gyMsg('No se pudo activar el giroscopio.'); });
+    } else { gy.ev = 'ondeviceorientationabsolute' in window ? 'deviceorientationabsolute' : 'deviceorientation'; gyStart(); }
+  }
   function fsLoop(t) {
     fsRaf = 0; if (!fsOn) return;
     var dt = fsLast ? Math.min(.05, (t - fsLast) / 1000) : .016; fsLast = t;
-    var moving = ptr.down || playing || intro.on || !!tween || t - wheelT < 220 || Math.abs(V2.vx) > .05 || Math.abs(V2.vy) > .05;
+    if (gy.on && gy.ok) { var gk = 1 - Math.exp(-dt * 14); tween = null; V2.vx = V2.vy = 0; V2.yaw += w180(gy.ty + gy.oy - V2.yaw) * gk; V2.pitch += (clamp(gy.tp + gy.op, -89, 89) - V2.pitch) * gk; }
+    var moving = gy.on || ptr.down || playing || intro.on || !!tween || t - wheelT < 220 || Math.abs(V2.vx) > .05 || Math.abs(V2.vy) > .05;
     if (intro.on) {
       var p = clamp((t - intro.t0) / 1700, 0, 1), e = 1 - Math.pow(1 - p, 3); V2.psi = mix1(84, 52, e); lineP = clamp((p - .35) / .6, 0, 1);
       if (p >= 1) { intro.on = false; lineP = 1; }
@@ -5244,6 +5286,7 @@ function cielo(ms) {
       if (!ptr.down) return;
       var now = performance.now(), dx = e.clientX - ptr.lx, dy = e.clientY - ptr.ly, dtt = Math.max(8, now - ptr.lt) / 1000, k = degPerPx();
       ptr.moved += Math.abs(dx) + Math.abs(dy);
+      if (gy.on) { gy.oy -= dx * k; gy.op = clamp(gy.op + dy * k, -60, 60); V2.vx = V2.vy = 0; ptr.lx = e.clientX; ptr.ly = e.clientY; ptr.lt = now; return; }   // con el giroscopio, arrastrar solo afina
       V2.yaw -= dx * k; if (V2.proj === 'cam') V2.pitch = clamp(V2.pitch + dy * k, -89, 89); else { V2.offY += dy; clampOff(); }
       V2.vx = V2.vx * .6 + (-dx * k / dtt) * .4; V2.vy = V2.vy * .6 + (V2.proj === 'cam' ? dy * k / dtt : 0) * .4;
       ptr.lx = e.clientX; ptr.ly = e.clientY; ptr.lt = now; V2.dirty = true;
@@ -5275,7 +5318,7 @@ function cielo(ms) {
       else if (k === '+' || k === '=') V2.psi = clamp(V2.psi * .85, 5, 84); else if (k === '-') V2.psi = clamp(V2.psi / .85, 5, 84); else return;
       wheelT = performance.now(); V2.dirty = true; e.preventDefault();
     });
-    $('fsX').addEventListener('click', cerrarFs);
+    $('fsX').addEventListener('click', cerrarFs); $('fsGy').addEventListener('click', gyToggle);
     $('fsSl').addEventListener('input', function (e) { stopPlay(); momento(false); setMins(+e.target.value); wheelT = performance.now(); hideHint(); });
     $('fsPlay').addEventListener('click', ver);
     $('fsReset').addEventListener('click', function () { stopPlay(); momento(false); setMins(ESPECIAL); });
@@ -5285,6 +5328,7 @@ function cielo(ms) {
       var b = e.target.closest('.fs-chip'); if (!b) return; var o = b.getAttribute('data-o'); hideHint();
       if (o === 'home') { goHome(true); return; }
       if (o === 'all') {
+        if (!b.classList.contains('on') && gy.on) gyStop();
         var on = !b.classList.contains('on'); b.classList.toggle('on', on); V2.proj = on ? 'all' : 'cam'; var gb = ov.querySelector('[data-o="ground"]');
         if (on) { V2.pitch = 0; V2.zoomAll = 1; V2.offY = 0; V2.gPrev = OPT.ground; OPT.ground = false; gb.classList.remove('on'); } else { goHome(false); if (V2.gPrev !== undefined) { OPT.ground = V2.gPrev; gb.classList.toggle('on', OPT.ground); } } V2.vx = V2.vy = 0; V2.dirty = true; return;
       }
