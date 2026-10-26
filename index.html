@@ -1836,7 +1836,40 @@
   .cl-rg::-moz-range-thumb, .fs-sl::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff; background: radial-gradient(circle at 35% 30%, #fff, #c9baff 50%, #7a66ff); box-shadow: 0 0 16px #9a8cff; }
   .cl-ends { display: flex; justify-content: space-between; align-items: center; margin: 4px 8px 0; font: 600 .85rem var(--ui); color: #aab4f5; }
   .cl-act { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 10px 8px 0; min-height: 44px; }
-  #cielo .cl-act .cl-play { padding: 11px 16px; font-size: 1rem; color: #fff !important; border: 0 !important; border-radius: 30px !important; text-shadow: none !important; background: linear-gradient(135deg, #7c5cff, #2fb4ff) !important; box-shadow: 0 0 20px rgba(110,140,255,.7), inset 0 1px 0 rgba(255,255,255,.4) !important; }
+  /* ===== Botón "Ver esa noche": la noche entera en miniatura (atardecer a la izquierda, cielo estrellado a la derecha) ===== */
+  :root { --vn-stars: radial-gradient(2.0px 2.0px at 47% 26%, #fff 40%, transparent 72%), radial-gradient(1.4px 1.4px at 55% 71%, #ffe6cf 40%, transparent 72%), radial-gradient(2.3px 2.3px at 63% 38%, #fff 40%, transparent 72%), radial-gradient(1.3px 1.3px at 69% 16%, #cfe0ff 40%, transparent 72%), radial-gradient(1.7px 1.7px at 74% 64%, #fff 40%, transparent 72%), radial-gradient(1.3px 1.3px at 79% 33%, #ffe6cf 40%, transparent 72%), radial-gradient(2.2px 2.2px at 84% 80%, #fff 40%, transparent 72%), radial-gradient(1.4px 1.4px at 88% 22%, #cfe0ff 40%, transparent 72%), radial-gradient(1.9px 1.9px at 92% 55%, #fff 40%, transparent 72%), radial-gradient(1.2px 1.2px at 96% 14%, #fff 40%, transparent 72%), radial-gradient(1.3px 1.3px at 60% 87%, #cfe0ff 40%, transparent 72%), radial-gradient(1.2px 1.2px at 71% 49%, #fff 40%, transparent 72%); }
+  #cielo .cl-act .vnb { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; gap: 14px; flex: 1 1 100%; min-height: 78px; padding: 10px 18px 10px 12px; border: 1px solid transparent; border-radius: 24px; color: #fff !important; text-align: left; text-shadow: none; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: transform .16s ease;
+    background: linear-gradient(100deg, rgba(255,140,90,.62) 0%, rgba(222,88,150,.4) 15%, rgba(90,70,190,.26) 36%, rgba(10,12,50,0) 62%) padding-box, linear-gradient(180deg, #0c1040 0%, #060820 100%) padding-box, linear-gradient(120deg, #ffd9a0, #ff8fc4 35%, #8fa0ff 70%, #ffd9a0) border-box;
+    box-shadow: 0 10px 26px rgba(4,6,30,.55), inset 0 1px 0 rgba(255,255,255,.14); }
+  #cielo .cl-act .vnb:active { transform: scale(.98); }
+  .vnb::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--vn-stars); -webkit-mask-image: linear-gradient(90deg, transparent 30%, #000 66%); mask-image: linear-gradient(90deg, transparent 30%, #000 66%); animation: vnTw 3.4s ease-in-out infinite alternate; }
+  .vnb::after { content: ""; position: absolute; inset: -45% -12%; z-index: -1; pointer-events: none; mix-blend-mode: screen; filter: blur(5px);
+    background: linear-gradient(104deg, transparent 38%, rgba(160,175,255,.2) 47%, rgba(255,214,235,.24) 51%, rgba(150,170,255,.16) 56%, transparent 66%), radial-gradient(46px 14px at 72% 50%, rgba(255,232,205,.28), transparent 70%);
+    animation: vnBand 16s ease-in-out infinite alternate; }
+  .vn-fill { position: absolute; z-index: -1; left: 0; top: 0; bottom: 0; width: calc(var(--p, 0) * 100%); pointer-events: none; opacity: 0; transition: opacity .3s; background: linear-gradient(90deg, rgba(255,160,110,.34), rgba(150,120,255,.22)); border-right: 1px solid rgba(255,232,205,.8); box-shadow: 6px 0 20px rgba(255,200,150,.55); }
+  .vnb.on .vn-fill { opacity: 1; }
+  .vn-shoot { position: absolute; z-index: -1; top: 20%; left: -12%; width: 52px; height: 1.5px; border-radius: 2px; pointer-events: none; opacity: 0; background: linear-gradient(90deg, transparent, #fff); filter: drop-shadow(0 0 3px #fff); animation: vnShoot 7.5s ease-in 1.2s infinite; }
+  .vn-ic { flex: none; width: 50px; height: 50px; }
+  .vn-ic svg { display: block; width: 50px; height: 50px; overflow: visible; }
+  .vn-ic .r0 { fill: rgba(8,10,40,.6); stroke: rgba(255,255,255,.3); stroke-width: 1.5; }
+  .vn-ic .r1 { fill: none; stroke: #ffd9a0; stroke-width: 2.6; stroke-linecap: round; stroke-dasharray: 119.4; stroke-dashoffset: calc(119.4 * (1 - var(--p, 0))); transform: rotate(-90deg); transform-origin: 24px 24px; filter: drop-shadow(0 0 4px rgba(255,200,140,.95)); }
+  .vn-ic .i-play, .vn-ic .i-pause { fill: #fff; }
+  .vn-ic .i-pause { display: none; }
+  .vnb.on .i-play { display: none; }
+  .vnb.on .i-pause { display: block; }
+  .vn-tx { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .vn-t { white-space: nowrap; font: 700 1.95rem/.95 var(--hand); letter-spacing: .01em; color: #fff; text-shadow: 0 0 16px rgba(255,200,170,.6), 0 1px 0 rgba(0,0,0,.45); }
+  .vn-s { white-space: nowrap; font: 600 .68rem/1.1 var(--ui); letter-spacing: .16em; text-transform: uppercase; color: rgba(255,226,214,.85); min-height: .75rem; }
+  .vnb.pulse { animation: vnBreath 3s ease-in-out infinite; }
+  .vnb.pulse .r0 { animation: vnRing 2.6s ease-in-out infinite; }
+  .vnb.on::before { animation-duration: 1.5s; }
+  @keyframes vnTw { from { opacity: .45; } to { opacity: 1; } }
+  @keyframes vnBand { from { transform: translateX(-9%) rotate(-3deg); } to { transform: translateX(9%) rotate(-3deg); } }
+  @keyframes vnShoot { 0% { transform: translate(0, 0) rotate(17deg); opacity: 0; } 3% { opacity: 1; } 13% { transform: translate(380px, 118px) rotate(17deg); opacity: 0; } 100% { transform: translate(380px, 118px) rotate(17deg); opacity: 0; } }
+  @keyframes vnBreath { 0%, 100% { box-shadow: 0 10px 26px rgba(4,6,30,.55), 0 0 0 0 rgba(255,170,150,0), inset 0 1px 0 rgba(255,255,255,.14); } 50% { box-shadow: 0 10px 26px rgba(4,6,30,.55), 0 0 24px 3px rgba(255,170,150,.34), inset 0 1px 0 rgba(255,255,255,.14); } }
+  @keyframes vnRing { 0%, 100% { stroke: rgba(255,255,255,.3); } 50% { stroke: rgba(255,224,190,.85); } }
+  @media (prefers-reduced-motion: reduce) { .vnb, .vnb::before, .vnb::after, .vn-shoot, .vnb .r0, .fs-play::before { animation: none !important; } }
+  .lite .vnb, .lite .vnb::before, .lite .vnb::after, .lite .vn-shoot, .lite .vnb .r0 { animation: none !important; }
   #cielo .jd-btn { color: #dfe4ff !important; border-color: rgba(190,200,255,.6) !important; background: rgba(255,255,255,.06) !important; }
   .cl-act button[hidden] { display: none; }
   #cielo .cl-txt, #clFs .cl-txt { margin-top: 8px; }
@@ -1884,8 +1917,13 @@
   .fs-hora { font: 700 1.3rem/1.1 var(--hand); color: #fff; }
   .fs-hora small { display: block; margin-top: 1px; font: 500 1.05rem/1.1 var(--hand); color: #c5cdff; opacity: .85; }
   .fs-row { display: flex; align-items: center; gap: 12px; margin-top: 9px; }
-  .fs-play { flex: none; display: flex; align-items: center; gap: 7px; padding: 10px 15px; border: 0; border-radius: 26px; color: #fff; font: 700 .92rem/1 var(--ui); cursor: pointer; touch-action: manipulation; background: linear-gradient(135deg, #7c5cff, #2fb4ff); box-shadow: 0 0 18px rgba(110,140,255,.65), inset 0 1px 0 rgba(255,255,255,.4); }
-  .fs-play.on { background: linear-gradient(135deg, #ff6aa8, #ff9a5a); box-shadow: 0 0 18px rgba(255,120,150,.6); }
+  .fs-play { position: relative; isolation: isolate; overflow: hidden; flex: none; display: flex; align-items: center; gap: 8px; padding: 11px 17px 11px 14px; border: 1px solid transparent; border-radius: 26px; color: #fff; font: 700 .95rem/1 var(--ui); cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+    background: linear-gradient(100deg, rgba(255,140,90,.58) 0%, rgba(222,88,150,.36) 30%, rgba(10,12,50,0) 72%) padding-box, linear-gradient(180deg, #0c1040, #060820) padding-box, linear-gradient(120deg, #ffd9a0, #ff8fc4 40%, #8fa0ff) border-box;
+    box-shadow: 0 0 18px rgba(255,170,150,.28), inset 0 1px 0 rgba(255,255,255,.14); }
+  .fs-play::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--vn-stars); -webkit-mask-image: linear-gradient(90deg, transparent 25%, #000 60%); mask-image: linear-gradient(90deg, transparent 25%, #000 60%); animation: vnTw 3.4s ease-in-out infinite alternate; }
+  .fs-play::after { content: ""; position: absolute; left: 0; bottom: 0; z-index: -1; height: 3px; width: calc(var(--p, 0) * 100%); pointer-events: none; background: linear-gradient(90deg, #ffb07a, #ff8fc4, #8fa0ff); box-shadow: 0 0 8px #ffb07a; }
+  .fs-play.on::before { animation-duration: 1.5s; }
+  .fs-play span:first-child { font-size: 1.05rem; text-shadow: 0 0 10px rgba(255,200,170,.8); }
   .fs-sl { flex: 1; min-width: 0; width: 100%; margin: 0; touch-action: none; }
   .fs-reset { flex: none; padding: 8px 11px; border: 1.5px solid rgba(190,200,255,.55); border-radius: 18px; background: rgba(255,255,255,.07); color: #fff; font: 700 .82rem/1 var(--ui); cursor: pointer; touch-action: manipulation; }
   .fs-reset[hidden] { display: none; }
@@ -2038,7 +2076,7 @@
     <div class="cl-hora" id="clHora"></div>
     <input class="cl-rg" id="clSlider" type="range" min="1080" max="1740" step="1" value="1309" aria-label="Mover la hora de la noche">
     <div class="cl-ends" id="clEnds"><span>6:00 pm</span><span>5:00 am</span></div>
-    <div class="cl-act" id="clAct"><button class="mini pulse cl-play" id="clPlay" type="button">▶︎ Ver esa noche</button><button class="jd-btn" id="clReset" type="button" hidden>volver a las 9:49 pm</button></div>
+    <div class="cl-act" id="clAct"><button class="vnb pulse cl-play" id="clPlay" type="button" aria-label="Ver esa noche, del atardecer a las 9:49 pm"><span class="vn-fill" aria-hidden="true"></span><span class="vn-shoot" aria-hidden="true"></span><span class="vn-ic" aria-hidden="true"><svg viewBox="0 0 48 48"><circle class="r0" cx="24" cy="24" r="19"/><circle class="r1" cx="24" cy="24" r="19"/><path class="i-play" d="M20 16.5v15l12-7.5z"/><g class="i-pause"><rect x="18" y="16" width="4" height="16" rx="1.5"/><rect x="26" y="16" width="4" height="16" rx="1.5"/></g></svg></span><span class="vn-tx"><span class="vn-t">Ver esa noche</span><span class="vn-s">6:00 pm → 9:49 pm</span></span></button><button class="jd-btn" id="clReset" type="button" hidden>volver a las 9:49 pm</button></div>
     <div class="cl-txt" id="clTxt"></div>
     <p class="cl-fine"><b>Bebé, mira:</b> el centro de la cúpula es lo que teníamos justo encima y el borde es el horizonte. Mueve la barra para ver cómo giró el cielo esa noche y toca una estrella para saber cómo se llama. Con <b>“Todo el cielo”</b> ves la Vía Láctea completa, y en <b>pantalla completa</b> puedes girarlo con el dedo o el mouse, acercarlo y volar por toda la galaxia.</p>
   </div>
@@ -5051,9 +5089,14 @@ function cielo(ms) {
     $('clReset').hidden = mins === ESPECIAL; if ($('fsReset')) $('fsReset').hidden = mins === ESPECIAL;
     sl.value = mins; if ($('fsSl')) $('fsSl').value = mins;
   }
+  var vista = false, lastVs = '';
+  function hm(m) { var t = new Date(msOf(day, m) - 5 * 3600000), h = t.getUTCHours(), mi = t.getUTCMinutes(); return (h % 12 || 12) + ':' + (mi < 10 ? '0' : '') + mi + ' ' + (h < 12 ? 'am' : 'pm'); }
   function playUI(on) {
-    $('clPlay').textContent = on ? '❚❚ Parar' : '▶︎ Ver esa noche';
-    if ($('fsPlay')) { $('fsPlay').classList.toggle('on', on); $('fsPlay').firstChild.textContent = on ? '❚❚' : '▶︎'; $('fsPlay').lastChild.textContent = on ? 'Parar' : 'Ver esa noche'; }
+    var b = $('clPlay'); b.classList.toggle('on', on); lastVs = '';
+    b.querySelector('.vn-t').textContent = on ? 'Mirando…' : (vista ? 'Verla otra vez' : 'Ver esa noche');
+    b.querySelector('.vn-s').textContent = on ? hm(1080) : '6:00 pm → 9:49 pm';
+    if (!on) { b.style.setProperty('--p', 0); if ($('fsPlay')) $('fsPlay').style.setProperty('--p', 0); }
+    if ($('fsPlay')) { $('fsPlay').classList.toggle('on', on); $('fsPlay').firstChild.textContent = on ? '❚❚' : '▶︎'; $('fsPlay').lastChild.textContent = on ? 'Parar' : (vista ? 'Verla otra vez' : 'Ver esa noche'); }
   }
   function stopPlay() { if (!playing) return; playing = false; cancelAnimationFrame(playRaf); playUI(false); }
   function momento(on) {
@@ -5084,7 +5127,9 @@ function cielo(ms) {
     (function step() {
       var p = clamp((performance.now() - t0) / 15000, 0, 1), e = 1 - Math.pow(1 - p, 2.2);
       mins = p < 1 ? from + (ESPECIAL - from) * e : ESPECIAL; lineP = clamp((p - .5) / .32, 0, 1); hora(); dirtyAll();
-      if (p < 1) playRaf = requestAnimationFrame(step); else { stopPlay(); lineP = 1; dirtyAll(); momento(true); }
+      var pv = p.toFixed(4), hs = hm(mins); b.style.setProperty('--p', pv); if ($('fsPlay')) $('fsPlay').style.setProperty('--p', pv);
+      if (hs !== lastVs) { lastVs = hs; b.querySelector('.vn-s').textContent = hs; }
+      if (p < 1) playRaf = requestAnimationFrame(step); else { vista = true; stopPlay(); lineP = 1; dirtyAll(); momento(true); }
     })();
   }
 
