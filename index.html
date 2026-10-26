@@ -1894,6 +1894,11 @@
   .fs-ttl span { font: 600 .78rem/1.25 var(--ui); color: #b9c6ff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
   .fs-gy { pointer-events: auto; flex: none; margin-left: auto; display: flex; align-items: center; gap: 6px; height: 44px; padding: 0 14px 0 11px; border-radius: 22px; border: 1.5px solid rgba(200,210,255,.4); background: rgba(12,16,50,.78); color: #fff; font: 700 .8rem/1 var(--ui); cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
   .fs-gy svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .fs-find { position: absolute; left: 12px; right: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); z-index: 9; display: flex; flex-wrap: wrap; gap: 8px; max-height: 50vh; overflow-y: auto; padding: 14px; border-radius: 20px; background: rgba(10,14,44,.95); border: 1px solid rgba(190,200,255,.35); box-shadow: 0 10px 30px rgba(0,0,0,.6); touch-action: pan-y; animation: fsIn .25s ease both; }
+  .fs-find h4 { flex: 1 1 100%; margin: 0 0 2px; font: 700 1.25rem/1.1 var(--hand); color: #fff; }
+  .fs-find button { padding: 10px 14px; border-radius: 20px; border: 1px solid rgba(190,200,255,.4); background: rgba(255,255,255,.07); color: #eef0ff; font: 700 .9rem/1 var(--ui); cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  .fs-find button.gold { background: linear-gradient(135deg, #ffb36b, #ff7fb0); border-color: #ffe0b8; color: #2a0f24; }
+  .fs-find button.x { background: transparent; opacity: .8; }
   .fs-gy.on { background: linear-gradient(135deg, #6f5cff, #2aa7ff); border-color: #c4d3ff; box-shadow: 0 0 16px rgba(110,120,255,.7); }
   .fs-chips { position: absolute; left: 0; right: 0; top: calc(env(safe-area-inset-top, 0px) + 62px); display: flex; gap: 8px; padding: 4px calc(env(safe-area-inset-right, 0px) + 12px) 4px calc(env(safe-area-inset-left, 0px) + 12px); overflow-x: auto; scrollbar-width: none; touch-action: pan-x; }
   .fs-chips::-webkit-scrollbar { display: none; }
@@ -4882,6 +4887,35 @@ function cielo(ms) {
     });
     ctx.lineJoin = lj;
   }
+  /* ---------- guía "Buscar": anillo si está en pantalla, flecha en el borde si hay que girar ---------- */
+  function tgtVec(S, k) {
+    if (k === 'ari') { var a = S.pos.vega, b = S.pos.altair, d = S.pos.deneb, E = a.E + b.E + d.E, N = a.N + b.N + d.N, U = a.U + b.U + d.U, m = Math.sqrt(E * E + N * N + U * U) || 1; return [E / m, N / m, U / m, 'Ari y Alex']; }
+    if (k.indexOf('pl:') === 0) { var n = k.slice(3), q = S.c.planets[n]; if (!q) return null; var v = vecAA(q.h[0], q.h[1]); return [v[0], v[1], v[2], PNOM[n]]; }
+    var o = S.pos[k]; if (!o) return null; return [o.E, o.N, o.U, CIELO_ST[k][3] || k];
+  }
+  function drawTgt(V, S, tms) {
+    var t = tgtVec(S, V.tgt); if (!t) return; var ctx = V.ctx, W = V.W, H = V.H, sc = V.sc, gold = '#ffd86b', dark = 'rgba(3,6,24,.88)';
+    var mx = 40, mt = 120, mb = Math.min(260, H * .36), ok = V.fwd(t[0], t[1], t[2]) && V.px > mx && V.px < W - mx && V.py > mt && V.py < H - mb;
+    ctx.save(); ctx.textAlign = 'center'; ctx.font = '700 ' + (18 * Math.max(.9, sc)).toFixed(1) + 'px ' + HAND; ctx.lineJoin = 'round';
+    if (ok) {
+      var r = (20 + 3.5 * Math.sin(tms * .006)) * Math.max(.9, sc), x = V.px, y = V.py;
+      ctx.lineWidth = 2.6; ctx.strokeStyle = gold; ctx.shadowColor = gold; ctx.shadowBlur = 12; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.stroke();
+      ctx.shadowBlur = 0; ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(255,216,107,.45)'; ctx.beginPath(); ctx.arc(x, y, r + 10, 0, 7); ctx.stroke();
+      ctx.lineWidth = 4; ctx.strokeStyle = dark; ctx.strokeText(t[3], x, y + r + 22); ctx.fillStyle = gold; ctx.fillText(t[3], x, y + r + 22);
+    } else if (V.proj === 'cam' && V.B) {
+      var B = V.B, dx = t[0] * B[0] + t[1] * B[1], dy = t[0] * B[2] + t[1] * B[3] + t[2] * B[4], dz = t[0] * B[5] + t[1] * B[6] + t[2] * B[7];
+      var L = Math.sqrt(dx * dx + dy * dy); if (L < 1e-4) { dx = 1; dy = 0; L = 1; } var ux = dx / L, uy = -dy / L;
+      var hx = W / 2 - mx, hy = (H - mb - mt) / 2, k = Math.min(Math.abs(ux) > 1e-4 ? hx / Math.abs(ux) : 1e9, Math.abs(uy) > 1e-4 ? hy / Math.abs(uy) : 1e9);
+      var ax = W / 2 + ux * k, ay = (mt + H - mb) / 2 + uy * k, ang = Math.acos(clamp(dz, -1, 1)) * DEG, pul = 1 + .08 * Math.sin(tms * .008);
+      ctx.translate(ax, ay); ctx.rotate(Math.atan2(uy, ux)); ctx.scale(pul, pul);
+      ctx.beginPath(); ctx.moveTo(20 * sc, 0); ctx.lineTo(-11 * sc, -14 * sc); ctx.lineTo(-4 * sc, 0); ctx.lineTo(-11 * sc, 14 * sc); ctx.closePath();
+      ctx.shadowColor = gold; ctx.shadowBlur = 12; ctx.fillStyle = gold; ctx.fill(); ctx.shadowBlur = 0; ctx.lineWidth = 2; ctx.strokeStyle = dark; ctx.stroke();
+      ctx.setTransform(V.dpr, 0, 0, V.dpr, 0, 0);
+      var tx = clamp(ax, 70, W - 70), ty = ay + (uy > 0 ? -30 : 38) * Math.max(.9, sc), tt = t[3] + ' · ' + Math.round(ang) + '°';
+      ctx.lineWidth = 4; ctx.strokeStyle = dark; ctx.strokeText(tt, tx, ty); ctx.fillStyle = gold; ctx.fillText(tt, tx, ty);
+    }
+    ctx.restore();
+  }
   function overlay(V, S, tms, ground) {
     var ctx = V.ctx, W = V.W, H = V.H, c = S.c, pos = S.pos, proj = V.proj, fwd = V.fwd, sc = V.sc, lf = S.lf, lim = S.lim, cx = V.cx, cy = V.cy, s = S.s;
     var hits = V.hits = [], jump = Math.max(W, H) * .55, fsOn = V.fs, boost = proj === 'cam' ? Math.max(0, 52 / V.psi - 1) : 0, tw = tms * .001;
@@ -4919,7 +4953,7 @@ function cielo(ms) {
           if (BGC[i] !== cur) { cur = BGC[i]; ctx.fillStyle = 'rgb(' + BGCOL[cur] + ')'; }
           var x = BGX[i], y = BGY[i], z = BGZ[i], E = x * Eh[0] + y * Eh[1], N = x * Nh[0] + y * Nh[1] + z * Nh[2], U = x * Zh[0] + y * Zh[1] + z * Zh[2];
           if (ground && U < .015) continue; if (!fwd(E, N, U)) continue; if (!onscr(V.px, V.py, 4)) continue;
-          var al = BGB[i] * lf * (U < .12 && U > 0 ? .35 + U * 5.4 : 1) * (.82 + .18 * Math.sin(tw * 2.3 + BGP[i] * 5)); if (ground === false && U < 0) al *= .75;
+          var hz = U < .385 ? (U < 0 ? 1 : 1 - U * 2.6) : 0, al = BGB[i] * lf * .9 * (U < .12 && U > 0 ? .35 + U * 5.4 : 1) * (1 - (.14 + .42 * hz) * (.5 - .5 * (.65 * Math.sin(tw * (2.3 + 6 * hz) + BGP[i] * 5) + .35 * Math.sin(tw * (5.3 + 9 * hz) + BGP[i] * 11))));   // titila poquito arriba y mucho cerca del horizonte if (ground === false && U < 0) al *= .75;
           var sz = dsz * (.8 + BGB[i] * 1.1); ctx.globalAlpha = al > 1 ? 1 : al; ctx.fillRect(V.px - sz / 2, V.py - sz / 2, sz, sz);
         }
       }
@@ -4940,7 +4974,7 @@ function cielo(ms) {
     STK.forEach(function (id) {
       var v = CIELO_ST[id], o = pos[id], p = P[id]; if (!p.v || v[2] > lim + .7) return;
       var a = clamp((lim - v[2] + .7) / 1.4, 0, 1), r = Math.max(.55, 2.9 - .62 * v[2]) * sc * (1 + boost * .35), col = v[4] || '#ffffff', x = p.x, y = p.y;
-      var f = 1 + .1 * Math.sin(tw * (1.6 + (v[2] + 2) * .35) + x * .13 + y * .07) * (v[2] > 1 ? 1 : .4), ai = a * (a > .99 ? f : 1);
+      var hz2 = o.U < .385 ? (o.U < 0 ? 1 : 1 - o.U * 2.6) : 0, fl = .65 * Math.sin(tw * (1.9 + 6 * hz2 + (v[2] + 2) * .2) + x * .13 + y * .07) + .35 * Math.sin(tw * (4.7 + 8 * hz2) + x * .21 + y * .11), f = 1 - (.07 + .4 * hz2) * (v[2] > 1 ? 1 : .55) * (.5 - .5 * fl), ai = a * (a > .99 ? f : 1);
       if (v[2] < 2.2) { var gl = ctx.createRadialGradient(x, y, 0, x, y, r * 5.5); gl.addColorStop(0, 'rgba(210,225,255,' + (.34 * ai).toFixed(3) + ')'); gl.addColorStop(1, 'rgba(210,225,255,0)'); ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(x, y, r * 5.5, 0, 7); ctx.fill(); }
       if (v[2] < 1.4 && (fsOn || sc > 1.1)) { var L = r * (6 + 3 * (1.4 - v[2])); ctx.globalAlpha = .55 * ai; ctx.strokeStyle = col; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x - L, y); ctx.lineTo(x + L, y); ctx.moveTo(x, y - L); ctx.lineTo(x, y + L); ctx.stroke(); ctx.globalAlpha = 1; }
       ctx.globalAlpha = ai > 1 ? 1 : ai; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); ctx.globalAlpha = 1;
@@ -5021,6 +5055,7 @@ function cielo(ms) {
         if (fwd(tp[0], tp[1], tp[2])) ctx.fillText('arriba de ti', V.px, V.py); if (fwd(bt[0], bt[1], bt[2]) && !ground) ctx.fillText('lo que tapa el suelo', V.px, V.py);
       }
     }
+    if (V.tgt && V.fs) drawTgt(V, S, tms);
     ctx.restore();
   }
 
@@ -5143,7 +5178,7 @@ function cielo(ms) {
     + '<div class="fs-chips" id="fsChips">'
     + '<button type="button" class="fs-chip on" data-o="lines"><i></i>Constelaciones</button><button type="button" class="fs-chip on" data-o="names"><i></i>Nombres</button>'
     + '<button type="button" class="fs-chip on" data-o="ground"><i></i>Montañas</button><button type="button" class="fs-chip" data-o="grid"><i></i>Cuadrícula</button>'
-    + '<button type="button" class="fs-chip" data-o="all"><i></i>Todo el cielo</button><button type="button" class="fs-chip go" data-o="home">✦ Ir a la Vía Láctea</button></div>'
+    + '<button type="button" class="fs-chip" data-o="all"><i></i>Todo el cielo</button><button type="button" class="fs-chip go" data-o="find">◎ Buscar</button><button type="button" class="fs-chip on" data-o="snd"><i></i>Sonido</button><button type="button" class="fs-chip go" data-o="home">✦ Ir a la Vía Láctea</button></div>'
     + '<div class="fs-moment" id="fsMoment" aria-hidden="true"><b></b><span></span></div><div class="fs-cap" id="fsCap" aria-live="polite"></div>'
     + '<div class="fs-hint" id="fsHint"><span>Arrastra para girar el cielo</span><span>Pellizca o usa la rueda para acercar</span><span>Mueve la hora abajo y míralo girar</span></div>'
     + '<div class="fs-dock" id="fsDock"><div class="fs-days"><button type="button" data-d="0" class="on" aria-selected="true"><b>11 de octubre</b><small>la noche que nos conocimos</small></button><button type="button" data-d="1" aria-selected="false"><b>18 de octubre</b><small>el día del sí</small></button></div>'
@@ -5155,13 +5190,14 @@ function cielo(ms) {
   function fsFit() { if (!V2) return; V2.dirty = true; }
   function goHome(anim2) {
     if (anim2 && gy.on) gyStop();
+    if (anim2) SND.whoosh();
     var S = calc(msOf(day, mins)), t = V2.proj === 'all' ? { yaw: galaxyAim(S).yaw, pitch: 0, psi: V2.psi, zoomAll: 1, offY: 0 } : (function () { var a = galaxyAim(S); return { yaw: a.yaw, pitch: a.pitch, psi: 52, zoomAll: 1, offY: 0 }; })();
     if (!anim2) { V2.yaw = t.yaw; V2.pitch = t.pitch; V2.psi = t.psi; V2.zoomAll = 1; V2.offY = 0; V2.dirty = true; return; }
     var dy = ((t.yaw - V2.yaw + 540) % 360) - 180;
     tween = { t0: performance.now(), d: 800, y0: V2.yaw, dy: dy, p0: V2.pitch, dp: t.pitch - V2.pitch, s0: V2.psi, ds: t.psi - V2.psi, z0: V2.zoomAll, dz: 1 - V2.zoomAll, o0: V2.offY, doff: -V2.offY };
   }
   function abrirFs(auto) {
-    if (fsOn) return; fsOn = true; fsAuto = !!auto; ov.classList.add('on'); document.documentElement.classList.add('cl-fs');
+    if (fsOn) return; fsOn = true; fsAuto = !!auto; ov.classList.add('on'); document.documentElement.classList.add('cl-fs'); $('fsChips').querySelector('[data-o="snd"]').classList.toggle('on', SND.enabled()); SND.start();
     V2.proj = 'cam'; $('fsChips').querySelector('[data-o="all"]').classList.remove('on'); goHome(false);
     intro.on = true; intro.t0 = performance.now(); V2.psi = 84; V2.q = .5; V2.dirty = true; V2.meteors = []; nextMeteor = performance.now() + 4500; lineP = 0;
     $('clFsb').setAttribute('aria-label', 'Cerrar pantalla completa'); hora(); texto(calc(msOf(day, mins)));
@@ -5175,7 +5211,7 @@ function cielo(ms) {
     fsLast = 0; if (!fsRaf) fsRaf = requestAnimationFrame(fsLoop);
   }
   function cerrarFs() {
-    if (!fsOn) return; gyStop(); fsOn = false; ov.classList.remove('on', 'drag'); document.documentElement.classList.remove('cl-fs'); cancelAnimationFrame(fsRaf); fsRaf = 0; tween = null; ptr.pts = {}; ptr.down = false;
+    if (!fsOn) return; gyStop(); SND.stop(); findClose(); V2.tgt = null; fsOn = false; ov.classList.remove('on', 'drag'); document.documentElement.classList.remove('cl-fs'); cancelAnimationFrame(fsRaf); fsRaf = 0; tween = null; ptr.pts = {}; ptr.down = false;
     $('clFsb').setAttribute('aria-label', 'Ver en pantalla completa');
     try { if (document.fullscreenElement || document.webkitFullscreenElement) (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) {}
     fsApi = false; try { screen.orientation.unlock(); } catch (e) {}
@@ -5197,6 +5233,73 @@ function cielo(ms) {
     var az = ((V2.yaw % 360) + 360) % 360, alt = Math.round(V2.pitch);
     return 'Mirando al ' + dir(az) + ' · ' + Math.round(az) + '° · ' + (alt >= 80 ? 'justo arriba' : alt <= -5 ? 'bajo el horizonte' : alt + '° sobre el horizonte');
   }
+  /* ---------- sonido: todo sintetizado (sin archivos). Un colchón de espacio que respira, acordes lentos y toques sueltos y suaves ---------- */
+  var SND = (function () {
+    var C = null, M = null, dry = null, rev = null, padF = null, noiseG = null, nbuf = null, voices = [], tChord = 0, tBell = 0, ci = 0, on = true, run = false, lastPlay = false;
+    try { on = localStorage.getItem('cl_snd') !== '0'; } catch (e) {}
+    var CH = [[55, 110, 164.81, 220], [43.65, 87.31, 130.81, 174.61], [65.41, 130.81, 196, 261.63], [49, 98, 146.83, 196]];   // La menor, Fa, Do, Sol
+    var BELLS = [440, 523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1318.5];   // pentatónica: nunca suena mal
+    function now() { return C.currentTime; }
+    function ensure() {
+      if (C) return true;
+      var A = window.AudioContext || window.webkitAudioContext; if (!A) return false;
+      try { C = new A(); } catch (e) { return false; }
+      M = C.createGain(); M.gain.value = 0; var cp = C.createDynamicsCompressor(); cp.threshold.value = -26; cp.ratio.value = 3; M.connect(cp); cp.connect(C.destination);
+      var len = Math.floor(C.sampleRate * 3.6), ib = C.createBuffer(2, len, C.sampleRate), c, i, d;
+      for (c = 0; c < 2; c++) { d = ib.getChannelData(c); for (i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6); }
+      rev = C.createConvolver(); rev.buffer = ib; var rg = C.createGain(); rg.gain.value = .9; rev.connect(rg); rg.connect(M);
+      dry = C.createGain(); dry.gain.value = .7; dry.connect(M);
+      nbuf = C.createBuffer(1, C.sampleRate * 3, C.sampleRate); d = nbuf.getChannelData(0); for (i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      padF = C.createBiquadFilter(); padF.type = 'lowpass'; padF.frequency.value = 420; padF.Q.value = .6;
+      var pg = C.createGain(); pg.gain.value = .5; padF.connect(pg); pg.connect(dry); pg.connect(rev);
+      voices = CH[0].map(function (f, k) { var o = C.createOscillator(), g = C.createGain(); o.type = k % 2 ? 'triangle' : 'sine'; o.frequency.value = f; o.detune.value = (k - 1.5) * 4; g.gain.value = [.5, .3, .22, .14][k]; o.connect(g); g.connect(padF); o.start(); return o; });
+      var lf = C.createOscillator(), lg = C.createGain(); lf.frequency.value = .045; lg.gain.value = 180; lf.connect(lg); lg.connect(padF.frequency); lf.start();
+      var ns = C.createBufferSource(), nf = C.createBiquadFilter(), l2 = C.createOscillator(), g2 = C.createGain(); ns.buffer = nbuf; ns.loop = true; nf.type = 'bandpass'; nf.frequency.value = 700; nf.Q.value = .5;
+      noiseG = C.createGain(); noiseG.gain.value = .03; ns.connect(nf); nf.connect(noiseG); noiseG.connect(dry); noiseG.connect(rev); l2.frequency.value = .07; g2.gain.value = 380; l2.connect(g2); g2.connect(nf.frequency); l2.start(); ns.start();
+      document.addEventListener('visibilitychange', function () { if (!C) return; if (document.hidden) C.suspend(); else if (run) C.resume(); });
+      return true;
+    }
+    function bell(f, v, at) {
+      var t = now() + (at || 0), o = C.createOscillator(), o2 = C.createOscillator(), g = C.createGain(), g2 = C.createGain(), s = C.createGain();
+      o.type = 'sine'; o2.type = 'sine'; o.frequency.value = f; o2.frequency.value = f * 2.01; g2.gain.value = .18;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + 4.2);
+      o.connect(g); o2.connect(g2); g2.connect(g); s.gain.value = .35; g.connect(dry); g.connect(rev); g.connect(s); s.connect(rev);
+      o.start(t); o2.start(t); o.stop(t + 4.4); o2.stop(t + 4.4);
+    }
+    function sweep(up, dur, v, f0, f1) {
+      var t = now(), src = C.createBufferSource(), f = C.createBiquadFilter(), g = C.createGain(); src.buffer = nbuf; src.loop = true; f.type = 'bandpass'; f.Q.value = 1.1;
+      f.frequency.setValueAtTime(up ? f0 : f1, t); f.frequency.exponentialRampToValueAtTime(up ? f1 : f0, t + dur);
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + dur * (up ? .8 : .25)); g.gain.linearRampToValueAtTime(0, t + dur);
+      src.connect(f); f.connect(g); g.connect(rev); g.connect(dry); src.start(t); src.stop(t + dur + .1);
+    }
+    function boom(v) {
+      var t = now(), o = C.createOscillator(), g = C.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(70, t); o.frequency.exponentialRampToValueAtTime(34, t + 2.4);
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + .5); g.gain.exponentialRampToValueAtTime(.0001, t + 3); o.connect(g); g.connect(M); o.start(t); o.stop(t + 3.1);
+    }
+    function loopChord() { clearTimeout(tChord); if (!run) return; ci = (ci + 1) % CH.length; voices.forEach(function (o, k) { o.frequency.setTargetAtTime(CH[ci][k], now(), 3.5); }); tChord = setTimeout(loopChord, 17000); }
+    function loopBell() { clearTimeout(tBell); if (!run) return; var f = BELLS[Math.floor(Math.random() * BELLS.length)]; bell(f, .03 + Math.random() * .02); if (Math.random() < .25) bell(f * 1.5, .02, .35); tBell = setTimeout(loopBell, 8000 + Math.random() * 9000); }
+    return {
+      enabled: function () { return on; },
+      start: function () {
+        if (!on || run || !ensure()) return; run = true; C.resume(); var t = now(); M.gain.cancelScheduledValues(t); M.gain.setTargetAtTime(.55, t, 1.5);
+        sweep(true, 2.2, .1, 180, 2400); boom(.14); bell(440, .045, .9); bell(659.25, .04, 1.15); bell(880, .035, 1.4);
+        clearTimeout(tChord); tChord = setTimeout(loopChord, 14000); clearTimeout(tBell); tBell = setTimeout(loopBell, 6500);
+      },
+      stop: function () {
+        if (!C || !run) return; run = false; clearTimeout(tChord); clearTimeout(tBell); sweep(false, 1, .08, 200, 1800); M.gain.setTargetAtTime(0, now(), .45);
+        setTimeout(function () { if (!run && C) C.suspend(); }, 2400);
+      },
+      toggle: function () { on = !on; try { localStorage.setItem('cl_snd', on ? '1' : '0'); } catch (e) {} if (on) { if (V2 && ov && ov.classList.contains('on')) this.start(); } else this.stop(); return on; },
+      whoosh: function () { if (run) sweep(true, 1.1, .07, 220, 1800); },
+      ding: function () { if (run) { bell(880, .05); bell(1318.5, .03, .12); } },
+      gy: function (a) { if (run) { bell(a ? 659.25 : 523.25, .035); bell(a ? 987.77 : 392, .03, .14); } },
+      meteor: function () { if (run && Math.random() < .6) sweep(true, .55, .025, 1800, 5200); },
+      tick: function (playing) {
+        if (!run || playing === lastPlay) return; lastPlay = playing; var t = now();
+        padF.frequency.setTargetAtTime(playing ? 900 : 420, t, 1.2); noiseG.gain.setTargetAtTime(playing ? .055 : .03, t, 1.2); if (playing) sweep(true, 1.6, .06, 250, 2600);
+      }
+    };
+  })();
   /* ---------- giroscopio (iPhone: pide permiso; la brújula fija el norte) ---------- */
   var gy = { on: false, ok: false, ty: 0, tp: 0, oy: 0, op: 0, off: null, ev: 'deviceorientation' };
   var w180 = function (x) { return ((x % 360) + 540) % 360 - 180; };
@@ -5220,10 +5323,11 @@ function cielo(ms) {
     var ab = ov.querySelector('[data-o="all"]'); if (V2.proj === 'all' && ab) ab.click();
     gy.on = true; gy.ok = false; gy.off = null; gy.oy = gy.op = 0; tween = null; V2.vx = V2.vy = 0; hideHint();
     $('fsGy').classList.add('on'); $('fsGy').setAttribute('aria-pressed', 'true');
-    window.addEventListener(gy.ev, gyOri, true);
+    window.addEventListener(gy.ev, gyOri, true); SND.gy(true);
     setTimeout(function () { if (gy.on && !gy.ok) { gyStop(); gyMsg('Este dispositivo no mandó datos del giroscopio.'); } }, 2000);
   }
   function gyStop() {
+    if (gy.on) SND.gy(false);
     window.removeEventListener(gy.ev, gyOri, true); gy.on = false; gy.ok = false; V2.vx = V2.vy = 0;
     var b = $('fsGy'); if (b) { b.classList.remove('on'); b.setAttribute('aria-pressed', 'false'); }
   }
@@ -5236,10 +5340,33 @@ function cielo(ms) {
       D.requestPermission().then(function (r) { if (r === 'granted') gyStart(); else gyMsg('Falta el permiso. Actívalo en Ajustes › Safari › Movimiento y orientación, y recarga la página.'); }, function () { gyMsg('No se pudo activar el giroscopio.'); });
     } else { gy.ev = 'ondeviceorientationabsolute' in window ? 'deviceorientationabsolute' : 'deviceorientation'; gyStart(); }
   }
+  /* ---------- Buscar: elegir qué encontrar; sin giroscopio la cámara viaja allí, con giroscopio la flecha te guía ---------- */
+  function findClose() { var f = $('fsFind'); if (f) f.remove(); }
+  function findOpen() {
+    if ($('fsFind')) { findClose(); return; }
+    var S = calc(msOf(day, mins)), f = document.createElement('div'), it = [['ari', 'Ari y Alex', 1]];
+    Object.keys(S.c.planets).forEach(function (n) { var q = S.c.planets[n]; if (PNOM[n] && q.h[0] > 3 && q.mag < S.lim + .7) it.push(['pl:' + n, PNOM[n]]); });
+    ['vega', 'altair', 'deneb', 'antares', 'fomalhaut', 'arcturus', 'capella', 'aldebaran', 'sirius', 'rigel', 'betelgeuse', 'polaris', 'achernar', 'spica', 'pollux', 'procyon', 'canopus'].forEach(function (id) { var o = S.pos[id]; if (o && o.alt > 3 && CIELO_ST[id][3]) it.push([id, CIELO_ST[id][3]]); });
+    f.id = 'fsFind'; f.className = 'fs-find'; var h = document.createElement('h4'); h.textContent = '¿Qué quieres encontrar?'; f.appendChild(h);
+    it.forEach(function (x) { var b = document.createElement('button'); b.type = 'button'; b.setAttribute('data-k', x[0]); b.textContent = x[1]; if (x[2]) b.className = 'gold'; f.appendChild(b); });
+    [V2.tgt ? ['', 'Quitar guía'] : null, ['!', 'Cerrar']].forEach(function (x) { if (!x) return; var b = document.createElement('button'); b.type = 'button'; b.className = 'x'; b.setAttribute('data-k', x[0]); b.textContent = x[1]; f.appendChild(b); });
+    f.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) findPick(b.getAttribute('data-k')); });
+    ov.appendChild(f); hideHint();
+  }
+  function findPick(k) {
+    findClose(); if (k === '!') return;
+    if (!k) { V2.tgt = null; V2.dirty = true; return; }
+    V2.tgt = k; V2.tgtT = performance.now(); V2.vx = V2.vy = 0; V2.dirty = true;
+    var t = tgtVec(calc(msOf(day, mins)), k); if (!t) return; if (gy.on) { SND.ding(); return; }
+    var az = Math.atan2(t[0], t[1]) * DEG, alt = Math.asin(clamp(t[2], -1, 1)) * DEG, cam = V2.proj === 'cam';
+    tween = { t0: performance.now(), d: 900, y0: V2.yaw, dy: w180(az - V2.yaw), p0: V2.pitch, dp: cam ? clamp(alt - 8, 5, 80) - V2.pitch : 0, s0: V2.psi, ds: 0, z0: V2.zoomAll, dz: 0, o0: V2.offY, doff: 0 }; SND.whoosh(); setTimeout(SND.ding, 900);
+  }
   function fsLoop(t) {
     fsRaf = 0; if (!fsOn) return;
     var dt = fsLast ? Math.min(.05, (t - fsLast) / 1000) : .016; fsLast = t;
     if (gy.on && gy.ok) { var gk = 1 - Math.exp(-dt * 14); tween = null; V2.vx = V2.vy = 0; V2.yaw += w180(gy.ty + gy.oy - V2.yaw) * gk; V2.pitch += (clamp(gy.tp + gy.op, -89, 89) - V2.pitch) * gk; }
+    if (V2.tgt && t - V2.tgtT > 30000) { V2.tgt = null; V2.dirty = true; }
+    SND.tick(playing);
     var moving = gy.on || ptr.down || playing || intro.on || !!tween || t - wheelT < 220 || Math.abs(V2.vx) > .05 || Math.abs(V2.vy) > .05;
     if (intro.on) {
       var p = clamp((t - intro.t0) / 1700, 0, 1), e = 1 - Math.pow(1 - p, 3); V2.psi = mix1(84, 52, e); lineP = clamp((p - .35) / .6, 0, 1);
@@ -5259,7 +5386,7 @@ function cielo(ms) {
     if (moving) V2.dirty = true;
     if (t > nextMeteor && !document.hidden) {
       var a = Math.random() * 6.28, L = Math.min(V2.W, V2.H) * (.45 + Math.random() * .4), x0 = V2.W * (.15 + Math.random() * .7), y0 = V2.H * (.1 + Math.random() * .35);
-      V2.meteors.push({ x: x0, y: y0, dx: Math.cos(.5 + Math.random() * .5) * L * (Math.random() < .5 ? 1 : -1), dy: Math.sin(.5 + Math.random() * .4) * L * .8, t0: t, dur: 650 + Math.random() * 450 }); nextMeteor = t + 6000 + Math.random() * 9000;
+      V2.meteors.push({ x: x0, y: y0, dx: Math.cos(.5 + Math.random() * .5) * L * (Math.random() < .5 ? 1 : -1), dy: Math.sin(.5 + Math.random() * .4) * L * .8, t0: t, dur: 650 + Math.random() * 450 }); nextMeteor = t + 6000 + Math.random() * 9000; SND.meteor();
     }
     fsSkip ^= 1;
     if (moving || V2.dirty || !fsSkip || V2.meteors.length) renderView(V2, t);
@@ -5327,6 +5454,8 @@ function cielo(ms) {
     $('fsChips').addEventListener('click', function (e) {
       var b = e.target.closest('.fs-chip'); if (!b) return; var o = b.getAttribute('data-o'); hideHint();
       if (o === 'home') { goHome(true); return; }
+      if (o === 'find') { findOpen(); return; }
+      if (o === 'snd') { b.classList.toggle('on', SND.toggle()); return; }
       if (o === 'all') {
         if (!b.classList.contains('on') && gy.on) gyStop();
         var on = !b.classList.contains('on'); b.classList.toggle('on', on); V2.proj = on ? 'all' : 'cam'; var gb = ov.querySelector('[data-o="ground"]');
