@@ -4633,7 +4633,7 @@ function luna(d, S, lst) {
   var mpar = Math.asin(1 / r) / RAD, gclat = LAT - .1924 * s(2 * LAT), rho = .99833 + .00167 * c(2 * LAT), HA = (lst - ra) * RAD, g = Math.atan(Math.tan(gclat * RAD) / Math.cos(HA)) / RAD;
   ra = ra - mpar * rho * c(gclat) * Math.sin(HA) / c(dec); dec = dec - mpar * rho * s(gclat) * s(g - dec) / s(g);
   var elong = rev(lon - rev(S.lon));
-  return { ra: ra, dec: dec, elong: elong, mag: -10 };
+  return { ra: ra, dec: dec, elong: elong, mag: -10, r: r };
 }
 function cielo(ms) {
   var d = jd(ms) - 2451543.5, S = sunPos(d), lst = sidereal(ms), T = (jd(ms) - 2451545) / 36525, out = { lst: lst, planets: {} };
@@ -4790,7 +4790,7 @@ function cielo(ms) {
     } else if (p === 'cam') {
       var psi = V.psi * RAD, K = Math.min(W, H) / 2 / (2 * Math.tan(psi / 2)), a0 = V.yaw * RAD, p0 = V.pitch * RAD, cp = Math.cos(p0), sp = Math.sin(p0);
       var rx = Math.cos(a0), ry = -Math.sin(a0), fx = cp * Math.sin(a0), fy = cp * Math.cos(a0), fz = sp, ux = -Math.sin(a0) * sp, uy = -Math.cos(a0) * sp, uz = cp;
-      V.K = K; V.B = [rx, ry, ux, uy, uz, fx, fy, fz]; V.sc = clamp(Math.min(W, H) / 380, .85, 1.7) * (1 + .45 * Math.max(0, 52 / V.psi - 1));
+      V.K = K; V.B = [rx, ry, ux, uy, uz, fx, fy, fz]; V.sc = clamp(Math.min(W, H) / 380, .85, 1.7) * (1 + .45 * Math.max(0, 52 / Math.max(V.psi, 5) - 1));
       V.fwd = function (E, N, U) { var dz = E * fx + N * fy + U * fz; if (dz < -.9) return false; var dx = E * rx + N * ry, dy = E * ux + N * uy + U * uz, i = 2 * K / (1 + dz); V.px = V.cx + dx * i; V.py = V.cy - dy * i; return true; };
     } else {
       V.hs = Math.min(W / (4 * Math.SQRT2), H / (2 * Math.SQRT2)) * V.zoomAll; V.sc = clamp(V.hs * 2 * Math.SQRT2 / V.zoomAll / 560, .9, 1.5) * (.85 + .15 * V.zoomAll);
@@ -4887,14 +4887,132 @@ function cielo(ms) {
     });
     ctx.lineJoin = lj;
   }
+  /* ---------- Luna: superficie procedural con mares y cráteres con nombre, relieve iluminado por el Sol y luz cenicienta ---------- */
+  var MOON = { ok: false, N: 256 }, MC = { cv: null, key: '' };
+  function mnH(x, y, z) { var n = Math.imul(Math.floor(x * 13.7) | 0, 374761393) ^ Math.imul(Math.floor(y * 17.3) | 0, 668265263) ^ Math.imul(Math.floor(z * 11.1) | 0, 1274126177); n = Math.imul(n ^ (n >>> 13), 1274126177); n ^= n >>> 16; return (n >>> 0) / 4294967296; }
+  function mnV(x, y, z) {
+    var xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z), xf = x - xi, yf = y - yi, zf = z - zi, u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf), w = zf * zf * (3 - 2 * zf);
+    var a = mnH(xi, yi, zi), b = mnH(xi + 1, yi, zi), c = mnH(xi, yi + 1, zi), d = mnH(xi + 1, yi + 1, zi), e = mnH(xi, yi, zi + 1), f = mnH(xi + 1, yi, zi + 1), g = mnH(xi, yi + 1, zi + 1), h = mnH(xi + 1, yi + 1, zi + 1);
+    var x1 = a + (b - a) * u, x2 = c + (d - c) * u, x3 = e + (f - e) * u, x4 = g + (h - g) * u, y1 = x1 + (x2 - x1) * v, y2 = x3 + (x4 - x3) * v; return y1 + (y2 - y1) * w;
+  }
+  function mnF(x, y, z, o) { var s = 0, w = .5, f = 1; for (var i = 0; i < o; i++) { s += w * mnV(x * f, y * f, z * f); f *= 2.03; w *= .5; } return s / (1 - Math.pow(.5, o)) * .5 + 0; }
+  var MN_MARIA = [   // lat, lon (este +), radio en grados, intensidad
+    [34, -17, 17, 1], [38, -28, 10, .95], [28, 18, 11, 1], [38, 29, 6.5, .85], [9, 30, 13, 1], [3, 39, 8, .95], [-5, 53, 10, .9], [-11, 48, 8, .85], [17, 59, 8.5, 1], [-15, 34, 6.5, .9],
+    [-21, -15, 12, .9], [-24, -39, 7, 1], [13, 3.5, 7.5, .95], [8, -30, 9, .85], [-10, -23, 5.5, .8], [14, -55, 26, .85], [30, -52, 15, .85], [-5, -66, 5, .75], [0, 0, 4, .6],
+    [58, -35, 5, .55], [58, -15, 5.5, .55], [58, 5, 5.5, .55], [58, 25, 5, .5], [57, 81, 4, .7], [1, 86, 5, .8], [-2, 21, 4, .5]];
+  var MN_CR = [   // lat, lon, radio°, rayos, brillo, suelo oscuro
+    [-43.3, -11.4, 2.6, 1, .8, 0], [9.7, -20.1, 2, .6, .5, 0], [8.1, -38, 1, .5, .6, 0], [23.7, -47.4, .9, .3, 1, 0], [51.6, -9.4, 2.2, 0, 0, .7], [-5.2, -68.3, 3.2, 0, 0, .6],
+    [-8.9, 60.9, 2.3, 0, .2, 0], [-25.3, 60.4, 3, 0, .1, 0], [-11.4, 26.4, 1.8, 0, .3, 0], [-13.2, 24, 1.5, 0, .1, 0], [-18, 24, 1.7, 0, .1, 0], [-9.3, -1.9, 2.5, 0, 0, .2], [-13.4, -3.2, 1.8, 0, 0, .3],
+    [-18.2, -1.9, 1.5, 0, .1, 0], [-58.8, -14.4, 4.5, 0, 0, 0], [-41, 6, 3, 0, 0, .2], [50, 17.3, 2.2, 0, .1, 0], [44, 16, 1.2, 0, .1, 0], [31.8, 29.9, 1.6, 0, 0, .3], [29.7, -4, 1.5, 0, 0, .5],
+    [14.5, -11.3, 1.2, 0, .1, 0], [-20.7, -22.2, 1.2, 0, .3, 0], [63.5, -63, 2.5, 0, 0, .3], [-44, -54.5, 3, 0, 0, .3], [-17.5, -40, 1.8, 0, 0, .4], [46.7, 44.4, 1.6, 0, 0, .3], [46.7, 39, 1.5, 0, 0, .3],
+    [16.1, 46.8, .9, .7, .9, 0], [16, 16, .8, .3, .9, 0], [14.5, 9, .8, .3, .9, 0], [33.9, 1.2, .8, 0, .6, 0], [30.7, 1.5, .6, 0, .4, 0], [5.6, 46.5, 1.1, 0, .3, 0], [-1.9, 47.6, .5, .5, .9, 0], [-12, -62, 2.2, 0, 0, .2], [21, -3, 1.2, 0, 0, 0]];
+  function moonBuild() {
+    if (MOON.ok) return true; if (MOON.run) return false; MOON.run = true;
+    var N = MOON.N, A = new Float32Array(N * N), HM = new Float32Array(N * N), D = Math.PI / 180, i, j, k;
+    var MA = MN_MARIA.map(function (m) { var la = m[0] * D, lo = m[1] * D; return { x: Math.cos(la) * Math.sin(lo), y: Math.sin(la), z: Math.cos(la) * Math.cos(lo), r: m[2], d: m[3], cut: Math.cos(Math.min(85, m[2] * 1.8) * D) }; });
+    var CR = MN_CR.map(function (m, n) {
+      var la = m[0] * D, lo = m[1] * D, cx = Math.cos(la) * Math.sin(lo), cy = Math.sin(la), cz = Math.cos(la) * Math.cos(lo), ex = cy * 0 - 0 * cz, ey = cz * 0 - cx * 0, ez = 0;
+      ex = cy * cz * 0 + cz; ey = 0; ez = -cx; var el = Math.sqrt(ex * ex + ez * ez) || 1; ex /= el; ez /= el;   // este = (0,1,0) x c
+      var nx = cy * ez - cz * ey, ny = cz * ex - cx * ez, nz = cx * ey - cy * ex;   // norte = c x este
+      return { x: cx, y: cy, z: cz, ex: ex, ey: ey, ez: ez, nx: nx, ny: ny, nz: nz, r: m[2], ray: m[3], br: m[4], dk: m[5], ph: n * 1.7, lim: Math.cos(Math.min(89, m[2] * (m[3] ? 30 : 3.4)) * D) };
+    });
+    var sm = function (a, b, x) { x = (x - a) / (b - a); x = x < 0 ? 0 : x > 1 ? 1 : x; return x * x * (3 - 2 * x); };
+    var SC = [[3.2, .2, 11.3], [6, .32, 23.7], [11, .42, 37.1], [20, .55, 51.9]], hh, aa, ch, ca;
+    function cells(px, py, pz, Sc, prob, salt) {
+      var x = px * Sc, y = py * Sc, z = pz * Sc, xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z), ox = x - xi < .5 ? -1 : 1, oy = y - yi < .5 ? -1 : 1, oz = z - zi < .5 ? -1 : 1, a, b, c;
+      for (a = 0; a < 2; a++) for (b = 0; b < 2; b++) for (c = 0; c < 2; c++) {
+        var cx = xi + a * ox, cy = yi + b * oy, cz = zi + c * oz; if (mnH(cx + salt, cy * 1.7 + salt, cz * 2.3) > prob) continue;
+        var jx = cx + .3 + .4 * mnH(cx, cy + salt, cz * 1.3), jy = cy + .3 + .4 * mnH(cx * 1.9, cy, cz + salt), jz = cz + .3 + .4 * mnH(cx + 5.1, cy * 2.7, cz + salt);
+        var rc = .1 + .18 * mnH(cx * 3.1 + salt, cy, cz * 1.1), dx = x - jx, dy = y - jy, dz = z - jz, t = Math.sqrt(dx * dx + dy * dy + dz * dz) / rc; if (t > 2.4) continue;
+        var rs = rc / Sc, fresh = mnH(cx * 7.3, cy + salt, cz * 1.9) > .86;
+        if (t < 1) { ch -= .24 * rs * (1 - t * t); ca += fresh ? .07 : 0; }
+        var rim = Math.exp(-((t - 1) / .17) * ((t - 1) / .17)); ch += .15 * rs * rim; ca += (.04 + (fresh ? .07 : 0)) * rim;
+        if (t > 1) ca += (fresh ? .08 : .02) * Math.exp(-(t - 1) * 2.2);
+      }
+    }
+    var row = 0;
+    function rows() {
+      var t0 = performance.now(), end;
+      while (row < N && performance.now() - t0 < 9) { fila(row++); }
+      if (row < N) { setTimeout(rows, 0); return; }
+      fin();
+    }
+    function fila(j) {
+      var qy = (j + .5) / N * 2 - 1;
+      for (i = 0; i < N; i++) {
+        var qx = (i + .5) / N * 2 - 1, r2 = qx * qx + qy * qy; if (r2 >= 1) continue;
+        var px = qx, py = -qy, pz = Math.sqrt(1 - r2), n1 = mnF(px * 3.1 + 7, py * 3.1, pz * 3.1, 3), n2 = mnF(px * 8 + 3, py * 8 + 1, pz * 8, 2), n3 = mnV(px * 30, py * 30 + 5, pz * 30), n4 = mnV(px * 15 + 9, py * 15 + 4, pz * 15);
+        var mare = 0; for (k = 0; k < MA.length; k++) { var m = MA[k], dp = px * m.x + py * m.y + pz * m.z; if (dp < m.cut) continue; var d = Math.acos(dp > 1 ? 1 : dp) / D + (n2 - .5) * m.r * .9 + (n4 - .5) * m.r * .4, w = m.d * (1 - sm(.55 * m.r, 1.02 * m.r, d)); if (w > mare) mare = w; }
+        aa = 0; hh = 0;
+        var al = .64 + .5 * (n1 - .5) + .09 * (n2 - .5) + .06 * (n3 - .5), am = .33 + .14 * (n2 - .5) + .05 * (n3 - .5);
+        hh += .006 * (n1 - .5) + .0025 * (n3 - .5) - .004 * mare;
+        for (k = 0; k < CR.length; k++) {
+          var c = CR[k], dc = px * c.x + py * c.y + pz * c.z; if (dc < c.lim) continue;
+          var dd = Math.acos(dc > 1 ? 1 : dc) / D, t = dd / c.r, rs = c.r * D;
+          if (t < 1) { hh -= .22 * rs * (1 - t * t); if (c.dk) aa -= c.dk * .26 * (1 - sm(.6, 1, t)); if (c.r > 1.7) { hh += .1 * rs * Math.exp(-(t / .13) * (t / .13)); aa += .05 * Math.exp(-(t / .16) * (t / .16)); } }
+          var rim = Math.exp(-((t - 1) / .17) * ((t - 1) / .17)); hh += .14 * rs * rim; aa += .05 * rim;
+          if (c.br && t < 1.25) aa += c.br * .26 * (1 - sm(.85, 1.25, t));
+          if (t > 1) { aa += (.04 + .08 * c.br) * Math.exp(-(t - 1) * 1.7); hh += .02 * rs * Math.exp(-(t - 1) * 2); }
+          if (c.ray && t > 1) { var ph = Math.atan2(px * c.ex + py * c.ey + pz * c.ez, px * c.nx + py * c.ny + pz * c.nz), rv = .5 * Math.sin(9 * ph + c.ph) + .3 * Math.sin(15 * ph + 2 * c.ph) + .2 * Math.sin(23 * ph + .5 * c.ph); aa += c.ray * .26 * sm(.15, 1.0, rv) * Math.exp(-(t - 1) / 7); }
+        }
+        ch = 0; ca = 0; for (k = 0; k < SC.length; k++) cells(px, py, pz, SC[k][0], SC[k][1], SC[k][2]);
+        var kc = 1 - .8 * Math.min(1, mare); hh += ch * kc; aa += ca * kc;
+        var a0 = al + (am - al) * Math.min(1, mare) + aa; A[j * N + i] = a0 < .12 ? .12 : a0 > 1 ? 1 : a0; HM[j * N + i] = hh;
+      }
+    }
+    function fin() {
+    var GX = new Float32Array(N * N), GY = new Float32Array(N * N), s4 = N / 4;
+    for (j = 1; j < N - 1; j++) for (i = 1; i < N - 1; i++) {
+      var q = j * N + i, qx2 = (i + .5) / N * 2 - 1, qy2 = (j + .5) / N * 2 - 1; if (qx2 * qx2 + qy2 * qy2 > .97) continue;
+      var gx = (HM[q + 1] - HM[q - 1]) * s4, gy = (HM[q + N] - HM[q - N]) * s4; GX[q] = gx > 1.3 ? 1.3 : gx < -1.3 ? -1.3 : gx; GY[q] = gy > 1.3 ? 1.3 : gy < -1.3 ? -1.3 : gy;
+    }
+    MOON.a = A; MOON.gx = GX; MOON.gy = GY; MOON.ok = true;
+    }
+    rows(); return false;
+  }
+  function moonRender(M, rot, L, es, tint) {
+    var cv = MC.cv || (MC.cv = document.createElement('canvas')); cv.width = cv.height = M; var cx = cv.getContext('2d'), im = cx.createImageData(M, M), d = im.data, N = MOON.N, A = MOON.a, GX = MOON.gx, GY = MOON.gy;
+    var cr = Math.cos(rot), sr = Math.sin(rot), Lx = L[0] * cr + L[1] * sr, Ly = -L[0] * sr + L[1] * cr, Lz = L[2], GK = 1.6, i, j, o = 0;
+    for (j = 0; j < M; j++) {
+      var y = (j + .5) / M * 2 - 1;
+      for (i = 0; i < M; i++, o += 4) {
+        var x = (i + .5) / M * 2 - 1, r2 = x * x + y * y, rr = Math.sqrt(r2); if (rr > 1.01) continue;
+        var al = rr < 1 - 1.4 / M ? 1 : Math.max(0, Math.min(1, (1 - rr) * M * .5 + .5));
+        var qx = x * cr + y * sr, qy = -x * sr + y * cr, u = (qx + 1) * .5 * N - .5, v = (qy + 1) * .5 * N - .5; u = u < 0 ? 0 : u > N - 1.01 ? N - 1.01 : u; v = v < 0 ? 0 : v > N - 1.01 ? N - 1.01 : v;
+        var ui = u | 0, vi = v | 0, fu = u - ui, fv = v - vi, q = vi * N + ui, w00 = (1 - fu) * (1 - fv), w10 = fu * (1 - fv), w01 = (1 - fu) * fv, w11 = fu * fv;
+        var a = A[q] * w00 + A[q + 1] * w10 + A[q + N] * w01 + A[q + N + 1] * w11, gx = GX[q] * w00 + GX[q + 1] * w10 + GX[q + N] * w01 + GX[q + N + 1] * w11, gy = GY[q] * w00 + GY[q + 1] * w10 + GY[q + N] * w01 + GY[q + N + 1] * w11;
+        var nz = Math.sqrt(Math.max(.004, 1 - r2)), nx = qx - GK * gx, ny = qy - GK * gy, nl = Math.sqrt(nx * nx + ny * ny + nz * nz); nx /= nl; ny /= nl; var nzp = nz / nl;
+        var mu0 = (nx * Lx + ny * Ly + nzp * Lz + .02) / 1.02, I = mu0 > 0 ? 2 * mu0 / (mu0 + nz) : 0; if (I > 1.2) I = 1.2;
+        var sun = Math.min(1, I * a * 1.32), ec = es * Math.sqrt(nz) * a * 1.3 * (1 - sun);
+        var R = 255 * (sun + ec * .72), G = 255 * (sun * .965 + ec * .86), B = 255 * (sun * .91 + ec) + (1 - a) * 16 * sun;
+        G *= 1 - .22 * tint; B *= 1 - .5 * tint;
+        d[o] = R > 255 ? 255 : R; d[o + 1] = G > 255 ? 255 : G; d[o + 2] = B > 255 ? 255 : B; d[o + 3] = 255 * al;
+      }
+    }
+    cx.putImageData(im, 0, 0); return cv;
+  }
+  function moonFrame(V, S, m, mx, my, r, fwd) {
+    if (!MOON.ok && !moonBuild()) return null;
+    var s = S.sunV, cps = m[0] * s[0] + m[1] * s[1] + m[2] * s[2], sps = Math.sqrt(Math.max(0, 1 - cps * cps)), ep = horiz(270, 66.56, S.lst), nv = vecAA(ep[0], ep[1]);
+    var tg = function (t) { var dt = t[0] * m[0] + t[1] * m[1] + t[2] * m[2], a = t[0] - dt * m[0], b = t[1] - dt * m[1], c = t[2] - dt * m[2], l = Math.sqrt(a * a + b * b + c * c); return l < 1e-6 ? null : [a / l, b / l, c / l]; };
+    var ang = function (t) { if (!t) return null; var e = .03, p = [m[0] + e * t[0], m[1] + e * t[1], m[2] + e * t[2]], l = Math.sqrt(1 + e * e); if (!fwd(p[0] / l, p[1] / l, p[2] / l)) return null; return Math.atan2(V.py - my, V.px - mx); };
+    var ths = ang(tg(s)), thn = ang(tg(nv)); if (ths === null) ths = -1.2; if (thn === null) thn = -Math.PI / 2;
+    var rot = thn + Math.PI / 2, L = [sps * Math.cos(ths), sps * Math.sin(ths), -cps], illf = (1 - cps) / 2, es = .075 * Math.pow(1 - illf, 1.5), tint = Math.max(0, Math.min(1, (14 - Math.asin(Math.max(-1, Math.min(1, m[2]))) * 180 / Math.PI) / 14));
+    var M = Math.max(40, Math.min(256, Math.ceil(2 * r * (V.dpr || 1) / 8) * 8)), kg = [Math.round(rot * 229), Math.round(L[0] * 300), Math.round(L[1] * 300), Math.round(L[2] * 300), Math.round(es * 400), Math.round(tint * 40)].join(), nt = performance.now();
+    if (MC.kg !== kg) { MC.kg = kg; MC.t = nt; } if (nt - MC.t < 220) M = Math.min(M, 112); var key = kg + ',' + M;
+    if (MC.key !== key || !MC.cv) { MC.cv = moonRender(M, rot, L, es, tint); MC.key = key; }
+    return MC.cv;
+  }
+  setTimeout(moonBuild, 1200);
   /* ---------- guía "Buscar": anillo si está en pantalla, flecha en el borde si hay que girar ---------- */
   function tgtVec(S, k) {
     if (k === 'ari') { var a = S.pos.vega, b = S.pos.altair, d = S.pos.deneb, E = a.E + b.E + d.E, N = a.N + b.N + d.N, U = a.U + b.U + d.U, m = Math.sqrt(E * E + N * N + U * U) || 1; return [E / m, N / m, U / m, 'Ari y Alex']; }
     if (k.indexOf('pl:') === 0) { var n = k.slice(3), q = S.c.planets[n]; if (!q) return null; var v = vecAA(q.h[0], q.h[1]); return [v[0], v[1], v[2], PNOM[n]]; }
+    if (k === 'luna') { var mh = S.c.moon.h, mvv = vecAA(mh[0], mh[1]); return [mvv[0], mvv[1], mvv[2], 'Luna']; }
     var o = S.pos[k]; if (!o) return null; return [o.E, o.N, o.U, CIELO_ST[k][3] || k];
   }
   function drawTgt(V, S, tms) {
-    var t = tgtVec(S, V.tgt); if (!t) return; var ctx = V.ctx, W = V.W, H = V.H, sc = V.sc, gold = '#ffd86b', dark = 'rgba(3,6,24,.88)';
+    var t = tgtVec(S, V.tgt); if (!t || (V.tgt === 'luna' && V.psi < 6)) return; var ctx = V.ctx, W = V.W, H = V.H, sc = V.sc, gold = '#ffd86b', dark = 'rgba(3,6,24,.88)';
     var mx = 40, mt = 120, mb = Math.min(260, H * .36), ok = V.fwd(t[0], t[1], t[2]) && V.px > mx && V.px < W - mx && V.py > mt && V.py < H - mb;
     ctx.save(); ctx.textAlign = 'center'; ctx.font = '700 ' + (18 * Math.max(.9, sc)).toFixed(1) + 'px ' + HAND; ctx.lineJoin = 'round';
     if (ok) {
@@ -4918,7 +5036,7 @@ function cielo(ms) {
   }
   function overlay(V, S, tms, ground) {
     var ctx = V.ctx, W = V.W, H = V.H, c = S.c, pos = S.pos, proj = V.proj, fwd = V.fwd, sc = V.sc, lf = S.lf, lim = S.lim, cx = V.cx, cy = V.cy, s = S.s;
-    var hits = V.hits = [], jump = Math.max(W, H) * .55, fsOn = V.fs, boost = proj === 'cam' ? Math.max(0, 52 / V.psi - 1) : 0, tw = tms * .001;
+    var hits = V.hits = [], jump = Math.max(W, H) * .55, fsOn = V.fs, boost = proj === 'cam' ? Math.max(0, 52 / Math.max(V.psi, 5) - 1) : 0, tw = tms * .001;
     var onscr = function (x, y, m) { return x > -m && x < W + m && y > -m && y < H + m; };
     ctx.save();
     if (proj === 'dome') { ctx.beginPath(); ctx.arc(cx, cy, V.R, 0, 7); ctx.clip(); }
@@ -4998,17 +5116,18 @@ function cielo(ms) {
 
     /* Luna con su fase real */
     var mo = c.moon, ma = mo.h[0], ill = S.ill;
-    if ((ma > -1 || !ground) && s < -1) {
+    if (ma > -1 || !ground) {
       var mv2 = vecAA(ma, mo.h[1]);
-      if (fwd(mv2[0], mv2[1], mv2[2]) && onscr(V.px, V.py, 40)) {
-        var mx2 = V.px, my2 = V.py, sv = S.sunV, ang = -1.2;
-        if (fwd(sv[0], sv[1], sv[2])) ang = Math.atan2(V.py - my2, V.px - mx2);
-        var r2 = 8 * sc * (1 + boost * .7), aa = -Math.cos(mo.elong * RAD) * r2;
-        var mg2 = ctx.createRadialGradient(mx2, my2, 0, mx2, my2, r2 * 3.4); mg2.addColorStop(0, 'rgba(255,248,225,' + (.32 * ill + .07).toFixed(3) + ')'); mg2.addColorStop(1, 'rgba(255,248,225,0)'); ctx.fillStyle = mg2; ctx.beginPath(); ctx.arc(mx2, my2, r2 * 3.4, 0, 7); ctx.fill();
-        ctx.save(); ctx.translate(mx2, my2); ctx.rotate(ang); ctx.fillStyle = 'rgba(40,52,92,.92)'; ctx.beginPath(); ctx.arc(0, 0, r2, 0, 7); ctx.fill();
-        ctx.fillStyle = '#fff6dc'; ctx.beginPath(); var n = 28, j; for (j = 0; j <= n; j++) { var th = Math.PI * j / n; ctx.lineTo(r2 * Math.sin(th), -r2 * Math.cos(th)); } for (j = n; j >= 0; j--) { var th2 = Math.PI * j / n; ctx.lineTo(-aa * Math.sin(th2), -r2 * Math.cos(th2)); } ctx.closePath(); ctx.fill(); ctx.restore();
+      if (fwd(mv2[0], mv2[1], mv2[2]) && onscr(V.px, V.py, 90)) {
+        var mx2 = V.px, my2 = V.py, r2 = Math.max(14 * sc, proj === 'cam' ? V.K * Math.asin(.2724 / mo.r) : 0), sv = S.sunV, illf = (1 - (mv2[0] * sv[0] + mv2[1] * sv[1] + mv2[2] * sv[2])) / 2;
+        var ga = (.32 * illf + .07) * (1 - .92 * S.k) * Math.min(1, 26 / r2);
+        if (ga > .004) { var mg2 = ctx.createRadialGradient(mx2, my2, 0, mx2, my2, r2 * 3.4); mg2.addColorStop(0, 'rgba(255,248,225,' + ga.toFixed(3) + ')'); mg2.addColorStop(1, 'rgba(255,248,225,0)'); ctx.fillStyle = mg2; ctx.beginPath(); ctx.arc(mx2, my2, r2 * 3.4, 0, 7); ctx.fill(); }
+        var img = moonFrame(V, S, mv2, mx2, my2, r2, fwd);
+        ctx.globalAlpha = 1 - .18 * S.k;
+        if (img) ctx.drawImage(img, mx2 - r2, my2 - r2, 2 * r2, 2 * r2); else { ctx.fillStyle = 'rgba(235,230,215,' + (.3 + .6 * illf).toFixed(2) + ')'; ctx.beginPath(); ctx.arc(mx2, my2, r2, 0, 7); ctx.fill(); }
+        ctx.globalAlpha = 1;
         labels.push({ sx: mx2, sy: my2, r: r2 + 1, y: my2 - 3, t: 'Luna', pr: -10, f: 13 * Math.max(.9, sc), c: '#fff1c7', b: 1 });
-        hits.push({ x: mx2, y: my2, t: 'La Luna', s: fase(mo.elong) + ' · ' + Math.round(ill * 100) + '% iluminada · a ' + Math.round(ma) + '° sobre el horizonte, hacia el ' + dir(mo.h[1]) });
+        hits.push({ x: mx2, y: my2, t: 'La Luna', s: fase(mo.elong) + ' · ' + Math.round(illf * 100) + '% iluminada · a ' + Math.round(ma) + '° sobre el horizonte, hacia el ' + dir(mo.h[1]) + ' · a ' + Math.round(mo.r * 6.378) + ' mil km' });
       }
     }
 
@@ -5344,7 +5463,7 @@ function cielo(ms) {
   function findClose() { var f = $('fsFind'); if (f) f.remove(); }
   function findOpen() {
     if ($('fsFind')) { findClose(); return; }
-    var S = calc(msOf(day, mins)), f = document.createElement('div'), it = [['ari', 'Ari y Alex', 1]];
+    var S = calc(msOf(day, mins)), f = document.createElement('div'), it = [['ari', 'Ari y Alex', 1]]; if (S.c.moon.h[0] > 3) it.push(['luna', 'Luna']);
     Object.keys(S.c.planets).forEach(function (n) { var q = S.c.planets[n]; if (PNOM[n] && q.h[0] > 3 && q.mag < S.lim + .7) it.push(['pl:' + n, PNOM[n]]); });
     ['vega', 'altair', 'deneb', 'antares', 'fomalhaut', 'arcturus', 'capella', 'aldebaran', 'sirius', 'rigel', 'betelgeuse', 'polaris', 'achernar', 'spica', 'pollux', 'procyon', 'canopus'].forEach(function (id) { var o = S.pos[id]; if (o && o.alt > 3 && CIELO_ST[id][3]) it.push([id, CIELO_ST[id][3]]); });
     f.id = 'fsFind'; f.className = 'fs-find'; var h = document.createElement('h4'); h.textContent = '¿Qué quieres encontrar?'; f.appendChild(h);
@@ -5359,7 +5478,7 @@ function cielo(ms) {
     V2.tgt = k; V2.tgtT = performance.now(); V2.vx = V2.vy = 0; V2.dirty = true;
     var t = tgtVec(calc(msOf(day, mins)), k); if (!t) return; if (gy.on) { SND.ding(); return; }
     var az = Math.atan2(t[0], t[1]) * DEG, alt = Math.asin(clamp(t[2], -1, 1)) * DEG, cam = V2.proj === 'cam';
-    tween = { t0: performance.now(), d: 900, y0: V2.yaw, dy: w180(az - V2.yaw), p0: V2.pitch, dp: cam ? clamp(alt - 8, 5, 80) - V2.pitch : 0, s0: V2.psi, ds: 0, z0: V2.zoomAll, dz: 0, o0: V2.offY, doff: 0 }; SND.whoosh(); setTimeout(SND.ding, 900);
+    tween = { t0: performance.now(), d: 900, y0: V2.yaw, dy: w180(az - V2.yaw), p0: V2.pitch, dp: cam ? (k === 'luna' ? clamp(alt, -5, 85) : clamp(alt - 8, 5, 80)) - V2.pitch : 0, s0: V2.psi, ds: k === 'luna' && cam ? 1 - V2.psi : 0, z0: V2.zoomAll, dz: 0, o0: V2.offY, doff: 0 }; SND.whoosh(); setTimeout(SND.ding, 900);
   }
   function fsLoop(t) {
     fsRaf = 0; if (!fsOn) return;
@@ -5407,7 +5526,7 @@ function cielo(ms) {
       if (!ptr.pts[e.pointerId]) return; ptr.pts[e.pointerId] = [e.clientX, e.clientY]; var n = Object.keys(ptr.pts).length;
       if (n >= 2) {
         var r = ptr.pinch / dist();
-        if (V2.proj === 'cam') V2.psi = clamp(ptr.psi0 * r, 5, 84); else { V2.zoomAll = clamp(ptr.z0 / r, 1, 4); clampOff(); }
+        if (V2.proj === 'cam') V2.psi = clamp(ptr.psi0 * r, .5, 84); else { V2.zoomAll = clamp(ptr.z0 / r, 1, 4); clampOff(); }
         V2.dirty = true; return;
       }
       if (!ptr.down) return;
@@ -5435,14 +5554,14 @@ function cielo(ms) {
     fsCv.addEventListener('pointerup', up); fsCv.addEventListener('pointercancel', up);
     fsCv.addEventListener('wheel', function (e) {
       e.preventDefault(); hideHint(); wheelT = performance.now(); var f = Math.exp(e.deltaY * (e.deltaMode ? .05 : .0014));
-      if (V2.proj === 'cam') V2.psi = clamp(V2.psi * f, 5, 84); else { V2.zoomAll = clamp(V2.zoomAll / f, 1, 4); clampOff(); }
+      if (V2.proj === 'cam') V2.psi = clamp(V2.psi * f, .5, 84); else { V2.zoomAll = clamp(V2.zoomAll / f, 1, 4); clampOff(); }
       V2.dirty = true;
     }, { passive: false });
     document.addEventListener('keydown', function (e) {
       if (!fsOn) return; var k = e.key, st = V2.psi / 12;
       if (k === 'Escape') { cerrarFs(); return; }
       if (k === 'ArrowLeft') V2.yaw -= st; else if (k === 'ArrowRight') V2.yaw += st; else if (k === 'ArrowUp') V2.pitch = clamp(V2.pitch + st, -89, 89); else if (k === 'ArrowDown') V2.pitch = clamp(V2.pitch - st, -89, 89);
-      else if (k === '+' || k === '=') V2.psi = clamp(V2.psi * .85, 5, 84); else if (k === '-') V2.psi = clamp(V2.psi / .85, 5, 84); else return;
+      else if (k === '+' || k === '=') V2.psi = clamp(V2.psi * .85, .5, 84); else if (k === '-') V2.psi = clamp(V2.psi / .85, .5, 84); else return;
       wheelT = performance.now(); V2.dirty = true; e.preventDefault();
     });
     $('fsX').addEventListener('click', cerrarFs); $('fsGy').addEventListener('click', gyToggle);
