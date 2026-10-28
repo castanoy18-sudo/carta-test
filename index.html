@@ -1836,6 +1836,32 @@
   .cl-rg::-moz-range-thumb, .fs-sl::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff; background: radial-gradient(circle at 35% 30%, #fff, #c9baff 50%, #7a66ff); box-shadow: 0 0 16px #9a8cff; }
   .cl-ends { display: flex; justify-content: space-between; align-items: center; margin: 4px 8px 0; font: 600 .85rem var(--ui); color: #aab4f5; }
   .cl-act { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 10px 8px 0; min-height: 44px; }
+  /* ===== Vía Láctea épica: polvo de estrellas, mapa de la galaxia y recorrido ===== */
+  #clFx { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; display: block; }
+  .cl-gal { margin: 18px 0 2px; }
+  .cl-h3 { margin: 0 8px 9px; font: 700 1.6rem/1.04 var(--hand); color: #fff; text-shadow: 0 0 14px rgba(150,160,255,.55); }
+  .cl-galw { position: relative; border-radius: 16px; overflow: hidden; background: radial-gradient(ellipse at 50% 46%, #0b1038, #03051a 74%); box-shadow: 0 8px 24px rgba(0,0,0,.45), 0 0 22px rgba(110,130,255,.3), inset 0 0 0 1.5px rgba(190,200,255,.25); }
+  #clGal { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; }
+  .cl-galtx { margin: 10px 8px 0; font: 500 1.28rem/1.2 var(--hand); color: #e8ebff; }
+  .cl-galtx b { color: #ffe3b0; font-weight: 700; }
+  #clFs.tour .fs-dock, #clFs.tour .fs-chips, #clFs.tour .fs-hint, #clFs.tour .fs-cap, #clFs.tour .fs-ttl span { opacity: 0 !important; pointer-events: none !important; transition: opacity .4s; }
+  .fs-tour { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); transform: translate(-50%, 18px); width: min(540px, calc(100% - 24px)); box-sizing: border-box; padding: 14px 16px 12px; border-radius: 22px; z-index: 8; opacity: 0; pointer-events: none; touch-action: manipulation;
+    background: rgba(7,9,34,.9); border: 1px solid rgba(190,200,255,.4); box-shadow: 0 12px 40px rgba(0,0,0,.6), 0 0 34px rgba(120,110,255,.38), inset 0 1px 0 rgba(255,255,255,.1); transition: opacity .5s, transform .6s cubic-bezier(.2,.9,.3,1); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+  .fs-tour.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+  .ft-top { display: flex; align-items: center; justify-content: space-between; }
+  .ft-n { font: 700 .72rem/1 var(--ui); letter-spacing: .09em; text-transform: uppercase; color: #9fb0ff; }
+  .ft-x { padding: 6px 12px; border-radius: 14px; border: 1px solid rgba(190,200,255,.35); background: rgba(255,255,255,.06); color: #dfe4ff; font: 700 .78rem/1 var(--ui); cursor: pointer; touch-action: manipulation; }
+  .ft-t { display: block; margin: 6px 0 4px; font: 700 1.9rem/1.02 var(--hand); color: #fff; background: linear-gradient(100deg, #fff 10%, #ffd9b0 55%, #ffb6d9); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .ft-s { margin: 0; min-height: 4.1em; font: 500 .95rem/1.38 var(--ui); color: #dde2ff; }
+  .fs-tour.sw .ft-t, .fs-tour.sw .ft-s { animation: ftIn .8s cubic-bezier(.2,.9,.3,1) both; }
+  .fs-tour.sw .ft-s { animation-delay: .12s; }
+  @keyframes ftIn { from { opacity: 0; transform: translateY(8px); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+  .ft-bar { height: 3px; margin: 10px 0 0; border-radius: 3px; background: rgba(255,255,255,.14); overflow: hidden; }
+  .ft-bar i { display: block; width: 0; height: 100%; background: linear-gradient(90deg, #ffb36b, #ff7fb0, #6f5cff); }
+  .ft-btns { display: flex; gap: 8px; margin-top: 10px; }
+  .ft-btns button { flex: 1; padding: 10px 8px; border-radius: 16px; border: 1px solid rgba(190,200,255,.4); background: rgba(255,255,255,.07); color: #fff; font: 700 .95rem/1 var(--ui); cursor: pointer; touch-action: manipulation; }
+  .ft-btns .ft-mid { flex: 2; background: linear-gradient(135deg, #7c5cff, #2fb4ff); border-color: #d5e0ff; }
+  @media (prefers-reduced-motion: reduce) { .fs-tour.sw .ft-t, .fs-tour.sw .ft-s { animation: none; } }
   /* ===== Botón "Ver esa noche": la noche entera en miniatura (atardecer a la izquierda, cielo estrellado a la derecha) ===== */
   :root { --vn-stars: radial-gradient(2.0px 2.0px at 47% 26%, #fff 40%, transparent 72%), radial-gradient(1.4px 1.4px at 55% 71%, #ffe6cf 40%, transparent 72%), radial-gradient(2.3px 2.3px at 63% 38%, #fff 40%, transparent 72%), radial-gradient(1.3px 1.3px at 69% 16%, #cfe0ff 40%, transparent 72%), radial-gradient(1.7px 1.7px at 74% 64%, #fff 40%, transparent 72%), radial-gradient(1.3px 1.3px at 79% 33%, #ffe6cf 40%, transparent 72%), radial-gradient(2.2px 2.2px at 84% 80%, #fff 40%, transparent 72%), radial-gradient(1.4px 1.4px at 88% 22%, #cfe0ff 40%, transparent 72%), radial-gradient(1.9px 1.9px at 92% 55%, #fff 40%, transparent 72%), radial-gradient(1.2px 1.2px at 96% 14%, #fff 40%, transparent 72%), radial-gradient(1.3px 1.3px at 60% 87%, #cfe0ff 40%, transparent 72%), radial-gradient(1.2px 1.2px at 71% 49%, #fff 40%, transparent 72%); }
   #cielo .cl-act .vnb { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; gap: 14px; flex: 1 1 100%; min-height: 78px; padding: 10px 18px 10px 12px; border: 1px solid transparent; border-radius: 24px; color: #fff !important; text-align: left; text-shadow: none; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: transform .16s ease;
@@ -2099,7 +2125,12 @@
     <div class="cl-ends" id="clEnds"><span>6:00 pm</span><span>5:00 am</span></div>
     <div class="cl-act" id="clAct"><button class="vnb pulse cl-play" id="clPlay" type="button" aria-label="Ver esa noche, del atardecer a las 9:49 pm"><span class="vn-fill" aria-hidden="true"></span><span class="vn-shoot" aria-hidden="true"></span><span class="vn-ic" aria-hidden="true"><svg viewBox="0 0 48 48"><circle class="r0" cx="24" cy="24" r="19"/><circle class="r1" cx="24" cy="24" r="19"/><path class="i-play" d="M20 16.5v15l12-7.5z"/><g class="i-pause"><rect x="18" y="16" width="4" height="16" rx="1.5"/><rect x="26" y="16" width="4" height="16" rx="1.5"/></g></svg></span><span class="vn-tx"><span class="vn-t">Ver esa noche</span><span class="vn-s">6:00 pm → 9:49 pm</span></span></button><button class="jd-btn" id="clReset" type="button" hidden>volver a las 9:49 pm</button></div>
     <div class="cl-txt" id="clTxt"></div>
-    <p class="cl-fine"><b>Bebé, mira:</b> el centro de la cúpula es lo que teníamos justo encima y el borde es el horizonte. Mueve la barra para ver cómo giró el cielo esa noche y toca una estrella para saber cómo se llama. Con <b>“Todo el cielo”</b> ves la Vía Láctea completa, y en <b>pantalla completa</b> puedes girarlo con el dedo o el mouse, acercarlo y volar por toda la galaxia.</p>
+    <div class="cl-gal" id="clGalBox">
+      <h3 class="cl-h3">y así se ve la galaxia desde arriba</h3>
+      <div class="cl-galw"><canvas id="clGal" role="img" aria-label="La Vía Láctea vista desde arriba: el punto donde estamos nosotros y la parte de la galaxia que se veía sobre el horizonte a la hora elegida"></canvas></div>
+      <p class="cl-galtx">Ese puntico de abajo somos nosotros, a unos <b>26.000 años luz</b> del centro y girando alrededor de él a casi <b>800.000 km/h</b>. La zona dorada es la parte de la galaxia que se veía sobre el horizonte a la hora que elijas en la barra.</p>
+    </div>
+    <p class="cl-fine"><b>Bebé, mira:</b> el centro de la cúpula es lo que teníamos justo encima y el borde es el horizonte. Mueve la barra para ver cómo giró el cielo esa noche y toca una estrella para saber cómo se llama. Con <b>“Todo el cielo”</b> ves la Vía Láctea completa. Toca también sus nubes, nebulosas y zonas oscuras para saber qué son. En <b>pantalla completa</b> puedes girarlo con el dedo o el mouse, acercarlo y darle a <b>▶ Recorrido</b> para que te lleve por la galaxia.</p>
   </div>
 
   <!-- Jardín que crece -->
@@ -4710,39 +4741,60 @@ function cielo(ms) {
   }
   function fbm(x, y, z, o) { var s = 0, a = .5, f = 1, n = 0; for (var i = 0; i < o; i++) { s += a * noise3(x * f, y * f, z * f); n += a; a *= .5; f *= 2.03; } return s / n; }
 
-  /* ---------- la Vía Láctea: textura en coordenadas galácticas (se hornea por tandas para no trabar nada) ---------- */
-  var GW = 512, GH = 256, GT = new Float32Array(GW * GH * 3), gRow = 0, gOn = false, gAt = 0, gStarted = false, gAsk = [];
-  var NEB = [[287.4, -.7, 2.6, 1, .45, .55, .5], [6, -1.2, 1.7, 1, .4, .5, .55], [84.8, -.5, 2.6, 1, .35, .5, .34], [209, -19.4, 2.1, .9, .5, .85, .5], [206, -16, 9, .8, .35, .5, .12],
-    [353.5, 16.5, 3.4, .55, .65, 1, .42], [280.5, -32.9, 3.1, .85, .92, 1, .55], [302.8, -44.3, 1.9, .85, .92, 1, .42], [336, -1.5, 3, 1, .55, .45, .22], [24, -1, 2.6, 1, .5, .5, .2]];   // Carina, Laguna, Norteamérica, Orión, Barnard, Rho Ofiuco, Nubes de Magallanes…
-  var DARK = [[303, .3, 3.4, .85], [359, 5.5, 4.5, .6], [344, -2.5, 3, .4], [12, 4, 3, .35]];   // Saco de Carbón, Pipa, manchas oscuras
+  /* ---------- la Vía Láctea: textura en coordenadas galácticas (1024×512), se hornea por tandas para no trabar nada ---------- */
+  var GW = 1024, GH = 512, GT = new Float32Array(GW * GH * 3), GS = new Float32Array(GW * GH), gRow = 0, gOn = false, gAt = 0, gStarted = false, gAsk = [];
+  var NEB = [   // l, b, radio°, r, g, b, intensidad  (regiones de gas que brillan: rosadas = hidrógeno, azuladas = luz reflejada)
+    [287.4, -.7, 2.6, 1, .45, .55, .5], [285.2, -.5, 5.5, 1, .5, .6, .17], [6, -1.2, 1.7, 1, .4, .5, .55], [7, -.3, .8, 1, .4, .6, .35], [17, -.8, 1.4, 1, .38, .5, .36], [15.1, .8, 1.1, 1, .4, .5, .3], [84.8, -.5, 2.6, 1, .35, .5, .34], [78.2, 2.1, 2.2, 1, .4, .5, .2],
+    [74.5, -8.5, 3.2, 1, .4, .6, .12], [209, -19.4, 2.1, .9, .5, .85, .5], [206, -16, 9, .8, .35, .5, .12], [206.5, -2.1, 1.7, 1, .38, .5, .3], [160.5, -12.5, 3.6, 1, .35, .5, .13], [166.5, -23.5, 1.1, .5, .7, 1, .3], [133, 1, 2.6, 1, .4, .55, .13], [137, 1, 2.6, 1, .4, .55, .11],
+    [353.5, 16.5, 3.4, .55, .65, 1, .42], [352.5, 15, 1.4, 1, .55, .35, .25], [258, -2, 9, 1, .45, .55, .1], [280.5, -32.9, 3.1, .85, .92, 1, .6], [302.8, -44.3, 1.9, .85, .92, 1, .46], [336, -1.5, 3, 1, .55, .45, .22], [24, -1, 2.6, 1, .5, .5, .2], [305, -.2, 1.2, .8, .6, 1, .1]];
+  var DARK = [   // l, b, radio°, oscuridad  (nubes de polvo frío que tapan lo de atrás)
+    [303, .3, 3.4, .88], [359, 5.5, 4.5, .62], [344, -2.5, 3, .42], [12, 4, 3, .38], [0, 1.5, 12, .28], [30, 2.2, 3.2, .45], [28, -2.2, 2.6, .3], [38.5, 1.8, 2.2, .35], [53, 1.6, 3, .4], [66, 1.8, 3.4, .44], [75, 3, 4, .4], [82, 1, 2.8, .34],
+    [340, 16, 4, .5], [353, 16, 3.2, .36], [172, -15, 6, .38], [158, -18, 5, .3], [297, -15, 5, .34], [300, -8, 3, .3], [266, 1, 3, .22], [318, 4, 3, .3], [331, -3, 2.6, .3], [348, 7, 2.6, .3]];
+  var CLD = [   // nubes de estrellas: l, b, ancho l, ancho b, brillo, calidez (0 azul … 1 dorado)
+    [3, -1.6, 10, 4.2, 1.05, .9], [28.5, -.4, 6, 2.4, .9, .62], [40, 0, 8, 2.6, .55, .42], [57, 0, 7, 2.6, .5, .36], [78, .8, 10, 3.2, .88, .3], [91, -1, 8, 2.6, .46, .26], [112, 0, 12, 3, .42, .3], [135, 0, 14, 3, .38, .3], [160, 0, 16, 3, .22, .3], [188, 0, 16, 3.4, .2, .35],
+    [212, -.5, 14, 3.4, .27, .35], [236, -.5, 12, 3.4, .35, .4], [262, 0, 10, 3.2, .55, .36], [287, -.5, 9, 3.2, .82, .3], [305, 0, 8, 3.2, .72, .42], [322, -.5, 8, 3.2, .56, .5], [334, .5, 6, 3, .62, .62], [346, .5, 7, 3.4, .68, .74]];
   function galRow(j) {
-    var b = 90 - (j + .5) / GH * 180, cb = Math.cos(b * RAD), sb = Math.sin(b * RAD);
+    var b = 90 - (j + .5) / GH * 180, cb = Math.cos(b * RAD), sb = Math.sin(b * RAD), ab = Math.abs(b);
     for (var i = 0; i < GW; i++) {
-      var l = (i + .5) / GW * 360, lr = l * RAD, x = cb * Math.cos(lr), y = cb * Math.sin(lr), z = sb, lp = wrapL(l), o = (j * GW + i) * 3, r = 0, g = 0, bl = 0;
-      if (Math.abs(b) < 40) {
-        var hb = 5.2 + 5.5 * gau(l, 0, 42), core = Math.exp(-Math.pow(b / (hb * .6), 2)), halo = .4 * Math.exp(-Math.pow(b / (hb * 2), 2));
-        var lon = .3 + .8 * gau(l, 0, 46) + .3 * gau(l, 78, 24) + .32 * gau(l, -66, 22) + .14 * gau(l, 138, 30);
-        var n1 = fbm(x * 4.2 + 3, y * 4.2 + 1, z * 4.2, 4), n2 = fbm(x * 13 + 7, y * 13, z * 13 + 2, 3), dn = fbm(x * 7.5 + 11, y * 7.5 + 5, z * 7.5 + 9, 4);
-        var cl = .25 + 1.15 * sm(.3, .68, n1) + .5 * (n2 - .5);
-        var dust = sm(.5, .7, dn) * Math.exp(-Math.pow(b / 3.6, 2)) * (.3 + .7 * gau(l, 20, 80));
-        var rift = Math.exp(-Math.pow((b - 1.1) / 1.6, 2)) * gau(l, 28, 40) * (.55 + .45 * dn), m = (1 - .9 * dust) * (1 - .62 * rift);
-        for (var q = 0; q < DARK.length; q++) { var dk = DARK[q], dl = wrapL(l - dk[0]) * cb, db = b - dk[1]; m *= 1 - dk[3] * Math.exp(-(dl * dl + db * db) / (2 * dk[2] * dk[2])); }
-        var bul = Math.exp(-(Math.pow(lp / 13, 2) + Math.pow(b / 8.5, 2))), nuc = .55 * Math.exp(-(Math.pow(lp / 34, 2) + Math.pow(b / 3.4, 2)));
-        var L = (lon * (core * cl + halo * (.6 + .4 * cl)) + 1.35 * bul + nuc) * m, w = clamp(bul * 1.4 + nuc * 1.2 + .25 * gau(l, 0, 40), 0, 1);
-        r = L * mix1(.74, 1, w); g = L * mix1(.84, .82, w); bl = L * mix1(1, .58, w);
+      var l = (i + .5) / GW * 360, lr = l * RAD, x = cb * Math.cos(lr), y = cb * Math.sin(lr), z = sb, lp = wrapL(l), o = (j * GW + i) * 3, r = 0, g = 0, bl = 0, st = 0;
+      if (ab < 40) {
+        var hb = 3.3 + 3.6 * gau(l, 0, 38), disk = Math.exp(-Math.pow(b / hb, 2)), halo = .11 * Math.exp(-Math.pow(b / (hb * 2.6), 2));
+        var lw = .2 + .46 * gau(l, 0, 62) + .16 * gau(l, 78, 40) + .14 * gau(l, -66, 34);
+        var n1 = fbm(x * 4.2 + 3, y * 4.2 + 1, z * 4.2, 4), n2 = fbm(x * 15 + 7, y * 15, z * 15 + 2, 4), n3 = fbm(x * 40 + 5, y * 40 + 9, z * 40 + 1, 3), dn = fbm(x * 7.5 + 11, y * 7.5 + 5, z * 7.5 + 9, 4);
+        var cl = .26 + 1.2 * sm(.3, .68, n1), clump = (.5 + .95 * n2) * (.68 + .64 * n3);
+        var cw = 0, cs = 0, wl = 0;   // nubes de estrellas con nombre propio
+        for (var q = 0; q < CLD.length; q++) { var c = CLD[q], dl = wrapL(l - c[0]) * cb / c[2], db = (b - c[1]) / c[3], e = c[4] * Math.exp(-(dl * dl + db * db)); cs += e; wl += e * c[5]; }
+        var bul = Math.exp(-(Math.pow(lp / 12, 2) + Math.pow(b / 8.2, 2))), nuc = .6 * Math.exp(-(Math.pow(lp / 30, 2) + Math.pow(b / 3, 2))), bar = .35 * Math.exp(-(Math.pow((lp - 14) / 22, 2) + Math.pow(b / 4.4, 2)));
+        var Ls = (lw * disk * cl + halo * (.55 + .45 * cl) + cs * (.55 + .5 * disk) * (.7 + .6 * n1) + 1.5 * bul + nuc + bar) * clump;
+        // polvo: filamentos finos (ruido "afilado" y deformado), la Gran Grieta y nubes oscuras con nombre
+        var cL = Math.cos(lr), sL = Math.sin(lr), wp = fbm(cL * 4 + 17, sL * 4 + 3, b * .09 + 8, 3) - .5, rg = 1 - Math.abs(2 * fbm(cL * 11 + 21 + wp * 2.2, sL * 11 + 4 + wp * 2.2, b * .42 + 13 + wp * 1.4, 4) - 1);
+        var lane = Math.pow(rg, 2.1), bc = .7 + 1.5 * gau(l, 28, 52) * Math.sin(l * .09 + 1.2);
+        var dg = .25 + .75 * gau(l, 24, 90) + .35 * gau(l, -62, 28), dust = sm(.38, .86, lane) * Math.exp(-Math.pow((b - bc) / (1.9 + 1.5 * gau(l, 20, 60)), 2)) * dg;
+        var dust2 = sm(.5, .7, dn) * Math.exp(-Math.pow(b / 3.6, 2)) * (.3 + .7 * gau(l, 20, 80));
+        var rift = Math.exp(-Math.pow((b - 1.1) / 1.6, 2)) * gau(l, 28, 40) * (.55 + .45 * dn);
+        var D = clamp(dust * .95 + dust2 * .9, 0, 1), m = (1 - .93 * D) * (1 - .66 * rift);
+        for (var q2 = 0; q2 < DARK.length; q2++) { var dk = DARK[q2], dl2 = wrapL(l - dk[0]) * cb, db2 = b - dk[1]; m *= 1 - dk[3] * Math.exp(-(dl2 * dl2 + db2 * db2) / (2 * dk[2] * dk[2])); }
+        var warm = clamp(clamp(bul * 1.5 + nuc * 1.2, 0, 1) * .85 + (cs > .01 ? wl / cs : .3) * .55, 0, 1);
+        // color: población vieja dorada, jóvenes azuladas; el polvo enrojece lo que deja pasar
+        var red = clamp(D * 1.1 + rift * .5, 0, 1), sr = mix1(.72, 1, warm), sg = mix1(.83, .8, warm), sbl = mix1(1, .52, warm);
+        sr *= 1 + .22 * red; sg *= 1 - .1 * red; sbl *= 1 - .42 * red;
+        var L = Ls * m; r = L * sr; g = L * sg; bl = L * sbl; st = L;
+        var rim = D * (1 - D) * 4 * Ls * .5; r += rim * .24; g += rim * .115; bl += rim * .035;   // borde del polvo iluminado por detrás
+        var ha = sm(.6, .82, fbm(x * 10 + 31, y * 10 + 7, z * 10 + 3, 3)) * Math.exp(-Math.pow(b / 1.5, 2)) * (.25 + cs) * (1 - .8 * D) * .2;   // gas de hidrógeno rosado a lo largo de los brazos
+        r += ha * 1; g += ha * .3; bl += ha * .42;
       }
-      for (var q2 = 0; q2 < NEB.length; q2++) {
-        var nb = NEB[q2], s2 = nb[2], dl2 = wrapL(l - nb[0]) * cb, db2 = b - nb[1];
-        if (Math.abs(dl2) > 4 * s2 || Math.abs(db2) > 4 * s2) continue;
-        var e = nb[6] * Math.exp(-(dl2 * dl2 + db2 * db2) / (2 * s2 * s2)); r += e * nb[3]; g += e * nb[4]; bl += e * nb[5];
+      for (var q3 = 0; q3 < NEB.length; q3++) {
+        var nb = NEB[q3], s2 = nb[2], dl3 = wrapL(l - nb[0]) * cb, db3 = b - nb[1];
+        if (Math.abs(dl3) > 4 * s2 || Math.abs(db3) > 4 * s2) continue;
+        var e2 = nb[6] * Math.exp(-(dl3 * dl3 + db3 * db3) / (2 * s2 * s2)); r += e2 * nb[3]; g += e2 * nb[4]; bl += e2 * nb[5];
       }
-      GT[o] = r / (1 + .9 * r); GT[o + 1] = g / (1 + .9 * g); GT[o + 2] = bl / (1 + .9 * bl);   // compresión suave: el núcleo brilla sin quemarse
+      GT[o] = r / (1 + .85 * r); GT[o + 1] = g / (1 + .85 * g); GT[o + 2] = bl / (1 + .85 * bl); GS[j * GW + i] = st / (1 + .85 * st);
     }
   }
   function galStep() {
     var t0 = performance.now();
     while (gRow < GH && performance.now() - t0 < 9) galRow(gRow++);
-    if (gRow < GH) setTimeout(galStep, 0); else { gOn = true; gAt = performance.now(); gAsk.forEach(function (f) { try { f(); } catch (e) {} }); }
+    if (gRow < GH) setTimeout(galStep, 0); else { gOn = true; gAt = performance.now(); gAsk.forEach(function (f) { try { f(); } catch (e) {} }); if (REV.pend) revealStart(REV.pend); }
   }
   function galStart() { if (gStarted) return; gStarted = true; setTimeout(galStep, 40); }
 
@@ -4839,10 +4891,11 @@ function cielo(ms) {
     var d = V.img.data, k = S.k, gE = S.gE, gN = S.gN, gZ = S.gZ, sv = S.sunV, mv = S.moonV;
     var zr = mix1(6, 20, k), zg = mix1(10, 40, k), zb = mix1(34, 100, k), hr = mix1(18, 70, k), hg = mix1(26, 110, k), hb = mix1(72, 175, k);
     var city = (1 - k) * .5, gS = sm(-18, 0, S.s) * (S.s < 0 ? 1 : 0) + (S.s >= 0 ? 1 : 0), mvis = S.mvis, ill = S.ill, mAlt = S.c.moon.h[0];
-    var mwA = gOn ? clamp((performance.now() - gAt) / 900, 0, 1) : 0, mwG = S.va * mwA * (1 - .5 * ill * mvis) * 1.35, doMW = mwG > .002;
+    var rvp = revealP(), rvF = revFront(rvp), rvL = REV.l0, rvg = rvp >= 1 ? 1 : 1 + .5 * Math.sin(clamp((rvp - .3) / .7, 0, 1) * Math.PI), mwG = S.va * (gOn ? 1 : 0) * (1 - .5 * ill * mvis) * 2.05 * rvg, doMW = mwG > .002 && rvp > 0;
     var cx = V.cx, cy = V.cy, inv = 1 / q, eps;
     var R = V.R, K = V.K, B = V.B, hs = V.hs, offY = V.offY, yaw = V.yaw, i, j, o = 0;
     if (proj === 'dome') eps = 90 / R * inv * 1.1; else if (proj === 'cam') eps = DEG / K * inv * 1.2; else eps = 360 / (V.W * V.zoomAll) * inv * 1.2;
+    var pa = Math.max(1e-5, eps / 1.15 * RAD), fd1 = clamp(.4 / pa, 30, 2600), fd2 = fd1 / 2.6, fg = clamp(.7 / pa, 40, 5200), dtl = clamp((.016 - pa) / .011, .55, 1), skip2 = !!V.moving;   // detalle fino: sigue el tamaño del píxel (más acercado, más textura)
     var gr = mix1(6, 22, k), gg = mix1(8, 28, k), gb2 = mix1(16, 46, k), br = mix1(15, 52, k), bgc = mix1(21, 66, k), bb2 = mix1(46, 108, k);
     for (j = 0; j < bh; j++) {
       var sy = (j + .5) * inv;
@@ -4868,12 +4921,28 @@ function cielo(ms) {
         if (mvis > 0 && mAlt > -4) { var dm = E * mv[0] + N * mv[1] + U * mv[2]; if (dm > .5) { var m1 = (.04 + .5 * ill) * Math.exp(-118 * (1 - dm)) + (.02 + .12 * ill) * Math.exp(-8 * (1 - dm)); m1 *= mvis * 255; r += m1 * .9; g += m1 * .93; b += m1; } }
         if (doMW) {
           var gx = E * gE[0] + N * gN[0] + U * gZ[0], gy = E * gE[1] + N * gN[1] + U * gZ[1], gz = E * gE[2] + N * gN[2] + U * gZ[2];
-          var fl = Math.atan2(gy, gx) * DEG; if (fl < 0) fl += 360; var fb = Math.asin(gz > 1 ? 1 : gz < -1 ? -1 : gz) * DEG;
-          var fx = fl / 360 * GW - .5, fy = (90 - fb) / 180 * GH - .5, x0 = Math.floor(fx), y0 = Math.floor(fy), tx = fx - x0, ty = fy - y0;
-          var x1 = (x0 + 1 + GW) % GW; x0 = (x0 + GW) % GW; var y1 = y0 + 1; if (y0 < 0) y0 = 0; if (y1 < 0) y1 = 0; if (y0 > GH - 1) y0 = GH - 1; if (y1 > GH - 1) y1 = GH - 1;
-          var o00 = (y0 * GW + x0) * 3, o10 = (y0 * GW + x1) * 3, o01 = (y1 * GW + x0) * 3, o11 = (y1 * GW + x1) * 3, w00 = (1 - tx) * (1 - ty), w10 = tx * (1 - ty), w01 = (1 - tx) * ty, w11 = tx * ty;
-          var ext = alt >= 0 ? .2 + .8 * sm(0, .28, alt) : .9, mg = mwG * ext * 255;
-          r += mg * (GT[o00] * w00 + GT[o10] * w10 + GT[o01] * w01 + GT[o11] * w11); g += mg * (GT[o00 + 1] * w00 + GT[o10 + 1] * w10 + GT[o01 + 1] * w01 + GT[o11 + 1] * w11); b += mg * (GT[o00 + 2] * w00 + GT[o10 + 2] * w10 + GT[o01 + 2] * w01 + GT[o11 + 2] * w11);
+          var fl = Math.atan2(gy, gx) * DEG; if (fl < 0) fl += 360;
+          var rva = 1, rve = 0;
+          if (rvF < 999) { var rd = rvF - Math.abs(wrapL(fl - rvL)); if (rd <= 0) rva = 0; else { rva = rd >= 70 ? 1 : (rd / 70) * (rd / 70) * (3 - 2 * rd / 70); rve = Math.exp(-((rd - 6) / 15) * ((rd - 6) / 15)) * (1 - rvp); } }
+          if (rva > 0) {
+            var fb = Math.asin(gz > 1 ? 1 : gz < -1 ? -1 : gz) * DEG;
+            var fx = fl / 360 * GW - .5, fy = (90 - fb) / 180 * GH - .5, x0 = Math.floor(fx), y0 = Math.floor(fy), tx = fx - x0, ty = fy - y0;
+            var x1 = (x0 + 1 + GW) % GW; x0 = (x0 + GW) % GW; var y1 = y0 + 1; if (y0 < 0) y0 = 0; if (y1 < 0) y1 = 0; if (y0 > GH - 1) y0 = GH - 1; if (y1 > GH - 1) y1 = GH - 1;
+            var o00 = (y0 * GW + x0) * 3, o10 = (y0 * GW + x1) * 3, o01 = (y1 * GW + x0) * 3, o11 = (y1 * GW + x1) * 3, w00 = (1 - tx) * (1 - ty), w10 = tx * (1 - ty), w01 = (1 - tx) * ty, w11 = tx * ty;
+            var tr = GT[o00] * w00 + GT[o10] * w10 + GT[o01] * w01 + GT[o11] * w11, tg = GT[o00 + 1] * w00 + GT[o10 + 1] * w10 + GT[o01 + 1] * w01 + GT[o11 + 1] * w11, tb = GT[o00 + 2] * w00 + GT[o10 + 2] * w10 + GT[o01 + 2] * w01 + GT[o11 + 2] * w11;
+            var lm = .3 * tr + .59 * tg + .11 * tb, ext = alt >= 0 ? .2 + .8 * sm(0, .28, alt) : .9, mg = mwG * ext * 255 * rva, sa = 0, kk = 1;
+            if (lm > .012) {   // textura fina anclada a la dirección en el cielo: filamentos de polvo, grumos y granito de estrellas que no se mueven al girar
+              kk = .62 + .76 * noise3(gx * fd1 + 3.1, gy * fd1 + 7.7, gz * fd1 + 1.3);
+              if (!skip2) kk *= .72 + .56 * noise3(gx * fd2 + 9.4, gy * fd2 + 2.2, gz * fd2 + 5.8);
+              kk = 1 + dtl * (kk - 1);
+              var qh = Math.imul(Math.floor(gx * fg) | 0, 374761393) ^ Math.imul(Math.floor(gy * fg) | 0, 668265263) ^ Math.imul(Math.floor(gz * fg) | 0, 1274126177); qh = Math.imul(qh ^ (qh >>> 13), 1274126177); qh = ((qh ^ (qh >>> 16)) >>> 0) / 4294967296;
+              if (qh > .93) { sa = (qh - .93) / .07; sa = sa * sa * lm * 1.25 * dtl; }
+            }
+            var cr = mg * (tr * kk + sa), cg = mg * (tg * kk + sa * .97), cb2 = mg * (tb * kk + sa * .9);   // codo suave: el núcleo brilla sin quemarse
+            if (cr > 120) cr = 120 + (cr - 120) / (1 + (cr - 120) / 135); if (cg > 120) cg = 120 + (cg - 120) / (1 + (cg - 120) / 135); if (cb2 > 120) cb2 = 120 + (cb2 - 120) / (1 + (cb2 - 120) / 135);
+            r += cr; g += cg; b += cb2;
+            if (rve > .01) { var ef = rve * lm * 150; r += ef * .55; g += ef * .72; b += ef; }
+          }
         }
         if (ground) {
           var azd = Math.atan2(E, N) * DEG; if (azd < 0) azd += 360; var hi = (azd * 2) | 0, altd = alt * DEG, hbk = HPB[hi], hf = HPF[hi];
@@ -5275,6 +5344,9 @@ function cielo(ms) {
       }
     }
 
+    /* regiones con nombre de la Vía Láctea (se pueden tocar) */
+    if (S.va > .05) mwfDraw(V, S, ground, hits, fsOn, onscr);
+
     /* estrellas del catálogo */
     var chico = proj === 'all' && !fsOn, labels = [], nameMag = chico ? 1.3 : 2.3 + boost * 1.4, ou = ourStar(day), sc0 = sc / (1 + .45 * boost);
     STK.forEach(function (id) {
@@ -5431,7 +5503,7 @@ function cielo(ms) {
     if (!H) return null;
     sizeView(V, W, H);
     var S = calc(msOf(day, mins)), ground = V.fs ? OPT.ground : false;
-    if (gOn && performance.now() - gAt < 1000) V.dirty = true;   // la Vía Láctea aparece suavecito
+    var rp = revealP(); if (rp < 1 || (V.rvLast !== undefined && V.rvLast < 1)) V.dirty = true; V.rvLast = rp;   // la Vía Láctea se enciende con una onda de luz
     setupProj(V);
     if (V.dirty) { paint(V, S, ground); V.dirty = false; }
     var ctx = V.ctx; ctx.setTransform(V.dpr, 0, 0, V.dpr, 0, 0); ctx.clearRect(0, 0, V.W, V.H); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
@@ -5441,11 +5513,12 @@ function cielo(ms) {
   }
   function render() {
     raf = 0; if (!V1 || fsOn) return;
-    V1.q = .8; var S = renderView(V1, performance.now()); if (S) texto(S);
-    if (gOn && performance.now() - gAt < 1000) ask();
+    var rq = revealing() ? .62 : .8; if (V1.q !== rq) { V1.q = rq; V1.dirty = true; }
+    var S = renderView(V1, performance.now()); if (S) texto(S);
+    if (revealing()) ask();
   }
   function ask() { if (!raf) raf = requestAnimationFrame(render); }
-  function dirtyAll() { if (V1) V1.dirty = true; if (V2) V2.dirty = true; ask(); }
+  function dirtyAll() { if (V1) V1.dirty = true; if (V2) V2.dirty = true; ask(); gmKick(); }
 
   /* ---------- hora, días y reproducción de la noche ---------- */
   function hora() {
@@ -5505,7 +5578,7 @@ function cielo(ms) {
     + '<div class="fs-chips" id="fsChips">'
     + '<button type="button" class="fs-chip on" data-o="lines"><i></i>Constelaciones</button><button type="button" class="fs-chip on" data-o="names"><i></i>Nombres</button>'
     + '<button type="button" class="fs-chip on" data-o="ground"><i></i>Montañas</button><button type="button" class="fs-chip" data-o="grid"><i></i>Cuadrícula</button>'
-    + '<button type="button" class="fs-chip" data-o="all"><i></i>Todo el cielo</button><button type="button" class="fs-chip go" data-o="find">◎ Buscar</button><button type="button" class="fs-chip on" data-o="snd"><i></i>Sonido</button><button type="button" class="fs-chip go" data-o="home">✦ Ir a la Vía Láctea</button></div>'
+    + '<button type="button" class="fs-chip" data-o="all"><i></i>Todo el cielo</button><button type="button" class="fs-chip go" data-o="find">◎ Buscar</button><button type="button" class="fs-chip on" data-o="snd"><i></i>Sonido</button><button type="button" class="fs-chip go" data-o="tour">▶ Recorrido</button><button type="button" class="fs-chip go" data-o="home">✦ Ir a la Vía Láctea</button></div>'
     + '<div class="fs-moment" id="fsMoment" aria-hidden="true"><b></b><span></span></div><div class="fs-cap" id="fsCap" aria-live="polite"></div>'
     + '<div class="fs-hint" id="fsHint"><span>Arrastra para girar el cielo</span><span>Pellizca o usa la rueda para acercar</span><span>Mueve la hora abajo y míralo girar</span></div>'
     + '<div class="fs-dock" id="fsDock"><div class="fs-days"><button type="button" data-d="0" class="on" aria-selected="true"><b>11 de octubre</b><small>la noche que nos conocimos</small></button><button type="button" data-d="1" aria-selected="false"><b>18 de octubre</b><small>el día del sí</small></button></div>'
@@ -5526,7 +5599,7 @@ function cielo(ms) {
   function abrirFs(auto) {
     if (fsOn) return; fsOn = true; fsAuto = !!auto; ov.classList.add('on'); document.documentElement.classList.add('cl-fs'); $('fsChips').querySelector('[data-o="snd"]').classList.toggle('on', SND.enabled()); SND.start();
     V2.proj = 'cam'; $('fsChips').querySelector('[data-o="all"]').classList.remove('on'); goHome(false);
-    intro.on = true; intro.t0 = performance.now(); V2.psi = 84; V2.q = .5; V2.dirty = true; V2.meteors = []; nextMeteor = performance.now() + 4500; lineP = 0;
+    intro.on = true; intro.t0 = performance.now(); revealStart(2800); V2.psi = 84; V2.q = .5; V2.dirty = true; V2.meteors = []; nextMeteor = performance.now() + 4500; lineP = 0;
     $('clFsb').setAttribute('aria-label', 'Cerrar pantalla completa'); hora(); texto(calc(msOf(day, mins)));
     ov.classList.remove('info'); $('fsInfoB').setAttribute('aria-expanded', 'false'); clearTimeout(hintT); $('fsHint').classList.add('on'); hintT = setTimeout(hideHint, 9000);
     if (!auto) {
@@ -5539,12 +5612,12 @@ function cielo(ms) {
   }
   function cerrarFs() {
     try { lensClose(); } catch (e) {}
-    if (!fsOn) return; gyStop(); SND.stop(); findClose(); V2.tgt = null; fsOn = false; ov.classList.remove('on', 'drag'); document.documentElement.classList.remove('cl-fs'); cancelAnimationFrame(fsRaf); fsRaf = 0; tween = null; ptr.pts = {}; ptr.down = false;
+    if (!fsOn) return; tourStop(false); gyStop(); SND.stop(); findClose(); V2.tgt = null; fsOn = false; ov.classList.remove('on', 'drag'); document.documentElement.classList.remove('cl-fs'); cancelAnimationFrame(fsRaf); fsRaf = 0; tween = null; ptr.pts = {}; ptr.down = false;
     $('clFsb').setAttribute('aria-label', 'Ver en pantalla completa');
     try { if (document.fullscreenElement || document.webkitFullscreenElement) (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) {}
     fsApi = false; try { screen.orientation.unlock(); } catch (e) {}
     if (innerWidth > innerHeight) descartado = true;
-    lineP = 1; dirtyAll(); setTimeout(ask, 250);
+    lineP = 1; dirtyAll(); setTimeout(ask, 250); if (inView) { FX.on = true; fxKick(); }
   }
   function hideHint() { clearTimeout(hintT); $('fsHint').classList.remove('on'); }
   function apaisado() { return innerWidth > innerHeight && innerHeight <= 620 && !!window.matchMedia && matchMedia('(pointer: coarse)').matches; }
@@ -5727,6 +5800,7 @@ function cielo(ms) {
     var dist = function () { var k = Object.keys(ptr.pts), a = ptr.pts[k[0]], b = ptr.pts[k[1]]; return Math.hypot(a[0] - b[0], a[1] - b[1]) || 1; };
     fsCv.addEventListener('pointerdown', function (e) {
       try { fsCv.setPointerCapture(e.pointerId); } catch (x) {}
+      if (TR.on && !TR.paused) { TR.paused = true; tourTimer(); }
       ptr.pts[e.pointerId] = [e.clientX, e.clientY]; var n = Object.keys(ptr.pts).length; tween = null; hideHint();
       if (n === 1) { ptr.down = true; ptr.sx = ptr.lx = e.clientX; ptr.sy = ptr.ly = e.clientY; ptr.lt = performance.now(); ptr.moved = 0; V2.vx = V2.vy = 0; ov.classList.add('drag'); }
       else if (n === 2) { ptr.pinch = dist(); ptr.psi0 = V2.psi; ptr.z0 = V2.zoomAll; ptr.moved = 99; }
@@ -5783,6 +5857,7 @@ function cielo(ms) {
     $('fsChips').addEventListener('click', function (e) {
       var b = e.target.closest('.fs-chip'); if (!b) return; var o = b.getAttribute('data-o'); hideHint();
       if (o === 'home') { goHome(true); return; }
+      if (o === 'tour') { tourStart(); return; }
       if (o === 'find') { findOpen(); return; }
       if (o === 'snd') { b.classList.toggle('on', SND.toggle()); return; }
       if (o === 'all') {
@@ -5828,6 +5903,264 @@ function cielo(ms) {
     } catch (e) {}
   }
 
+  /* =====================================================================
+     VÍA LÁCTEA ÉPICA · aparición con onda de luz, polvo de estrellas que titila, estrellas fugaces,
+     regiones con nombre, la galaxia vista desde arriba y un recorrido guiado
+     ===================================================================== */
+  var REV = { started: false, t0: 0, dur: 5600, l0: 0, pend: 0 };
+  var easeRev = function (p) { var x = Math.min(1, p / .72); return x * x * (3 - 2 * x); };
+  var revFront = function (p) { return p >= 1 ? 999 : easeRev(p) * 255; };   // hasta dónde llegó la onda de luz (grados de longitud galáctica)
+  function revealP() { if (!REV.started) return 0; var p = (performance.now() - REV.t0) / REV.dur; return p >= 1 ? 1 : p < 0 ? 0 : p; }
+  function revealing() { return REV.started && revealP() < 1; }
+  function calmo() { try { if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return true; if (document.documentElement.classList.contains('lite')) return true; } catch (e) {} return false; }
+  function galEq(l, b) {   // (l, b) galácticas → ascensión recta y declinación (J2000)
+    var cb = Math.cos(b * RAD), gx = cb * Math.cos(l * RAD), gy = cb * Math.sin(l * RAD), gz = Math.sin(b * RAD);
+    var X = G2E[0][0] * gx + G2E[0][1] * gy + G2E[0][2] * gz, Y = G2E[1][0] * gx + G2E[1][1] * gy + G2E[1][2] * gz, Z = G2E[2][0] * gx + G2E[2][1] * gy + G2E[2][2] * gz;
+    return [rev(Math.atan2(Y, X) * DEG), Math.asin(clamp(Z, -1, 1)) * DEG];
+  }
+  function galVec(l, b) { var e = galEq(l, b), p = precess(e[0], e[1], TREF), cd = Math.cos(p[1] * RAD); return [cd * Math.cos(p[0] * RAD), cd * Math.sin(p[0] * RAD), Math.sin(p[1] * RAD)]; }
+  var GEQ = [];   // el plano de la galaxia (b = 0) cada 2°, ya en el equinoccio de hoy
+  for (var gl = 0; gl < 360; gl += 2) GEQ.push(galVec(gl, 0));
+  function galL0(S) {   // desde dónde arranca la onda de luz: la parte más brillante de la franja que se ve sobre el horizonte
+    var best = 0, bw = -1, Zh = S.Zh;
+    for (var i = 0; i < GEQ.length; i++) {
+      var v = GEQ[i], l = i * 2, alt = Math.asin(clamp(v[0] * Zh[0] + v[1] * Zh[1] + v[2] * Zh[2], -1, 1)) * DEG, w = (.3 + .8 * gau(l, 0, 46) + .3 * gau(l, 78, 24) + .32 * gau(l, -66, 22)) * sm(4, 30, alt);
+      if (w > bw) { bw = w; best = l; }
+    }
+    return bw > .04 ? best : 0;
+  }
+  function revealStart(dur) {
+    if (!gOn) { REV.pend = dur || 5600; return; }
+    REV.pend = 0; REV.started = true; REV.t0 = performance.now(); REV.dur = calmo() ? 500 : (dur || 5600); REV.l0 = galL0(calc(msOf(day, mins))); dirtyAll();
+  }
+
+  /* ---------- regiones con nombre: se pueden tocar y, en pantalla completa, se rotulan ---------- */
+  var MWF = [
+    { l: 0, b: 0, n: 'Centro de la galaxia', s: 'en Sagitario, a unos 26.000 años luz · ahí hay un agujero negro más de 4 millones de veces más pesado que el Sol' },
+    { l: 5.9, b: -1.2, n: 'Nebulosa de la Laguna', s: 'una guardería de estrellas, a unos 4.000 años luz' },
+    { l: 28.5, b: -.4, n: 'Nube de estrellas del Escudo', s: 'tantas estrellas juntas que parece una nube brillante' },
+    { l: 30, b: 2.4, n: 'La Gran Grieta', s: 'polvo frío que tapa la luz de las estrellas que están detrás' },
+    { l: 79, b: .8, n: 'Nube del Cisne', s: 'aquí el polvo parte la Vía Láctea en dos ríos' },
+    { l: 84.8, b: -.5, n: 'Nebulosa Norteamérica', s: 'en el Cisne, tiene forma de continente' },
+    { l: 209, b: -19.4, n: 'Nebulosa de Orión', s: 'la espada de Orión: ahí nacen estrellas, a unos 1.300 años luz' },
+    { l: 180, b: 0, n: 'Anticentro', s: 'mirando hacia afuera de la galaxia, hacia Auriga: por eso aquí la franja es tan débil' },
+    { l: 287.4, b: -.7, n: 'Nebulosa de Carina', s: 'una de las nebulosas más grandes y brillantes del cielo' },
+    { l: 303, b: .3, n: 'Saco de Carbón', s: 'una nube de polvo tan densa que parece un hueco negro; está pegada a la Cruz del Sur' },
+    { l: 280.5, b: -32.9, n: 'Nube Grande de Magallanes', s: 'una galaxia pequeña que gira alrededor de la nuestra, a 160.000 años luz' },
+    { l: 302.8, b: -44.3, n: 'Nube Pequeña de Magallanes', s: 'otra galaxia enana vecina, a unos 200.000 años luz' },
+    { l: 353.5, b: 16.5, n: 'Rho Ofiuco', s: 'una nube de polvo y gas de colores, a unos 440 años luz' }
+  ];
+  MWF.forEach(function (f) { f.v = galVec(f.l, f.b); });
+  function mwfDraw(V, S, ground, hits, fsOn, onscr) {
+    var ctx = V.ctx, Eh = S.Eh, Nh = S.Nh, Zh = S.Zh, sc = V.sc, lab = fsOn && (OPT.names || TR.on) && (V.proj === 'all' || V.psi < 70), placed = [];
+    MWF.forEach(function (f) {
+      var x = f.v[0], y = f.v[1], z = f.v[2], E = x * Eh[0] + y * Eh[1], N = x * Nh[0] + y * Nh[1] + z * Nh[2], U = x * Zh[0] + y * Zh[1] + z * Zh[2];
+      if (U < (ground ? .035 : -.99) || !V.fwd(E, N, U) || !onscr(V.px, V.py, 10)) return;
+      var alt = Math.asin(clamp(U, -1, 1)) * DEG, az = rev(Math.atan2(E, N) * DEG), a = Math.max(.25, S.va) * (ground ? clamp(alt / 10, 0, 1) : 1), px = V.px, py = V.py;
+      hits.push({ x: px, y: py, t: f.n, s: f.s + (alt > 0 ? ' · a ' + Math.round(alt) + '° sobre el horizonte, hacia el ' + dir(az) : ' · esa noche quedaba bajo el horizonte') });
+      ctx.save(); ctx.strokeStyle = 'rgba(255,226,196,' + (.24 * a).toFixed(2) + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(px, py, 3.6 * Math.min(1.6, sc), 0, 7); ctx.stroke();
+      if (lab) {
+        var fz = 13 * Math.min(1.8, Math.max(.95, sc)); ctx.font = 'italic 600 ' + fz.toFixed(1) + 'px ' + HAND; ctx.lineJoin = 'round'; ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(4,7,28,.8)'; ctx.fillStyle = 'rgba(255,226,196,' + (.92 * a).toFixed(2) + ')';
+        var wd = ctx.measureText(f.n).width, rc = [px + 7, py - 7 - fz, px + 11 + wd, py - 3], ok = rc[2] < V.W && rc[0] > 0;
+        for (var q = 0; ok && q < placed.length; q++) { var o2 = placed[q]; if (rc[0] < o2[2] && rc[2] > o2[0] && rc[1] < o2[3] && rc[3] > o2[1]) ok = false; }
+        if (ok) { placed.push(rc); ctx.strokeText(f.n, px + 9, py - 7); ctx.fillText(f.n, px + 9, py - 7); }
+      }
+      ctx.restore();
+    });
+  }
+
+  /* ---------- polvo de estrellas: motas que titilan sobre la franja + estrellas fugaces (capa propia y liviana) ---------- */
+  var FX = { cv: null, x: null, W: 0, H: 0, dpr: 1, raf: 0, last: 0, pts: null, n: 0, met: [], next: 0, on: false };
+  function fxBuild() {   // motas repartidas según el brillo de la textura ya horneada
+    if (FX.pts || !gOn) return;
+    var n = 1300, a = new Float32Array(n * 8), c = 0, tries = 0, rn = NZ.r;
+    while (c < n && tries < 90000) {
+      tries++; var l = rn() * 360, b = (rn() + rn() + rn() - 1.5) * 20, ii = Math.min(GW - 1, (l / 360 * GW) | 0), jj = clamp(((90 - b) / 180 * GH) | 0, 0, GH - 1), w = GS[jj * GW + ii];
+      if (rn() > Math.pow(w, 1.05) * 1.7) continue;
+      var v = galVec(l, b), o = c * 8; a[o] = v[0]; a[o + 1] = v[1]; a[o + 2] = v[2]; a[o + 3] = l; a[o + 4] = rn() * 6.2832; a[o + 5] = .7 + rn() * 2.1; a[o + 6] = .2 + .8 * rn() * rn() * 1.4; a[o + 7] = (Math.abs(wrapL(l)) < 40 && rn() < .6) ? 5 : (rn() < .55 ? 2 : 1); c++;
+    }
+    FX.pts = a; FX.n = c;
+  }
+  function fxDraw(t) {
+    var V = V1; if (!V || !V.W || !V.fwd || !FX.cv) return;
+    if (!FX.pts) fxBuild();
+    var cx = FX.x, W = V.W, H = V.H, dpr = V.dpr;
+    if (FX.W !== W || FX.H !== H || FX.dpr !== dpr) { FX.cv.width = Math.round(W * dpr); FX.cv.height = Math.round(H * dpr); FX.W = W; FX.H = H; FX.dpr = dpr; }
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.clearRect(0, 0, W, H);
+    var S = calc(msOf(day, mins)), tw = t * .001, base = S.va * (1 - .55 * S.ill * S.mvis);
+    cx.save(); if (V.proj === 'dome') { cx.beginPath(); cx.arc(V.cx, V.cy, V.R, 0, 7); cx.clip(); }
+    if (FX.pts && base > .03) {
+      var a = FX.pts, Eh = S.Eh, Nh = S.Nh, Zh = S.Zh, rvp = revealP(), rF = revFront(rvp), sc = V.sc;
+      cx.globalCompositeOperation = 'lighter';
+      for (var i = 0; i < FX.n; i++) {
+        var o = i * 8, x = a[o], y = a[o + 1], z = a[o + 2], U = x * Zh[0] + y * Zh[1] + z * Zh[2]; if (U < .03) continue;
+        var ra = 1, edge = 0;
+        if (rF < 999) { var rd = rF - Math.abs(wrapL(a[o + 3] - REV.l0)); if (rd <= 0) continue; ra = rd >= 70 ? 1 : rd / 70; edge = Math.exp(-((rd - 6) / 15) * ((rd - 6) / 15)) * (1 - rvp); }
+        var E = x * Eh[0] + y * Eh[1], N = x * Nh[0] + y * Nh[1] + z * Nh[2]; if (!V.fwd(E, N, U)) continue;
+        var tws = .5 + .5 * Math.sin(tw * a[o + 5] + a[o + 4]), al = base * a[o + 6] * ra * (.18 + .82 * tws) * (U < .3 ? U / .3 : 1) * (1 + 2.4 * edge);
+        if (al < .025) continue;
+        var s = (.9 + a[o + 6] * 1.4) * Math.min(1.5, sc), k = a[o + 7];
+        cx.globalAlpha = al > 1 ? 1 : al; cx.fillStyle = 'rgb(' + BGCOL[k] + ')'; cx.fillRect(V.px - s / 2, V.py - s / 2, s, s);
+        if (a[o + 6] > .7 || edge > .3) { var gs = s * (4 + 3 * a[o + 6]); cx.globalAlpha = Math.min(1, al * .55); cx.drawImage(BGSP[k], V.px - gs / 2, V.py - gs / 2, gs, gs); }
+      }
+      cx.globalAlpha = 1;
+    }
+    /* estrellas fugaces: una de vez en cuando, solo con el cielo bien oscuro */
+    if (S.s < -14 && inView && !FX.met.length && t > FX.next && V.proj === 'dome') {
+      var ph = Math.random() * 6.2832, rr = V.R * (.15 + Math.random() * .6), dA = Math.random() * 6.2832, L = V.R * (.7 + Math.random() * .5);
+      FX.met.push({ x: V.cx + Math.cos(ph) * rr, y: V.cy + Math.sin(ph) * rr, dx: Math.cos(dA), dy: Math.sin(dA), L: L, t0: t, dur: 800 + Math.random() * 500 });
+      FX.next = t + 9000 + Math.random() * 9000;
+    } else if (!FX.next) FX.next = t + 3500;
+    cx.globalCompositeOperation = 'lighter';
+    for (var m = FX.met.length - 1; m >= 0; m--) {
+      var me = FX.met[m], p = (t - me.t0) / me.dur; if (p >= 1) { FX.met.splice(m, 1); continue; }
+      var e = 1 - Math.pow(1 - p, 2), hx = me.x + me.dx * me.L * e, hy = me.y + me.dy * me.L * e, tl = me.L * .3 * Math.sin(Math.PI * Math.min(1, p * 1.05)), tx = hx - me.dx * tl, ty = hy - me.dy * tl, al2 = Math.sin(Math.PI * p);
+      var gr = cx.createLinearGradient(tx, ty, hx, hy); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(1, 'rgba(255,244,226,' + al2.toFixed(2) + ')');
+      cx.strokeStyle = gr; cx.lineWidth = 1.7 * Math.min(1.5, V.sc); cx.lineCap = 'round'; cx.beginPath(); cx.moveTo(tx, ty); cx.lineTo(hx, hy); cx.stroke();
+      var hg = 9 * V.sc; cx.globalAlpha = al2 * .8; cx.drawImage(BGSP[2], hx - hg, hy - hg, hg * 2, hg * 2); cx.globalAlpha = 1;
+    }
+    cx.restore();
+  }
+  function fxLoop(t) {
+    FX.raf = 0; if (!FX.on || document.hidden || fsOn || !V1) return;
+    FX.raf = requestAnimationFrame(fxLoop);
+    if (t - FX.last < 32) return; FX.last = t; fxDraw(t);
+  }
+  function fxKick() { if (FX.on && !FX.raf && !calmo() && !document.hidden) FX.raf = requestAnimationFrame(fxLoop); }
+  function fxClear() { if (FX.cv && FX.x) { FX.x.setTransform(1, 0, 0, 1, 0, 0); FX.x.clearRect(0, 0, FX.cv.width, FX.cv.height); } }
+
+  /* ---------- la galaxia vista desde arriba: dónde estamos y qué parte de ella se veía sobre el horizonte ---------- */
+  var GM = { cv: null, x: null, img: null, N: 700, raf: 0, on: false, t0: 0, built: false };
+  var GM_KPC = 16.2, GM_SUN = 8.2;
+  function gmRng(seed) { var s = seed >>> 0; return function () { s = (s + 0x6D2B79F5) >>> 0; var x = Math.imul(s ^ s >>> 15, 1 | s); x = x + Math.imul(x ^ x >>> 7, 61 | x) ^ x; return ((x ^ x >>> 14) >>> 0) / 4294967296; }; }
+  function gmBuild() {
+    if (GM.built) return; GM.built = true;
+    var N = GM.N, c = document.createElement('canvas'); c.width = c.height = N; var x = c.getContext('2d'), rn = gmRng(20261011), C = N / 2, K = N / 2 / GM_KPC, T = Math.PI * 2;
+    var gs = function () { return (rn() + rn() + rn() + rn() - 2) * 1.73; };
+    var P = function (px, py, size, rgb, a) { x.fillStyle = 'rgba(' + rgb + ',' + a.toFixed(3) + ')'; x.fillRect(C + px * K - size / 2, C + py * K - size / 2, size, size); };
+    x.globalCompositeOperation = 'lighter';
+    var i, k, r, th, n;
+    for (i = 0; i < 5600; i++) { r = Math.min(15.6, -3.6 * Math.log(1 - rn() * .985)); th = rn() * T; P(r * Math.cos(th), -r * Math.sin(th), .9 + rn() * 1.2, r < 5 ? '255,226,184' : '196,212,255', .05 + .09 * rn()); }   // disco de fondo
+    for (k = 0; k < 4; k++) for (n = 0; n < 3500; n++) {   // los cuatro brazos
+      r = 2.6 + 12.9 * Math.pow(rn(), 1.3); th = (54.8 + 90 * k) * Math.PI / 180 + 4.51 * Math.log(r / 3) + gs() * (.3 + .03 * r) / r; var rr = r + gs() * .18, X = rr * Math.cos(th), Y = -rr * Math.sin(th);
+      if (rn() < .035 && r > 4.5 && r < 12.6) P(X, Y, 2.4 + rn() * 2.4, '255,110,170', .2 + .2 * rn());
+      else P(X, Y, .8 + rn() * 1.6, r < 6.5 ? (rn() < .5 ? '255,228,186' : '214,224,255') : '172,200,255', (.2 + rn() * .5) * (1.05 - r / 19));
+    }
+    for (n = 0; n < 520; n++) { r = 7.1 + 2.1 * rn(); th = -Math.PI / 2 + (r - 8.2) * .09 + gs() * .035; P(r * Math.cos(th), -r * Math.sin(th), .9 + rn() * 1.3, '255,238,210', .22 + .3 * rn()); }   // el brazo menor donde vivimos
+    var ba = Math.atan2(2.68, -1.55), cb = Math.cos(ba), sb = Math.sin(ba);
+    for (n = 0; n < 2600; n++) { var u = gs() * 1.4, v = gs() * .46; P(u * cb - v * sb, u * sb + v * cb, .8 + rn() * 1.1, '255,214,150', .14 + .36 * rn()); }   // la barra del centro
+    for (n = 0; n < 1700; n++) { var q = Math.abs(gs()) * .85, a2 = rn() * T; P(q * Math.cos(a2), q * Math.sin(a2), .8 + rn() * 1.2, '255,222,168', .12 + .4 * rn()); }
+    var g = x.createRadialGradient(C, C, 0, C, C, 1.5 * K); g.addColorStop(0, 'rgba(255,246,222,.98)'); g.addColorStop(.35, 'rgba(255,214,150,.55)'); g.addColorStop(1, 'rgba(255,190,120,0)'); x.fillStyle = g; x.fillRect(0, 0, N, N);
+    g = x.createRadialGradient(C, C, 0, C, C, 4.6 * K); g.addColorStop(0, 'rgba(255,200,140,.3)'); g.addColorStop(1, 'rgba(255,190,120,0)'); x.fillStyle = g; x.fillRect(0, 0, N, N);
+    x.globalCompositeOperation = 'destination-out';   // polvo oscuro en el borde interior de los brazos
+    for (k = 0; k < 4; k++) for (n = 0; n < 380; n++) {
+      r = 3 + 11.5 * Math.pow(rn(), 1.2); th = (54.8 + 90 * k) * Math.PI / 180 + 4.51 * Math.log(r / 3) - (.5 + rn() * .3) * (.3 + .03 * r) / r; var d = .14 + .1 * rn();
+      x.fillStyle = 'rgba(0,0,0,' + (.07 + .06 * rn()).toFixed(3) + ')'; x.beginPath(); x.arc(C + r * Math.cos(th) * K, C - r * Math.sin(th) * K, d * K, 0, T); x.fill();
+    }
+    x.globalCompositeOperation = 'lighter';
+    for (n = 0; n < 150; n++) { k = (rn() * 4) | 0; r = 3.4 + 10.5 * rn(); th = (54.8 + 90 * k) * Math.PI / 180 + 4.51 * Math.log(r / 3) + gs() * .2 / r * 2; P(r * Math.cos(th), -r * Math.sin(th), 2 + rn() * 1.6, '255,255,255', .5 + .4 * rn()); }
+    GM.img = c;
+  }
+  var GM_LAB = [['Escudo', 29], ['Cisne', 80], ['Perseo', 135], ['Anticentro', 180], ['Carina', 287], ['Cruz del Sur', 304], ['Escorpión', 345]];
+  function gmDraw(t) {
+    var cv = GM.cv; if (!cv || !GM.img) return; var W = cv.clientWidth; if (!W) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), px = Math.round(W * dpr); if (cv.width !== px) { cv.width = px; cv.height = px; }
+    var x = GM.x, s = px / 2, K = px / 2 / GM_KPC, fz = 12.5 * dpr * clamp(W / 340, .85, 1.25), S = calc(msOf(day, mins)), HNDL = HAND;
+    x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, px, px);
+    var ip = GM.t0 ? clamp((t - GM.t0) / (calmo() ? 1 : 3800), 0, 1) : 0, e = 1 - Math.pow(1 - ip, 3), ui = clamp((ip - .55) / .45, 0, 1), sw = Math.sin(t * .0005);
+    var g = x.createRadialGradient(s, s, 0, s, s, s); g.addColorStop(0, 'rgba(90,100,230,' + (.16 * e).toFixed(3) + ')'); g.addColorStop(.6, 'rgba(40,50,150,' + (.07 * e).toFixed(3) + ')'); g.addColorStop(1, 'rgba(20,24,80,0)'); x.fillStyle = g; x.fillRect(0, 0, px, px);
+    x.save(); x.translate(s, s); x.rotate((1 - e) * -1.15); var zs = (.45 + .55 * e) * (1 + .004 * sw); x.scale(zs, zs); x.globalAlpha = clamp(ip * 2.2, 0, 1); x.drawImage(GM.img, -s, -s, px, px);
+    x.globalCompositeOperation = 'lighter'; x.globalAlpha *= .3 + .1 * sw; x.rotate(.014 * Math.sin(t * .0007)); x.drawImage(GM.img, -s, -s, px, px); x.restore();
+    if (ui <= 0) return;
+    var sx = s, sy = s + GM_SUN * K, dirX = function (l) { return -Math.sin(l * RAD); }, dirY = function (l) { return -Math.cos(l * RAD); };
+    x.save(); x.globalAlpha = ui;
+    x.setLineDash([3 * dpr, 6 * dpr]); x.strokeStyle = 'rgba(255,255,255,.13)'; x.lineWidth = 1 * dpr; x.beginPath(); x.arc(s, s, GM_SUN * K, 0, 7); x.stroke();   // la órbita del Sol
+    x.strokeStyle = 'rgba(255,236,200,.55)'; x.beginPath(); x.moveTo(sx, sy); x.lineTo(s, s + 1.1 * K); x.stroke(); x.setLineDash([]);
+    // lo que se veía sobre el horizonte a la hora elegida
+    var Zh = S.Zh, vis = [], i; for (i = 0; i < 180; i++) { var v = GEQ[i], al = Math.asin(clamp(v[0] * Zh[0] + v[1] * Zh[1] + v[2] * Zh[2], -1, 1)) * DEG; vis.push(al > 3); }
+    var fa = .3 + .7 * S.va, Rf = 19 * K;
+    for (i = 0; i < 180; i++) {
+      if (!vis[i] || vis[(i + 179) % 180]) continue; var j = i; while (vis[(j + 1) % 180] && j - i < 179) j++;
+      var l0 = i * 2 - 1, l1 = j * 2 + 1, gr = x.createRadialGradient(sx, sy, 0, sx, sy, Rf); gr.addColorStop(0, 'rgba(255,224,160,' + (.4 * fa).toFixed(3) + ')'); gr.addColorStop(.55, 'rgba(255,200,150,' + (.1 * fa).toFixed(3) + ')'); gr.addColorStop(1, 'rgba(255,190,150,0)');
+      x.fillStyle = gr; x.beginPath(); x.moveTo(sx, sy); for (var l = l0; l <= l1; l += 1) x.lineTo(sx + dirX(l) * Rf, sy + dirY(l) * Rf); x.closePath(); x.fill();
+      x.strokeStyle = 'rgba(255,230,180,' + (.42 * fa).toFixed(3) + ')'; x.lineWidth = 1.1 * dpr; x.setLineDash([5 * dpr, 5 * dpr]); x.beginPath(); x.moveTo(sx, sy); x.lineTo(sx + dirX(l0) * Rf, sy + dirY(l0) * Rf); x.moveTo(sx, sy); x.lineTo(sx + dirX(l1) * Rf, sy + dirY(l1) * Rf); x.stroke(); x.setLineDash([]);
+    }
+    // nosotros
+    var pu = (t * .0006) % 1; x.strokeStyle = 'rgba(255,220,150,' + (.7 * (1 - pu)).toFixed(3) + ')'; x.lineWidth = 1.6 * dpr; x.beginPath(); x.arc(sx, sy, (5 + 17 * pu) * dpr, 0, 7); x.stroke();
+    var sg = x.createRadialGradient(sx, sy, 0, sx, sy, 14 * dpr); sg.addColorStop(0, 'rgba(255,255,255,.95)'); sg.addColorStop(.3, 'rgba(255,224,160,.6)'); sg.addColorStop(1, 'rgba(255,200,140,0)'); x.fillStyle = sg; x.beginPath(); x.arc(sx, sy, 14 * dpr, 0, 7); x.fill();
+    x.fillStyle = '#fff'; x.beginPath(); x.arc(sx, sy, 3.2 * dpr, 0, 7); x.fill();
+    x.strokeStyle = 'rgba(255,255,255,.8)'; x.lineWidth = 1.5 * dpr; x.beginPath(); x.moveTo(sx - 8 * dpr, sy); x.lineTo(sx - 26 * dpr, sy); x.moveTo(sx - 26 * dpr, sy); x.lineTo(sx - 21 * dpr, sy - 4 * dpr); x.moveTo(sx - 26 * dpr, sy); x.lineTo(sx - 21 * dpr, sy + 4 * dpr); x.stroke();
+    x.lineJoin = 'round'; x.textBaseline = 'alphabetic';
+    var tx = function (txt, X, Y, col, al, size, align, bold) { x.font = (bold ? '700 ' : '600 ') + (size || fz).toFixed(1) + 'px ' + HNDL; x.textAlign = align || 'center'; x.lineWidth = 3.4 * dpr; x.strokeStyle = 'rgba(3,5,24,.85)'; var wd = x.measureText(txt).width, pad = 6 * dpr; if (align === 'left') X = Math.min(X, px - pad - wd); else if (align === 'right') X = Math.max(X, pad + wd); else X = clamp(X, pad + wd / 2, px - pad - wd / 2); x.globalAlpha = ui * (al == null ? 1 : al); x.strokeText(txt, X, Y); x.fillStyle = col || '#fff'; x.fillText(txt, X, Y); };
+    tx('Nosotros · Niquía', sx, sy + 24 * dpr, '#ffe9bd', 1, fz * 1.12, 'center', true);
+    tx('casi 800.000 km/h', sx - 30 * dpr, sy - 9 * dpr, '#cfe0ff', .85, fz * .86, 'right');
+    tx('centro de la galaxia', s, s - 2.2 * K, '#fff6e0', 1, fz * 1.05, 'center', true);
+    tx('≈ 26.000 años luz', s + 8 * dpr, s + 4.5 * K, '#ffe9bd', .9, fz * .92, 'left');
+    GM_LAB.forEach(function (d) {
+      var l = d[1], ux = dirX(l), uy = dirY(l), bx = sx - 0, by = sy, A = ux * ux + uy * uy, Bq = 2 * ((bx - s) * ux + (by - s) * uy), Cq = (bx - s) * (bx - s) + (by - s) * (by - s) - Math.pow(14.2 * K, 2), disc = Bq * Bq - 4 * A * Cq;
+      if (disc < 0) return; var dd = (-Bq + Math.sqrt(disc)) / (2 * A), idx = ((l / 2) | 0) % 180, up = vis[idx];
+      tx(d[0], bx + ux * dd * .98, by + uy * dd * .98 + 4 * dpr, up ? '#ffe3a8' : '#aab4e6', up ? 1 : .55, fz * .9, 'center', up);
+    });
+    x.restore();
+  }
+  function gmLoop(t) {
+    GM.raf = 0; if (!GM.on || document.hidden) return;
+    gmDraw(t); if (!calmo()) GM.raf = requestAnimationFrame(gmLoop);
+  }
+  function gmKick() { if (GM.on && !GM.raf) GM.raf = requestAnimationFrame(gmLoop); }
+
+  /* ---------- recorrido guiado por la galaxia (pantalla completa) ---------- */
+  var TR = { on: false, i: 0, timer: 0, paused: false, g: true, l: true, el: null };
+  var TSTOPS = [
+    { l: 78, b: .8, psi: 64, n: 'El río de luz', s: 'Esa franja no es una nube: son estrellas, millones y millones, tan lejos que se mezclan. Nosotros vivimos adentro de esa galaxia y por eso la vemos de canto, como una cinta.' },
+    { l: 30, b: 2.4, psi: 40, n: 'La Gran Grieta', s: 'Esas manchas oscuras no son huecos. Es polvo frío que tapa la luz de las estrellas que están detrás.' },
+    { l: 28.5, b: -.4, psi: 26, n: 'Nube del Escudo', s: 'Tantas estrellas juntas que parecen una nube brillante. Cada puntico es un sol.' },
+    { l: 0, b: 0, psi: 48, n: 'El centro de la galaxia', s: 'Por allá, en Sagitario, queda el centro, a unos 26.000 años luz. Ahí hay un agujero negro más de 4 millones de veces más pesado que el Sol.' },
+    { l: 5.9, b: -1.2, psi: 22, n: 'Nebulosa de la Laguna', s: 'Una guardería de estrellas: gas rosado donde ahora mismo se están formando estrellas nuevas.' },
+    { l: 303, b: 0, psi: 30, n: 'El Saco de Carbón', s: 'Una nube de polvo tan densa que parece un hueco negro. Justo al lado queda la Cruz del Sur.' },
+    { l: 287.4, b: -.7, psi: 24, n: 'Nebulosa de Carina', s: 'Una de las nebulosas más grandes y brillantes del cielo. Allá nacen estrellas gigantes.' },
+    { l: 280.5, b: -32.9, psi: 34, n: 'Las Nubes de Magallanes', s: 'Dos galaxias pequeñas que giran alrededor de la nuestra. Parecen pedazos de Vía Láctea sueltos.' },
+    { eq: [10.685, 41.269], psi: 24, n: 'Andrómeda', s: 'Nuestra vecina más grande, a 2,5 millones de años luz. Su luz salió hace 2,5 millones de años y apenas llega a nuestros ojos. La tuya me alcanzó un domingo.' }
+  ];
+  function tourEnsure() {
+    if (TR.el) return;
+    var d = document.createElement('div'); d.className = 'fs-tour'; d.id = 'fsTour';
+    d.innerHTML = '<div class="ft-top"><span class="ft-n"></span><button type="button" class="ft-x">Salir</button></div><b class="ft-t"></b><p class="ft-s"></p><div class="ft-bar"><i></i></div><div class="ft-btns"><button type="button" data-k="p" aria-label="Anterior">‹</button><button type="button" data-k="m" class="ft-mid">Pausar</button><button type="button" data-k="n" aria-label="Siguiente">›</button></div>';
+    ov.appendChild(d); TR.el = d;
+    d.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return; if (b.classList.contains('ft-x')) { tourStop(true); return; }
+      var k = b.getAttribute('data-k'); if (k === 'p') tourGo(TR.i - 1, true); else if (k === 'n') tourGo(TR.i + 1, true); else if (k === 'm') { TR.paused = !TR.paused; tourTimer(); }
+    });
+  }
+  function tourTimer() {
+    clearTimeout(TR.timer); var bar = TR.el && TR.el.querySelector('.ft-bar i'), mid = TR.el && TR.el.querySelector('.ft-mid');
+    if (mid) mid.textContent = TR.paused ? 'Seguir' : 'Pausar';
+    if (bar) { bar.style.transition = 'none'; bar.style.width = '0'; }
+    if (!TR.on || TR.paused) return;
+    var ms = 3000 + Math.min(10500, TSTOPS[TR.i].s.length * 62);
+    setTimeout(function () { if (bar && TR.on && !TR.paused) { bar.style.transition = 'width ' + ms + 'ms linear'; bar.style.width = '100%'; } }, 60);
+    TR.timer = setTimeout(function () { if (TR.on && !TR.paused) tourGo(TR.i + 1); }, ms + 2600);
+  }
+  function tourGo(i, manual) {
+    if (!TR.on) return; i = (i + TSTOPS.length) % TSTOPS.length; TR.i = i; var st = TSTOPS[i], S = calc(msOf(day, mins)), v = st.eq ? (function () { var p = precess(st.eq[0], st.eq[1], TREF), cd = Math.cos(p[1] * RAD); return [cd * Math.cos(p[0] * RAD), cd * Math.sin(p[0] * RAD), Math.sin(p[1] * RAD)]; })() : galVec(st.l, st.b);
+    var E = v[0] * S.Eh[0] + v[1] * S.Eh[1], N = v[0] * S.Nh[0] + v[1] * S.Nh[1] + v[2] * S.Nh[2], U = v[0] * S.Zh[0] + v[1] * S.Zh[1] + v[2] * S.Zh[2], az = Math.atan2(E, N) * DEG, alt = Math.asin(clamp(U, -1, 1)) * DEG;
+    if (manual) manual = 1; gyStop();
+    tween = { t0: performance.now(), d: 3000, y0: V2.yaw, dy: w180(az - V2.yaw), p0: V2.pitch, dp: clamp(alt - st.psi * .17, -80, 80) - V2.pitch, s0: V2.psi, ds: st.psi - V2.psi, z0: V2.zoomAll, dz: 1 - V2.zoomAll, o0: V2.offY, doff: -V2.offY }; V2.vx = V2.vy = 0; V2.dirty = true;
+    var el = TR.el; el.querySelector('.ft-n').textContent = (i + 1) + ' de ' + TSTOPS.length; el.querySelector('.ft-t').textContent = st.n; el.querySelector('.ft-s').textContent = st.s;
+    el.classList.remove('sw'); void el.offsetWidth; el.classList.add('sw'); SND.whoosh(); setTimeout(SND.ding, 2600); tourTimer();
+  }
+  function tourStart() {
+    if (TR.on || !fsOn) return; tourEnsure(); TR.on = true; TR.paused = false; TR.g = OPT.ground; TR.l = OPT.lines; TR.nm = OPT.names; OPT.ground = false; OPT.lines = false; OPT.names = false;
+    ['ground', 'lines', 'names'].forEach(function (o) { var b = ov.querySelector('[data-o="' + o + '"]'); if (b) b.classList.remove('on'); });
+    var ab = ov.querySelector('[data-o="all"]'); if (V2.proj === 'all' && ab && ab.classList.contains('on')) ab.click();
+    ov.classList.add('tour'); hideHint(); findClose(); lineP = 0; V2.dirty = true; TR.el.classList.add('on'); revealStart(3600); tourGo(0);
+  }
+  function tourStop(back) {
+    if (!TR.on) return; TR.on = false; clearTimeout(TR.timer); if (TR.el) TR.el.classList.remove('on'); ov.classList.remove('tour');
+    OPT.ground = TR.g; OPT.lines = TR.l; OPT.names = TR.nm; ['ground', 'lines', 'names'].forEach(function (o) { var b = ov.querySelector('[data-o="' + o + '"]'); if (b) b.classList.toggle('on', OPT[o]); });
+    lineP = 1; V2.dirty = true; if (back && fsOn) goHome(true);
+  }
+
   /* ---------- arranque ---------- */
   window.cieloInit = function () {
     var root = $('cielo'); if (!root || root.getAttribute('data-ok')) return; root.setAttribute('data-ok', '1');
@@ -5835,7 +6168,8 @@ function cielo(ms) {
     V1 = makeView(cv, 'dome', false); V1.q = .8;
     ov = document.createElement('div'); ov.id = 'clFs'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'El cielo de la noche que te conocí, en pantalla completa'); ov.innerHTML = FS_HTML; document.body.appendChild(ov);
     fsCv = $('fsCv'); V2 = makeView(fsCv, 'cam', true); V2.meteors = []; V2.vx = 0; V2.vy = 0; V2.q = .5;
-    setupFsEvents(); buildArt(root); galStart(); gAsk.push(function () { dirtyAll(); });
+    setupFsEvents(); buildArt(root); galStart(); gAsk.push(function () { dirtyAll(); }); gAsk.push(fxBuild);
+    FX.cv = document.createElement('canvas'); FX.cv.id = 'clFx'; FX.cv.setAttribute('aria-hidden', 'true'); cv.parentNode.insertBefore(FX.cv, cv.nextSibling); FX.x = FX.cv.getContext('2d'); GM.cv = $('clGal'); if (GM.cv) GM.x = GM.cv.getContext('2d');
     hora(); render();
     sl.addEventListener('input', function () { stopPlay(); momento(false); setMins(+sl.value); });
     $('clReset').addEventListener('click', function () { stopPlay(); momento(false); setMins(ESPECIAL); });
@@ -5864,9 +6198,13 @@ function cielo(ms) {
       es.forEach(function (e) {
         var vh = e.rootBounds ? e.rootBounds.height : innerHeight;
         inView = e.isIntersecting && e.intersectionRect.height >= Math.min(e.boundingClientRect.height * .35, vh * .3);
-        if (inView && !visto) { visto = true; intro1(2600); }
+        if (inView && !visto) { visto = true; intro1(2600); revealStart(5600); }
+        FX.on = inView && !fsOn; if (FX.on) fxKick(); else fxClear();
       });
     }, { root: $('win'), threshold: th }).observe(wrap);
+    var gbox = $('clGalBox');
+    if (gbox && GM.cv) new IntersectionObserver(function (es) { es.forEach(function (e) { var on = e.isIntersecting && e.intersectionRatio > .22; if (on) { gmBuild(); if (!GM.t0) GM.t0 = performance.now(); } GM.on = on; if (on) gmKick(); }); }, { root: $('win'), threshold: [0, .22, .5] }).observe(gbox);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) { fxKick(); gmKick(); } });
   };
 })();
 </script>
